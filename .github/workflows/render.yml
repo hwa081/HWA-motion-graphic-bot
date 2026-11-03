@@ -1,0 +1,158 @@
+name: Make video
+
+run-name: ${{ inputs.mode }} ${{ inputs.job }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "ai = AI plans + makes a video (compares itself with a reference video if you give one). code = Code Studio. compare = measure your video against an example (files: example.mp4,yours.mp4). remix = new design plan from old designs. study = teach it a technique (prompt = text or URL). evolve = build the most wanted missing effect. demo = test. feedback = rate. learn = study references. See README."
+        type: choice
+        default: demo
+        options: [demo, ai, code, checks, compare, remix, study, evolve, export, lighten, native, design, designs-pdf, check, feedback, learn, assets-check, index-canva, qa, spec, reference]
+      prompt:
+        description: "ai: describe the video. feedback: what you liked / disliked. study: text or URL to learn from. remix: topic. compare: (optional) the brief"
+        required: false
+        default: ""
+      duration:
+        description: "ai: length in seconds (3 to 60)"
+        required: false
+        default: "10"
+      size:
+        description: "ai: 16:9 landscape, 9:16 vertical (Shorts/Reels), 1:1 square"
+        type: choice
+        default: "16:9"
+        options: ["16:9", "9:16", "1:1"]
+      review:
+        description: "ai: AI looks at a preview and improves it (uses more free quota)"
+        type: boolean
+        default: true
+      files:
+        description: "ai: images to animate and/or one reference video (comma separated). compare: example video, then your video or spec.json. study: optional .txt/.md file. learn: reference folder. spec/qa: JSON file path."
+        required: false
+        default: ""
+      formats:
+        description: "extra outputs next to the MP4: wfp (Filmora), fcpxml, xml, srt, gif, webm, poster, frames, mp4-light. Comma list, or all / none"
+        required: false
+        default: "wfp,fcpxml,xml"
+      sound:
+        description: "ui = UI/SaaS animation sounds (click, toggle, notification, swipe, success), NO music. kinetic = only typography sound effects, NO music (stamp, word click, typing ticks, whoosh). uplift/calm/tech = music + sound effects. none = silent video. If you give an audio file below, that is used instead."
+        type: choice
+        default: "kinetic"
+        options: ["kinetic", "ui", "uplift", "calm", "tech", "none"]
+      audio:
+        description: "optional music/voice file already uploaded in the repo (e.g. assets/music.mp3); added under the video, video quality untouched"
+        required: false
+        default: ""
+      media_dir:
+        description: "Folder on YOUR PC where you will keep the MP4 (written inside the .wfp / .xml, e.g. C:/Users/HWA/Downloads/motion-bot)"
+        required: false
+        default: "C:/Users/HWA/Downloads/motion-bot"
+      level:
+        description: "lighten: 1 = safe repack, 2 = + lossless PNG, 3 = + smaller media-bin thumbnails (data identical, render unaffected)"
+        type: choice
+        default: "3"
+        options: ["1", "2", "3"]
+      rating:
+        description: "feedback: your rating 1 (bad) to 5 (great)"
+        type: choice
+        default: "3"
+        options: ["1", "2", "3", "4", "5"]
+      ai:
+        description: "which AI to use first: gemini, or the id of an AI you added in the Studio page (empty = the default AI). The others are used as backup."
+        required: false
+        default: ""
+      job:
+        description: "label used by the Studio page to find this run (leave empty when you start it by hand)"
+        required: false
+        default: ""
+      design_id:
+        description: "feedback: video id from report.md (empty = latest) | design: library design id like doc-01-title-hero (empty = list matches for the prompt)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: motion-bot-memory
+  cancel-in-progress: false
+
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install ffmpeg and emoji font
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-color-emoji libcairo2
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Run
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          MAX_REQUESTS: ${{ vars.MAX_REQUESTS }}
+          LEARN_LIMIT: ${{ vars.LEARN_LIMIT }}
+          CODE_TURNS: ${{ vars.CODE_TURNS }}
+          CODE_REQUESTS: ${{ vars.CODE_REQUESTS }}
+          PLAN: ${{ vars.PLAN }}
+          AI_PROVIDER: ${{ vars.AI_PROVIDER }}
+          AI_PROVIDERS: ${{ vars.AI_PROVIDERS }}
+          AI_FALLBACK: ${{ vars.AI_FALLBACK }}
+          OUTPUT_KEEP: ${{ vars.OUTPUT_KEEP }}
+          AI_ALL_SECRETS: ${{ toJSON(secrets) }}
+          AI: ${{ inputs.ai }}
+          JOB: ${{ inputs.job }}
+          MODE: ${{ inputs.mode }}
+          PROMPT: ${{ inputs.prompt }}
+          DURATION: ${{ inputs.duration }}
+          SIZE: ${{ inputs.size }}
+          REVIEW: ${{ inputs.review }}
+          FILES: ${{ inputs.files }}
+          RATING: ${{ inputs.rating }}
+          FORMATS: ${{ inputs.formats }}
+          MEDIA_DIR: ${{ inputs.media_dir }}
+          LEVEL: ${{ inputs.level }}
+          AUDIO: ${{ inputs.audio }}
+          SOUND: ${{ inputs.sound }}
+          DESIGN_ID: ${{ inputs.design_id }}
+        run: |
+          python run.py --mode "$MODE" --prompt "$PROMPT" --duration "$DURATION" --size "$SIZE" --review "$REVIEW" --files "$FILES" --rating "$RATING" --design-id "$DESIGN_ID" --formats "$FORMATS" --media-dir "$MEDIA_DIR" --level "$LEVEL" --audio "$AUDIO" --sound "$SOUND"
+
+      - name: Save what the bot learned (memory) back to the repository
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: bash scripts/commit_memory.sh
+
+      - name: Summary
+        if: always()
+        run: |
+          for f in out/report.md out/learn_report.md out/feedback_report.md out/qa.md out/export_notes.md out/lighten_report.md out/design_matches.md out/compare_report.md out/remix.md out/study_report.md out/evolve_report.md; do
+            if [ -f "$f" ]; then cat "$f" >> "$GITHUB_STEP_SUMMARY"; echo "" >> "$GITHUB_STEP_SUMMARY"; fi
+          done
+
+      - name: Save the video
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: video-${{ github.run_number }}
+          path: out/
+          if-no-files-found: ignore

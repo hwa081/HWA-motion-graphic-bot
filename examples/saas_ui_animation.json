@@ -1,0 +1,2186 @@
+{
+ "title": "SaaS UI animation",
+ "duration": 18,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "neon_night"
+  },
+  {
+   "t": 3.5,
+   "style": "dark_aurora",
+   "fade": 0.4
+  },
+  {
+   "t": 7.4,
+   "style": "light_pastel",
+   "fade": 0.5
+  },
+  {
+   "t": 11.3,
+   "style": "ocean",
+   "fade": 0.5
+  },
+  {
+   "t": 14.8,
+   "style": "neon_night",
+   "fade": 0.5
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 3.4,
+   "zoom": 1.07,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 3.5,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 7.3,
+   "zoom": 1.06,
+   "x": 900,
+   "y": 540
+  },
+  {
+   "t": 7.4,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 11.2,
+   "zoom": 1.06,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 11.3,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 14.7,
+   "zoom": 1.05,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 14.8,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 18,
+   "zoom": 1.08,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "layers": [
+  {
+   "type": "grid",
+   "kind": "dots",
+   "spacing": 70,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.1,
+   "scroll": {
+    "x": 10,
+    "y": 8
+   },
+   "vignette": 0.85,
+   "start": 0,
+   "end": 3.9
+  },
+  {
+   "type": "blob",
+   "r": 560,
+   "x": 400,
+   "y": 280,
+   "color": [
+    0.5,
+    0.38,
+    1
+   ],
+   "color2": [
+    1,
+    0.35,
+    0.7
+   ],
+   "fill_opacity": 0.45,
+   "softness": 0.9,
+   "start": 0,
+   "end": 3.9
+  },
+  {
+   "type": "blob",
+   "r": 500,
+   "x": 1560,
+   "y": 820,
+   "color": [
+    0.3,
+    0.85,
+    1
+   ],
+   "color2": [
+    0.5,
+    0.38,
+    1
+   ],
+   "fill_opacity": 0.4,
+   "softness": 0.9,
+   "start": 0,
+   "end": 3.9
+  },
+  {
+   "type": "particles",
+   "count": 60,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "size": 3,
+   "speed": 0.9,
+   "seed": 11,
+   "start": 0,
+   "end": 3.9
+  },
+  {
+   "type": "circle",
+   "r": 170,
+   "x": 960,
+   "y": 470,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.0,
+   "border": [
+    0.3,
+    0.85,
+    1
+   ],
+   "border_opacity": 0.7,
+   "border_w": 4,
+   "start": 0.7,
+   "end": 1.9,
+   "keys": {
+    "scale": [
+     [
+      0.7,
+      0.6
+     ],
+     [
+      1.9,
+      2.6,
+      "out"
+     ]
+    ],
+    "opacity": [
+     [
+      0.7,
+      0.8
+     ],
+     [
+      1.9,
+      0,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "circle",
+   "r": 170,
+   "x": 960,
+   "y": 470,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.0,
+   "border": [
+    0.3,
+    0.85,
+    1
+   ],
+   "border_opacity": 0.7,
+   "border_w": 4,
+   "start": 1.1,
+   "end": 2.3,
+   "keys": {
+    "scale": [
+     [
+      1.1,
+      0.6
+     ],
+     [
+      2.3,
+      2.6,
+      "out"
+     ]
+    ],
+    "opacity": [
+     [
+      1.1,
+      0.8
+     ],
+     [
+      2.3,
+      0,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "circle",
+   "r": 170,
+   "x": 960,
+   "y": 470,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.0,
+   "border": [
+    0.3,
+    0.85,
+    1
+   ],
+   "border_opacity": 0.7,
+   "border_w": 4,
+   "start": 1.5,
+   "end": 2.7,
+   "keys": {
+    "scale": [
+     [
+      1.5,
+      0.6
+     ],
+     [
+      2.7,
+      2.6,
+      "out"
+     ]
+    ],
+    "opacity": [
+     [
+      1.5,
+      0.8
+     ],
+     [
+      2.7,
+      0,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 260,
+   "h": 260,
+   "r": 76,
+   "x": 960,
+   "y": 470,
+   "fill": [
+    0.5,
+    0.38,
+    1
+   ],
+   "fill2": [
+    1,
+    0.35,
+    0.7
+   ],
+   "fill_opacity": 1,
+   "shadow": 0.6,
+   "shadow_color": [
+    0.5,
+    0.38,
+    1
+   ],
+   "shadow_blur": 60,
+   "shadow_dy": 0,
+   "start": 0.3,
+   "end": 3.6,
+   "out": {
+    "anim": "zoom",
+    "dur": 0.35
+   },
+   "float": {
+    "y": 8,
+    "speed": 1.1
+   },
+   "keys": {
+    "rot": [
+     [
+      0.3,
+      -14
+     ],
+     [
+      1.0,
+      0,
+      "back"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "icon",
+   "name": "star",
+   "size": 130,
+   "x": 960,
+   "y": 470,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "width": 6,
+   "start": 0.75,
+   "end": 3.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "rot": [
+     [
+      0.75,
+      -90
+     ],
+     [
+      1.4,
+      0,
+      "out"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.45
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "📊",
+   "size": 110,
+   "x": 560,
+   "y": 360,
+   "start": 1.6,
+   "end": 3.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 14,
+    "speed": 0.9,
+    "phase": 0
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "⚙️",
+   "size": 110,
+   "x": 1360,
+   "y": 330,
+   "start": 1.85,
+   "end": 3.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 14,
+    "speed": 0.9,
+    "phase": 1
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "💬",
+   "size": 110,
+   "x": 1420,
+   "y": 640,
+   "start": 2.1,
+   "end": 3.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 14,
+    "speed": 0.9,
+    "phase": 2
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "🔒",
+   "size": 110,
+   "x": 520,
+   "y": 660,
+   "start": 2.35,
+   "end": 3.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 14,
+    "speed": 0.9,
+    "phase": 3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "text",
+   "text": "HWA Nexus",
+   "font": "bold_italic",
+   "size": 84,
+   "x": 960,
+   "y": 800,
+   "start": 2.0,
+   "end": 3.6,
+   "fixed": true,
+   "gradient": {
+    "from": [
+     0.3,
+     0.85,
+     1
+    ],
+    "to": [
+     1,
+     0.35,
+     0.7
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "transition",
+   "style": "iris",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 3.1,
+   "end": 4.0
+  },
+  {
+   "type": "grid",
+   "kind": "lines",
+   "spacing": 90,
+   "color": [
+    0.4,
+    1,
+    0.8
+   ],
+   "fill_opacity": 0.08,
+   "scroll": {
+    "x": -6,
+    "y": 10
+   },
+   "vignette": 0.9,
+   "start": 3.5,
+   "end": 7.6
+  },
+  {
+   "type": "blob",
+   "r": 480,
+   "x": 420,
+   "y": 860,
+   "color": [
+    0.2,
+    0.9,
+    0.6
+   ],
+   "color2": [
+    0.3,
+    0.85,
+    1
+   ],
+   "fill_opacity": 0.35,
+   "softness": 0.9,
+   "start": 3.5,
+   "end": 7.6
+  },
+  {
+   "type": "device",
+   "kind": "laptop",
+   "path": "assets/sample_screenshot.png",
+   "w": 1120,
+   "x": 700,
+   "y": 590,
+   "start": 3.8,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.6
+   },
+   "in": {
+    "anim": "rise",
+    "dur": 0.8
+   }
+  },
+  {
+   "type": "device",
+   "kind": "phone",
+   "path": "assets/sample_screenshot.png",
+   "w": 250,
+   "x": 1320,
+   "y": 650,
+   "rot": 7,
+   "start": 4.3,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 14,
+    "speed": 0.8,
+    "phase": 1
+   },
+   "in": {
+    "anim": "spin",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 600,
+   "h": 118,
+   "r": 38,
+   "x": 1500,
+   "y": 190,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.16,
+   "border": [
+    1,
+    1,
+    1
+   ],
+   "border_opacity": 0.4,
+   "border_w": 2,
+   "shadow": 0.4,
+   "start": 5.0,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "circle",
+   "r": 36,
+   "x": 1270,
+   "y": 190,
+   "fill": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "fill_opacity": 1,
+   "start": 5.05,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "icon",
+   "name": "check",
+   "size": 40,
+   "x": 1270,
+   "y": 190,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "width": 6,
+   "start": 5.2,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "Payment received",
+   "font": "medium",
+   "size": 40,
+   "x": 1520,
+   "y": 190,
+   "start": 5.25,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 600,
+   "h": 118,
+   "r": 38,
+   "x": 1500,
+   "y": 340,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.16,
+   "border": [
+    1,
+    1,
+    1
+   ],
+   "border_opacity": 0.4,
+   "border_w": 2,
+   "shadow": 0.4,
+   "start": 5.7,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "circle",
+   "r": 36,
+   "x": 1270,
+   "y": 340,
+   "fill": [
+    1,
+    0.8,
+    0.25
+   ],
+   "fill_opacity": 1,
+   "start": 5.75,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "icon",
+   "name": "star",
+   "size": 40,
+   "x": 1270,
+   "y": 340,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "width": 6,
+   "start": 5.9,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "New signup",
+   "font": "medium",
+   "size": 40,
+   "x": 1520,
+   "y": 340,
+   "start": 5.95,
+   "end": 7.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "transition",
+   "style": "stripes",
+   "direction": "right",
+   "color": [
+    0.5,
+    0.38,
+    1
+   ],
+   "start": 7.0,
+   "end": 7.9
+  },
+  {
+   "type": "blob",
+   "r": 430,
+   "x": 260,
+   "y": 900,
+   "color": [
+    1,
+    0.75,
+    0.85
+   ],
+   "color2": [
+    0.7,
+    0.95,
+    0.9
+   ],
+   "fill_opacity": 0.6,
+   "softness": 0.9,
+   "start": 7.4,
+   "end": 11.4
+  },
+  {
+   "type": "blob",
+   "r": 380,
+   "x": 1700,
+   "y": 160,
+   "color": [
+    0.75,
+    0.8,
+    1
+   ],
+   "color2": [
+    0.9,
+    0.8,
+    1
+   ],
+   "fill_opacity": 0.6,
+   "softness": 0.9,
+   "start": 7.4,
+   "end": 11.4
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "Revenue",
+   "big_text": "${n}k",
+   "subtitle": "this month",
+   "emoji": "📈",
+   "header": [
+    0.3,
+    0.45,
+    1
+   ],
+   "body": [
+    0.1,
+    0.11,
+    0.22
+   ],
+   "body2": [
+    0.16,
+    0.18,
+    0.32
+   ],
+   "x": 290,
+   "y": 470,
+   "scale": 1.1,
+   "yaw": -12,
+   "roll": -2,
+   "start": 8.0,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 8,
+    "speed": 0.8,
+    "phase": 1.45
+   },
+   "keys": {
+    "number": [
+     [
+      8.2,
+      0
+     ],
+     [
+      9.8,
+      128,
+      "out"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "Users",
+   "big_text": "{n}",
+   "subtitle": "this month",
+   "emoji": "👥",
+   "header": [
+    0.95,
+    0.35,
+    0.65
+   ],
+   "body": [
+    0.1,
+    0.11,
+    0.22
+   ],
+   "body2": [
+    0.16,
+    0.18,
+    0.32
+   ],
+   "x": 600,
+   "y": 470,
+   "scale": 1.1,
+   "yaw": 0,
+   "roll": 0,
+   "start": 8.35,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 8,
+    "speed": 0.8,
+    "phase": 3.0
+   },
+   "keys": {
+    "number": [
+     [
+      8.549999999999999,
+      0
+     ],
+     [
+      10.15,
+      3200,
+      "out"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "Growth",
+   "big_text": "{n}%",
+   "subtitle": "this month",
+   "emoji": "🚀",
+   "header": [
+    0.15,
+    0.75,
+    0.55
+   ],
+   "body": [
+    0.1,
+    0.11,
+    0.22
+   ],
+   "body2": [
+    0.16,
+    0.18,
+    0.32
+   ],
+   "x": 910,
+   "y": 470,
+   "scale": 1.1,
+   "yaw": 12,
+   "roll": 2,
+   "start": 8.7,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 8,
+    "speed": 0.8,
+    "phase": 4.55
+   },
+   "keys": {
+    "number": [
+     [
+      8.899999999999999,
+      0
+     ],
+     [
+      10.5,
+      64,
+      "out"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "chart",
+   "kind": "bar",
+   "data": [
+    28,
+    45,
+    38,
+    70,
+    62,
+    92
+   ],
+   "labels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+   ],
+   "x": 1500,
+   "y": 380,
+   "w": 700,
+   "h": 440,
+   "colors": [
+    [
+     0.3,
+     0.45,
+     1
+    ],
+    [
+     0.95,
+     0.35,
+     0.65
+    ],
+    [
+     0.15,
+     0.75,
+     0.55
+    ]
+   ],
+   "text_color": [
+    0.08,
+    0.09,
+    0.2
+   ],
+   "grow": {
+    "start": 8.9,
+    "dur": 1.4
+   },
+   "start": 8.6,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "circle",
+   "r": 125,
+   "x": 1230,
+   "y": 800,
+   "fill": [
+    0.08,
+    0.09,
+    0.2
+   ],
+   "fill_opacity": 0.9,
+   "start": 9.1,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "ring",
+   "x": 1230,
+   "y": 800,
+   "w": 210,
+   "h": 210,
+   "color": [
+    0.5,
+    0.38,
+    1
+   ],
+   "label": "{p}%",
+   "grow": {
+    "start": 9.4,
+    "dur": 1.3
+   },
+   "start": 9.2,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "bar",
+   "x": 1650,
+   "y": 800,
+   "w": 380,
+   "h": 26,
+   "color": [
+    0.95,
+    0.35,
+    0.65
+   ],
+   "track": [
+    0.82,
+    0.84,
+    0.92
+   ],
+   "grow": {
+    "start": 9.7,
+    "dur": 1.2
+   },
+   "start": 9.4,
+   "end": 11.4,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "transition",
+   "style": "wipe",
+   "direction": "left",
+   "color": [
+    0.08,
+    0.09,
+    0.2
+   ],
+   "start": 10.8,
+   "end": 11.7
+  },
+  {
+   "type": "grid",
+   "kind": "dots",
+   "spacing": 60,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.08,
+   "scroll": {
+    "x": -8,
+    "y": 6
+   },
+   "vignette": 0.9,
+   "start": 11.3,
+   "end": 14.9
+  },
+  {
+   "type": "rrect",
+   "w": 1180,
+   "h": 700,
+   "r": 60,
+   "x": 960,
+   "y": 540,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.1,
+   "border": [
+    1,
+    1,
+    1
+   ],
+   "border_opacity": 0.35,
+   "border_w": 2,
+   "shadow": 0.5,
+   "start": 11.5,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   },
+   "in": {
+    "anim": "zoom",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1000,
+   "h": 130,
+   "r": 34,
+   "x": 960,
+   "y": 370,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.12,
+   "start": 11.75,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.45
+   }
+  },
+  {
+   "type": "icon",
+   "name": "star",
+   "size": 56,
+   "x": 560,
+   "y": 370,
+   "color": [
+    0.3,
+    0.85,
+    1
+   ],
+   "width": 6,
+   "start": 11.92,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 300,
+   "h": 20,
+   "r": 10,
+   "x": 820,
+   "y": 354,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.5,
+   "start": 12.0,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 200,
+   "h": 14,
+   "r": 7,
+   "x": 770,
+   "y": 390,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.25,
+   "start": 12.1,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 130,
+   "h": 68,
+   "r": 34,
+   "x": 1330,
+   "y": 370,
+   "fill": [
+    0.7,
+    0.75,
+    0.85
+   ],
+   "fill_opacity": 0.3,
+   "start": 11.8,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 130,
+   "h": 68,
+   "r": 34,
+   "x": 1330,
+   "y": 370,
+   "fill": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "fill_opacity": 1,
+   "start": 11.84,
+   "end": 14.0,
+   "opacity": 0,
+   "keys": {
+    "opacity": [
+     [
+      12.399999999999999,
+      0
+     ],
+     [
+      12.649999999999999,
+      1,
+      "out"
+     ]
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "circle",
+   "r": 26,
+   "x": 1306,
+   "y": 370,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 1,
+   "shadow": 0.4,
+   "start": 11.88,
+   "end": 14.0,
+   "keys": {
+    "x": [
+     [
+      12.33,
+      1306
+     ],
+     [
+      12.649999999999999,
+      1354,
+      "back"
+     ]
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1000,
+   "h": 130,
+   "r": 34,
+   "x": 960,
+   "y": 540,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.12,
+   "start": 11.9,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.45
+   }
+  },
+  {
+   "type": "icon",
+   "name": "send",
+   "size": 56,
+   "x": 560,
+   "y": 540,
+   "color": [
+    0.3,
+    0.85,
+    1
+   ],
+   "width": 6,
+   "start": 12.07,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 300,
+   "h": 20,
+   "r": 10,
+   "x": 820,
+   "y": 524,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.5,
+   "start": 12.15,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 200,
+   "h": 14,
+   "r": 7,
+   "x": 770,
+   "y": 560,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.25,
+   "start": 12.25,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 130,
+   "h": 68,
+   "r": 34,
+   "x": 1330,
+   "y": 540,
+   "fill": [
+    0.7,
+    0.75,
+    0.85
+   ],
+   "fill_opacity": 0.3,
+   "start": 11.950000000000001,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 130,
+   "h": 68,
+   "r": 34,
+   "x": 1330,
+   "y": 540,
+   "fill": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "fill_opacity": 1,
+   "start": 11.99,
+   "end": 14.0,
+   "opacity": 0,
+   "keys": {
+    "opacity": [
+     [
+      12.95,
+      0
+     ],
+     [
+      13.2,
+      1,
+      "out"
+     ]
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "circle",
+   "r": 26,
+   "x": 1306,
+   "y": 540,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 1,
+   "shadow": 0.4,
+   "start": 12.030000000000001,
+   "end": 14.0,
+   "keys": {
+    "x": [
+     [
+      12.88,
+      1306
+     ],
+     [
+      13.2,
+      1354,
+      "back"
+     ]
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1000,
+   "h": 130,
+   "r": 34,
+   "x": 960,
+   "y": 710,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.12,
+   "start": 12.05,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.45
+   }
+  },
+  {
+   "type": "icon",
+   "name": "plus",
+   "size": 56,
+   "x": 560,
+   "y": 710,
+   "color": [
+    0.3,
+    0.85,
+    1
+   ],
+   "width": 6,
+   "start": 12.22,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 300,
+   "h": 20,
+   "r": 10,
+   "x": 820,
+   "y": 694,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.5,
+   "start": 12.3,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 200,
+   "h": 14,
+   "r": 7,
+   "x": 770,
+   "y": 730,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.25,
+   "start": 12.4,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 130,
+   "h": 68,
+   "r": 34,
+   "x": 1330,
+   "y": 710,
+   "fill": [
+    0.7,
+    0.75,
+    0.85
+   ],
+   "fill_opacity": 0.3,
+   "start": 12.100000000000001,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 130,
+   "h": 68,
+   "r": 34,
+   "x": 1330,
+   "y": 710,
+   "fill": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "fill_opacity": 1,
+   "start": 12.14,
+   "end": 14.0,
+   "opacity": 0,
+   "keys": {
+    "opacity": [
+     [
+      13.5,
+      0
+     ],
+     [
+      13.75,
+      1,
+      "out"
+     ]
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "circle",
+   "r": 26,
+   "x": 1306,
+   "y": 710,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 1,
+   "shadow": 0.4,
+   "start": 12.180000000000001,
+   "end": 14.0,
+   "keys": {
+    "x": [
+     [
+      13.430000000000001,
+      1306
+     ],
+     [
+      13.75,
+      1354,
+      "back"
+     ]
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "icon",
+   "name": "arrow_up",
+   "angle": -35,
+   "size": 84,
+   "x": 1000,
+   "y": 250,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "width": 7,
+   "shadow": 0.5,
+   "start": 11.7,
+   "end": 14.0,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "x": [
+     [
+      11.9,
+      1000
+     ],
+     [
+      12.38,
+      1335,
+      "inout"
+     ],
+     [
+      12.98,
+      1335,
+      "linear"
+     ],
+     [
+      13.48,
+      1335,
+      "inout"
+     ],
+     [
+      13.9,
+      1335,
+      "linear"
+     ]
+    ],
+    "y": [
+     [
+      11.9,
+      250
+     ],
+     [
+      12.38,
+      380,
+      "inout"
+     ],
+     [
+      12.98,
+      380,
+      "linear"
+     ],
+     [
+      13.48,
+      550,
+      "inout"
+     ],
+     [
+      13.9,
+      720,
+      "inout"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "circle",
+   "r": 150,
+   "x": 960,
+   "y": 540,
+   "fill": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "fill_opacity": 1,
+   "shadow": 0.6,
+   "shadow_color": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "shadow_blur": 70,
+   "shadow_dy": 0,
+   "start": 14.0,
+   "end": 14.9,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "icon",
+   "name": "check",
+   "size": 170,
+   "x": 960,
+   "y": 540,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "width": 16,
+   "start": 14.15,
+   "end": 14.9,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.45
+   }
+  },
+  {
+   "type": "circle",
+   "r": 150,
+   "x": 960,
+   "y": 540,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.0,
+   "border": [
+    0.2,
+    0.85,
+    0.55
+   ],
+   "border_opacity": 0.8,
+   "border_w": 5,
+   "start": 14.05,
+   "end": 14.9,
+   "keys": {
+    "scale": [
+     [
+      14.05,
+      1
+     ],
+     [
+      14.9,
+      2.4,
+      "out"
+     ]
+    ],
+    "opacity": [
+     [
+      14.05,
+      0.9
+     ],
+     [
+      14.9,
+      0,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "transition",
+   "style": "flash",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 14.4,
+   "end": 15.2
+  },
+  {
+   "type": "grid",
+   "kind": "crosses",
+   "spacing": 90,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.08,
+   "scroll": {
+    "x": 6,
+    "y": -6
+   },
+   "vignette": 0.9,
+   "start": 14.8,
+   "end": 18
+  },
+  {
+   "type": "blob",
+   "r": 600,
+   "x": 960,
+   "y": 520,
+   "color": [
+    0.5,
+    0.38,
+    1
+   ],
+   "color2": [
+    0.3,
+    0.85,
+    1
+   ],
+   "fill_opacity": 0.4,
+   "softness": 0.95,
+   "start": 14.8,
+   "end": 18
+  },
+  {
+   "type": "particles",
+   "count": 70,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "size": 3,
+   "speed": 0.8,
+   "seed": 5,
+   "start": 14.8,
+   "end": 18
+  },
+  {
+   "type": "device",
+   "kind": "phone",
+   "path": "assets/sample_screenshot.png",
+   "w": 280,
+   "x": 420,
+   "y": 470,
+   "rot": -8,
+   "start": 15.0,
+   "end": 18,
+   "float": {
+    "y": 14,
+    "speed": 0.8
+   },
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "device",
+   "kind": "phone",
+   "path": "assets/sample_screenshot.png",
+   "w": 280,
+   "x": 1500,
+   "y": 470,
+   "rot": 8,
+   "start": 15.25,
+   "end": 18,
+   "float": {
+    "y": 14,
+    "speed": 0.8,
+    "phase": 1.5
+   },
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "device",
+   "kind": "laptop",
+   "path": "assets/sample_screenshot.png",
+   "w": 720,
+   "x": 960,
+   "y": 500,
+   "start": 15.5,
+   "end": 18,
+   "float": {
+    "y": 10,
+    "speed": 0.6,
+    "phase": 0.7
+   },
+   "in": {
+    "anim": "rise",
+    "dur": 0.8
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "⚡",
+   "size": 120,
+   "x": 620,
+   "y": 250,
+   "start": 16.2,
+   "end": 18,
+   "float": {
+    "y": 16,
+    "speed": 1,
+    "phase": 0
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "🔒",
+   "size": 120,
+   "x": 1300,
+   "y": 250,
+   "start": 16.4,
+   "end": 18,
+   "float": {
+    "y": 16,
+    "speed": 1,
+    "phase": 1
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "🌐",
+   "size": 120,
+   "x": 640,
+   "y": 780,
+   "start": 16.6,
+   "end": 18,
+   "float": {
+    "y": 16,
+    "speed": 1,
+    "phase": 2
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "✅",
+   "size": 120,
+   "x": 1290,
+   "y": 780,
+   "start": 16.8,
+   "end": 18,
+   "float": {
+    "y": 16,
+    "speed": 1,
+    "phase": 3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "text",
+   "text": "HWA Nexus",
+   "font": "bold_italic",
+   "size": 120,
+   "x": 960,
+   "y": 930,
+   "start": 16.9,
+   "end": 18,
+   "fixed": true,
+   "gradient": {
+    "from": [
+     0.3,
+     0.85,
+     1
+    ],
+    "to": [
+     1,
+     0.35,
+     0.7
+    ]
+   },
+   "shadow": 0.5,
+   "in": {
+    "anim": "fade",
+    "dur": 0.5
+   }
+  }
+ ]
+}

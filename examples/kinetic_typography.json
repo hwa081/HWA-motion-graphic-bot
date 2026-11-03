@@ -1,0 +1,406 @@
+{
+ "title": "Kinetic typography",
+ "duration": 16,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "mono_dark"
+  },
+  {
+   "t": 3.1,
+   "style": "neon_night",
+   "fade": 0.3
+  },
+  {
+   "t": 6.7,
+   "style": "mono_light",
+   "fade": 0.3
+  },
+  {
+   "t": 9.7,
+   "style": "sunset",
+   "fade": 0.3
+  },
+  {
+   "t": 13.2,
+   "style": "mono_dark",
+   "fade": 0.3
+  }
+ ],
+ "layers": [
+  {
+   "type": "text",
+   "text": "STOP",
+   "font": "bold_italic",
+   "size": 400,
+   "x": 960,
+   "y": 400,
+   "start": 0.2,
+   "end": 3.2,
+   "fixed": true,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "shadow": 0.4,
+   "keys": {
+    "rot": [
+     [
+      0.2,
+      -6
+     ],
+     [
+      0.7,
+      0,
+      "out"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "SCROLLING.",
+   "font": "bold_italic",
+   "size": 200,
+   "x": 960,
+   "y": 690,
+   "start": 0.85,
+   "end": 3.2,
+   "fixed": true,
+   "color": [
+    1,
+    0.3,
+    0.6
+   ],
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_right",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "line",
+   "points": [
+    [
+     560,
+     820
+    ],
+    [
+     1360,
+     820
+    ]
+   ],
+   "width": 8,
+   "color": [
+    1,
+    0.85,
+    0.2
+   ],
+   "start": 1.5,
+   "end": 3.2,
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "transition",
+   "style": "glitch",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 2.7,
+   "end": 3.5
+  },
+  {
+   "type": "text",
+   "text": "Your ideas",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 360,
+   "start": 3.4,
+   "end": 6.7,
+   "fixed": true,
+   "reveal": {
+    "mode": "words",
+    "step": 0.38
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "deserve",
+   "font": "medium_italic",
+   "size": 140,
+   "x": 960,
+   "y": 560,
+   "start": 4.5,
+   "end": 6.7,
+   "fixed": true,
+   "color": [
+    0.35,
+    0.9,
+    1
+   ],
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "to MOVE.",
+   "font": "bold_italic",
+   "size": 210,
+   "x": 960,
+   "y": 790,
+   "start": 5.25,
+   "end": 6.7,
+   "fixed": true,
+   "gradient": {
+    "from": [
+     1,
+     0.3,
+     0.6
+    ],
+    "to": [
+     1,
+     0.85,
+     0.2
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "bounce",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "transition",
+   "style": "stripes",
+   "direction": "right",
+   "color": [
+    0.6,
+    0.45,
+    1
+   ],
+   "start": 6.2,
+   "end": 7.2
+  },
+  {
+   "type": "text",
+   "text": "MOTION.",
+   "font": "bold_italic",
+   "size": 340,
+   "x": 960,
+   "y": 470,
+   "start": 6.9,
+   "end": 9.7,
+   "fixed": true,
+   "color": [
+    0.07,
+    0.07,
+    0.1
+   ],
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "rot": [
+     [
+      6.9,
+      -8
+     ],
+     [
+      7.5,
+      0,
+      "out"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "zoom",
+    "dur": 0.45
+   }
+  },
+  {
+   "type": "text",
+   "text": "not just words.",
+   "font": "medium_italic",
+   "size": 100,
+   "x": 960,
+   "y": 760,
+   "start": 7.7,
+   "end": 9.7,
+   "fixed": true,
+   "color": [
+    0.85,
+    0.2,
+    0.5
+   ],
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "transition",
+   "style": "wipe",
+   "direction": "left",
+   "color": [
+    0.07,
+    0.07,
+    0.1
+   ],
+   "start": 9.2,
+   "end": 10.2
+  },
+  {
+   "type": "text",
+   "text": "Type it.",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 330,
+   "start": 9.95,
+   "end": 13.2,
+   "fixed": true,
+   "reveal": {
+    "mode": "letters",
+    "step": 0.07
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "Move it.",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 560,
+   "start": 10.75,
+   "end": 13.2,
+   "fixed": true,
+   "color": [
+    1,
+    0.95,
+    0.7
+   ],
+   "reveal": {
+    "mode": "chars",
+    "step": 0.06
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "Ship it.",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 790,
+   "start": 11.65,
+   "end": 13.2,
+   "fixed": true,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "shadow": 0.4,
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "transition",
+   "style": "flash",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 12.7,
+   "end": 13.6
+  },
+  {
+   "type": "text",
+   "text": "HWA Nexus",
+   "font": "bold_italic",
+   "size": 230,
+   "x": 960,
+   "y": 470,
+   "start": 13.4,
+   "fixed": true,
+   "gradient": {
+    "from": [
+     0.35,
+     0.9,
+     1
+    ],
+    "to": [
+     1,
+     0.3,
+     0.6
+    ]
+   },
+   "shadow": 0.5,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "Kinetic. Fast. Yours.",
+   "font": "medium_italic",
+   "size": 84,
+   "x": 960,
+   "y": 700,
+   "start": 14.1,
+   "fixed": true,
+   "color": [
+    0.85,
+    0.92,
+    1
+   ],
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   }
+  }
+ ]
+}

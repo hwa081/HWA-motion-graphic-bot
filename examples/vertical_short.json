@@ -1,0 +1,192 @@
+{
+ "title": "Vertical 9:16 short with image animation (example)",
+ "duration": 8,
+ "size": "9:16",
+ "background": [
+  {
+   "t": 0,
+   "style": "sunset"
+  },
+  {
+   "t": 5.5,
+   "style": "neon_night",
+   "fade": 0.5
+  }
+ ],
+ "layers": [
+  {
+   "type": "image",
+   "path": "assets/sample_screenshot.png",
+   "w": 900,
+   "h": 900,
+   "x": 540,
+   "y": 820,
+   "r": 60,
+   "fit": "cover",
+   "shadow": 0.5,
+   "shadow_blur": 40,
+   "start": 0.2,
+   "end": 5.8,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.7
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "keys": {
+    "zoom": [
+     [
+      0.2,
+      1.0
+     ],
+     [
+      5.8,
+      1.5,
+      "linear"
+     ]
+    ],
+    "pan_x": [
+     [
+      0.2,
+      -1.0
+     ],
+     [
+      5.8,
+      1.0,
+      "linear"
+     ]
+    ],
+    "tilt_y": [
+     [
+      0.2,
+      -14
+     ],
+     [
+      2.5,
+      6,
+      "inout"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "text": "Screenshots, alive.",
+   "font": "bold_italic",
+   "size": 92,
+   "x": 540,
+   "y": 300,
+   "start": 0.6,
+   "end": 5.8,
+   "in": {
+    "anim": "slide_down",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "text": "Ken Burns zoom, pan and 3D tilt",
+   "font": "medium_italic",
+   "size": 42,
+   "x": 540,
+   "y": 1380,
+   "start": 1.2,
+   "end": 5.8,
+   "in": {
+    "anim": "fade",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "transition",
+   "style": "iris",
+   "color": [
+    0.1,
+    0.05,
+    0.25
+   ],
+   "start": 5.2,
+   "end": 6.2,
+   "x": 540,
+   "y": 960
+  },
+  {
+   "type": "text",
+   "text": "Follow for more",
+   "font": "bold_italic",
+   "size": 110,
+   "x": 540,
+   "y": 900,
+   "start": 6.0,
+   "end": 8,
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   },
+   "gradient": {
+    "from": [
+     1,
+     0.6,
+     0.3
+    ],
+    "to": [
+     0.9,
+     0.3,
+     0.9
+    ]
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "ring",
+   "x": 540,
+   "y": 1250,
+   "w": 240,
+   "h": 240,
+   "color": [
+    1,
+    0.6,
+    0.3
+   ],
+   "label": "{p}%",
+   "grow": {
+    "start": 6.3,
+    "dur": 1.4
+   },
+   "start": 6.2,
+   "end": 8,
+   "in": "pop"
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1.0,
+   "x": 540,
+   "y": 960
+  },
+  {
+   "t": 5.4,
+   "zoom": 1.06,
+   "x": 540,
+   "y": 990
+  },
+  {
+   "t": 6.5,
+   "zoom": 1.0,
+   "x": 540,
+   "y": 960
+  }
+ ]
+}

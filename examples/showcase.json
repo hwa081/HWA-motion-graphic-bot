@@ -1,0 +1,402 @@
+{
+ "title": "Showcase of the newer components (example)",
+ "duration": 14,
+ "size": "16:9",
+ "background": [
+  {
+   "t": 0,
+   "style": "mono_dark"
+  },
+  {
+   "t": 4.7,
+   "style": "light_pastel",
+   "fade": 0.5
+  },
+  {
+   "t": 9.4,
+   "style": "ocean",
+   "fade": 0.5
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 4.5,
+   "zoom": 1.0,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 9.2,
+   "zoom": 1.12,
+   "x": 1000,
+   "y": 560
+  },
+  {
+   "t": 13.5,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "layers": [
+  {
+   "type": "grid",
+   "kind": "dots",
+   "spacing": 64,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.16,
+   "scroll": {
+    "x": 12,
+    "y": 6
+   },
+   "vignette": 0.9,
+   "start": 0,
+   "end": 4.9
+  },
+  {
+   "type": "particles",
+   "count": 70,
+   "color": [
+    0.6,
+    0.8,
+    1
+   ],
+   "size": 3.5,
+   "speed": 1.4,
+   "seed": 7,
+   "start": 0,
+   "end": 4.9
+  },
+  {
+   "type": "blob",
+   "r": 420,
+   "x": 420,
+   "y": 720,
+   "color": [
+    0.25,
+    0.35,
+    1.0
+   ],
+   "color2": [
+    0.7,
+    0.3,
+    1.0
+   ],
+   "fill_opacity": 0.55,
+   "softness": 0.9,
+   "start": 0,
+   "end": 4.9,
+   "keys": {
+    "x": [
+     [
+      0,
+      380
+     ],
+     [
+      4.9,
+      560,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "text": "Numbers that move",
+   "font": "bold_italic",
+   "size": 130,
+   "x": 960,
+   "y": 420,
+   "start": 0.3,
+   "end": 4.5,
+   "reveal": {
+    "mode": "letters",
+    "step": 0.04,
+    "dur": 0.45
+   },
+   "out": {
+    "anim": "wipe_right",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "text",
+   "text": "{n}%",
+   "font": "bold_italic",
+   "size": 240,
+   "x": 960,
+   "y": 640,
+   "start": 1.4,
+   "end": 4.5,
+   "count": {
+    "from": 0,
+    "to": 96,
+    "dur": 2.0,
+    "format": "{:d}"
+   },
+   "in": {
+    "anim": "bounce",
+    "dur": 0.7
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "gradient": {
+    "from": [
+     0.4,
+     0.9,
+     1
+    ],
+    "to": [
+     0.9,
+     0.5,
+     1
+    ]
+   }
+  },
+  {
+   "type": "transition",
+   "style": "wipe",
+   "direction": "right",
+   "color": [
+    0.55,
+    0.4,
+    1.0
+   ],
+   "start": 4.2,
+   "end": 5.2
+  },
+  {
+   "type": "text",
+   "text": "Charts that draw themselves",
+   "font": "bold_italic",
+   "size": 84,
+   "x": 960,
+   "y": 120,
+   "color": [
+    0.04,
+    0.04,
+    0.07
+   ],
+   "start": 5.0,
+   "end": 9.1,
+   "in": {
+    "anim": "slide_down",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "fixed": true
+  },
+  {
+   "type": "chart",
+   "kind": "bar",
+   "data": [
+    30,
+    55,
+    42,
+    78,
+    64,
+    92
+   ],
+   "labels": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun"
+   ],
+   "x": 560,
+   "y": 560,
+   "w": 760,
+   "h": 500,
+   "colors": [
+    [
+     0.36,
+     0.5,
+     1
+    ],
+    [
+     0.95,
+     0.35,
+     0.65
+    ],
+    [
+     0.2,
+     0.8,
+     0.65
+    ]
+   ],
+   "text_color": [
+    0.04,
+    0.04,
+    0.07
+   ],
+   "start": 5.2,
+   "end": 9.1,
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "chart",
+   "kind": "donut",
+   "data": [
+    45,
+    30,
+    25
+   ],
+   "x": 1330,
+   "y": 520,
+   "w": 420,
+   "h": 420,
+   "colors": [
+    [
+     0.36,
+     0.5,
+     1
+    ],
+    [
+     0.95,
+     0.35,
+     0.65
+    ],
+    [
+     0.2,
+     0.8,
+     0.65
+    ]
+   ],
+   "center_text": "100%",
+   "text_color": [
+    0.04,
+    0.04,
+    0.07
+   ],
+   "grow": {
+    "start": 5.8,
+    "dur": 1.4
+   },
+   "start": 5.5,
+   "end": 9.1,
+   "in": {
+    "anim": "pop",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "bar",
+   "x": 1330,
+   "y": 800,
+   "w": 520,
+   "h": 26,
+   "color": [
+    0.36,
+    0.5,
+    1
+   ],
+   "track": [
+    0.04,
+    0.04,
+    0.07
+   ],
+   "grow": {
+    "start": 6.2,
+    "dur": 1.6
+   },
+   "start": 6.0,
+   "end": 9.1,
+   "in": "fade",
+   "out": "fade"
+  },
+  {
+   "type": "transition",
+   "style": "stripes",
+   "n": 7,
+   "color": [
+    0.1,
+    0.4,
+    0.9
+   ],
+   "start": 8.9,
+   "end": 9.9
+  },
+  {
+   "type": "device",
+   "kind": "laptop",
+   "path": "assets/sample_screenshot.png",
+   "w": 1040,
+   "x": 960,
+   "y": 560,
+   "start": 9.5,
+   "end": 14,
+   "in": {
+    "anim": "rise",
+    "dur": 0.8
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.6
+   }
+  },
+  {
+   "type": "device",
+   "kind": "phone",
+   "path": "assets/sample_screenshot.png",
+   "w": 230,
+   "x": 1560,
+   "y": 640,
+   "rot": 8,
+   "start": 10.1,
+   "end": 14,
+   "in": {
+    "anim": "spin",
+    "dur": 0.7
+   },
+   "float": {
+    "y": 14,
+    "speed": 0.8,
+    "phase": 1
+   }
+  },
+  {
+   "type": "text",
+   "text": "One dashboard. Every device.",
+   "font": "bold_italic",
+   "size": 70,
+   "x": 960,
+   "y": 130,
+   "start": 9.7,
+   "end": 14,
+   "in": {
+    "anim": "blur",
+    "dur": 0.5
+   },
+   "fixed": true
+  }
+ ]
+}

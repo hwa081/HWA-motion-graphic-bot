@@ -1,0 +1,482 @@
+{
+ "title": "Pulse - SaaS intro (example)",
+ "duration": 10,
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "neon_night"
+  },
+  {
+   "t": 6.3,
+   "style": "light_pastel",
+   "fade": 0.45
+  },
+  {
+   "t": 9.0,
+   "style": "neon_night",
+   "fade": 0.4
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 2.4,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 4.6,
+   "zoom": 1.06,
+   "x": 960,
+   "y": 575
+  },
+  {
+   "t": 6.2,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "layers": [
+  {
+   "type": "text",
+   "text": "Meet Pulse",
+   "font": "bold_italic",
+   "size": 170,
+   "x": 960,
+   "y": 500,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 0.1,
+   "end": 2.5,
+   "in": {
+    "anim": "blur",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "analytics that think ahead",
+   "font": "medium_italic",
+   "size": 46,
+   "x": 960,
+   "y": 640,
+   "color": [
+    0.8,
+    0.85,
+    1
+   ],
+   "start": 0.7,
+   "end": 2.5,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "Your numbers, live.",
+   "font": "bold_italic",
+   "size": 80,
+   "x": 960,
+   "y": 100,
+   "start": 2.6,
+   "end": 6.2,
+   "reveal": {
+    "mode": "words",
+    "step": 0.28,
+    "dur": 0.3
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "gradient": {
+    "from": [
+     0.55,
+     0.8,
+     1.0
+    ],
+    "to": [
+     1.0,
+     0.55,
+     0.85
+    ]
+   },
+   "fixed": true
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "Revenue",
+   "header": [
+    0.2,
+    0.35,
+    0.95
+   ],
+   "big_text": "${n}k",
+   "body": [
+    0.09,
+    0.1,
+    0.18
+   ],
+   "body2": [
+    0.14,
+    0.16,
+    0.3
+   ],
+   "subtitle": "this month",
+   "x": 470,
+   "y": 580,
+   "scale": 1.5,
+   "yaw": -18,
+   "roll": -2,
+   "start": 2.9,
+   "end": 6.3,
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "number": [
+     [
+      2.9,
+      0
+     ],
+     [
+      4.6,
+      128,
+      "out"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "Active users",
+   "big_text": "{n}",
+   "emoji": "👥",
+   "body": [
+    0.28,
+    0.1,
+    0.42
+   ],
+   "body2": [
+    0.1,
+    0.06,
+    0.2
+   ],
+   "subtitle": "right now",
+   "x": 960,
+   "y": 565,
+   "scale": 1.7,
+   "yaw": 0,
+   "start": 3.05,
+   "end": 6.3,
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "number": [
+     [
+      3.05,
+      0
+     ],
+     [
+      4.8,
+      2418,
+      "out"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "Growth",
+   "header": [
+    0.95,
+    0.25,
+    0.55
+   ],
+   "big_text": "+{n}%",
+   "body": [
+    0.08,
+    0.2,
+    0.22
+   ],
+   "body2": [
+    0.1,
+    0.45,
+    0.45
+   ],
+   "subtitle": "vs last week",
+   "x": 1450,
+   "y": 580,
+   "scale": 1.5,
+   "yaw": 18,
+   "roll": 2,
+   "start": 3.2,
+   "end": 6.3,
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "number": [
+     [
+      3.2,
+      0
+     ],
+     [
+      4.9,
+      37,
+      "out"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1250,
+   "h": 120,
+   "x": 960,
+   "y": 985,
+   "r": 60,
+   "fill": [
+    0,
+    0,
+    0
+   ],
+   "fill_opacity": 0.35,
+   "border": [
+    1,
+    1,
+    1
+   ],
+   "border_opacity": 0.3,
+   "border_w": 2,
+   "start": 3.6,
+   "end": 6.3,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "Show me this week's growth",
+   "font": "medium_italic",
+   "size": 46,
+   "anchor": "l",
+   "x": 390,
+   "y": 985,
+   "start": 4.1,
+   "end": 6.3,
+   "reveal": {
+    "mode": "chars",
+    "step": 0.045
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "icon",
+   "name": "send",
+   "size": 84,
+   "x": 1500,
+   "y": 985,
+   "width": 4,
+   "start": 4.0,
+   "end": 6.3,
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "keys": {
+    "angle": [
+     [
+      5.2,
+      0
+     ],
+     [
+      5.5,
+      45
+     ]
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "text": "Everything in one place",
+   "font": "bold_italic",
+   "size": 96,
+   "x": 960,
+   "y": 190,
+   "color": [
+    0.04,
+    0.04,
+    0.07
+   ],
+   "start": 6.5,
+   "end": 8.9,
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "📊",
+   "label": "Reports",
+   "x": 700,
+   "y": 470,
+   "scale": 1.0,
+   "rot": -6,
+   "start": 6.7,
+   "end": 8.9,
+   "in": {
+    "anim": "spin",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🔔",
+   "label": "Alerts",
+   "x": 1190,
+   "y": 420,
+   "scale": 1.0,
+   "rot": 5,
+   "start": 6.85,
+   "end": 8.9,
+   "in": {
+    "anim": "bounce",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "👥",
+   "label": "Teams",
+   "x": 640,
+   "y": 690,
+   "scale": 1.0,
+   "rot": 4,
+   "start": 7.0,
+   "end": 8.9,
+   "in": {
+    "anim": "rise",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "📤",
+   "label": "Export",
+   "x": 1240,
+   "y": 660,
+   "scale": 1.0,
+   "rot": -5,
+   "start": 7.15,
+   "end": 8.9,
+   "in": {
+    "anim": "tilt",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "Try Pulse today",
+   "font": "bold_italic",
+   "size": 150,
+   "x": 960,
+   "y": 520,
+   "start": 9.1,
+   "end": 10,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.6
+   },
+   "gradient": {
+    "from": [
+     0.4,
+     0.85,
+     1.0
+    ],
+    "mid": [
+     0.75,
+     0.55,
+     1.0
+    ],
+    "to": [
+     1.0,
+     0.45,
+     0.75
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,902 @@
+{
+ "title": "HWA Nexus promo",
+ "duration": 20,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "neon_night"
+  },
+  {
+   "t": 4.2,
+   "style": "dark_aurora",
+   "fade": 0.4
+  },
+  {
+   "t": 8.5,
+   "style": "light_pastel",
+   "fade": 0.5
+  },
+  {
+   "t": 12.8,
+   "style": "sunset",
+   "fade": 0.5
+  },
+  {
+   "t": 16.6,
+   "style": "ocean",
+   "fade": 0.5
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 4.2,
+   "zoom": 1.08,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 4.3,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 8.4,
+   "zoom": 1.06,
+   "x": 960,
+   "y": 560
+  },
+  {
+   "t": 8.5,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 12.7,
+   "zoom": 1.07,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 12.8,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 16.5,
+   "zoom": 1.05,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 16.6,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 20,
+   "zoom": 1.1,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "layers": [
+  {
+   "type": "grid",
+   "kind": "dots",
+   "spacing": 70,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.1,
+   "scroll": {
+    "x": 14,
+    "y": 6
+   },
+   "vignette": 0.85,
+   "start": 0,
+   "end": 4.5
+  },
+  {
+   "type": "blob",
+   "r": 520,
+   "x": 420,
+   "y": 300,
+   "color": [
+    0.55,
+    0.4,
+    1.0
+   ],
+   "color2": [
+    1.0,
+    0.35,
+    0.7
+   ],
+   "fill_opacity": 0.45,
+   "softness": 0.9,
+   "start": 0,
+   "end": 4.5,
+   "keys": {
+    "x": [
+     [
+      0,
+      380
+     ],
+     [
+      4.5,
+      560,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "blob",
+   "r": 460,
+   "x": 1560,
+   "y": 820,
+   "color": [
+    0.35,
+    0.9,
+    1.0
+   ],
+   "color2": [
+    0.55,
+    0.4,
+    1.0
+   ],
+   "fill_opacity": 0.4,
+   "softness": 0.9,
+   "start": 0,
+   "end": 4.5
+  },
+  {
+   "type": "particles",
+   "count": 70,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "size": 3,
+   "speed": 1.0,
+   "seed": 7,
+   "start": 0,
+   "end": 4.5
+  },
+  {
+   "type": "text",
+   "text": "ONE PLACE.",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 410,
+   "start": 0.25,
+   "end": 4.3,
+   "fixed": true,
+   "reveal": {
+    "mode": "letters",
+    "step": 0.05
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "shadow": 0.5
+  },
+  {
+   "type": "text",
+   "text": "EVERY TOOL.",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 620,
+   "start": 0.95,
+   "end": 4.3,
+   "fixed": true,
+   "gradient": {
+    "from": [
+     0.35,
+     0.9,
+     1.0
+    ],
+    "to": [
+     1.0,
+     0.35,
+     0.7
+    ]
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "shadow": 0.5,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "text",
+   "text": "HWA Nexus",
+   "font": "medium_italic",
+   "size": 58,
+   "x": 960,
+   "y": 800,
+   "start": 1.9,
+   "end": 4.3,
+   "fixed": true,
+   "color": [
+    0.8,
+    0.9,
+    1
+   ],
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "blur",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "transition",
+   "style": "flash",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 3.7,
+   "end": 4.7
+  },
+  {
+   "type": "grid",
+   "kind": "lines",
+   "spacing": 90,
+   "color": [
+    0.4,
+    1,
+    0.8
+   ],
+   "fill_opacity": 0.08,
+   "scroll": {
+    "x": -8,
+    "y": 10
+   },
+   "vignette": 0.9,
+   "start": 4.2,
+   "end": 8.6
+  },
+  {
+   "type": "text",
+   "text": "Everything you need",
+   "font": "bold_italic",
+   "size": 110,
+   "x": 960,
+   "y": 215,
+   "start": 4.4,
+   "end": 8.6,
+   "fixed": true,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🎬",
+   "label": "Video Editor",
+   "x": 390,
+   "y": 470,
+   "scale": 0.82,
+   "rot": -4,
+   "start": 4.9,
+   "end": 8.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.9,
+    "phase": 0.0
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🖼️",
+   "label": "Image Editor",
+   "x": 960,
+   "y": 470,
+   "scale": 0.82,
+   "rot": 3,
+   "start": 5.12,
+   "end": 8.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.9,
+    "phase": 0.9
+   },
+   "in": {
+    "anim": "bounce",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🔄",
+   "label": "Converters",
+   "x": 1530,
+   "y": 470,
+   "scale": 0.82,
+   "rot": -3,
+   "start": 5.340000000000001,
+   "end": 8.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.9,
+    "phase": 1.8
+   },
+   "in": {
+    "anim": "spin",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🤖",
+   "label": "AI Tools",
+   "x": 670,
+   "y": 740,
+   "scale": 0.82,
+   "rot": 4,
+   "start": 5.5600000000000005,
+   "end": 8.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.9,
+    "phase": 2.7
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🧰",
+   "label": "Utilities",
+   "x": 1250,
+   "y": 740,
+   "scale": 0.82,
+   "rot": -4,
+   "start": 5.78,
+   "end": 8.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "float": {
+    "y": 10,
+    "speed": 0.9,
+    "phase": 3.6
+   },
+   "in": {
+    "anim": "bounce",
+    "dur": 0.55
+   }
+  },
+  {
+   "type": "transition",
+   "style": "wipe",
+   "direction": "right",
+   "color": [
+    0.55,
+    0.4,
+    1.0
+   ],
+   "start": 8.0,
+   "end": 9.0
+  },
+  {
+   "type": "blob",
+   "r": 420,
+   "x": 300,
+   "y": 900,
+   "color": [
+    1,
+    0.75,
+    0.85
+   ],
+   "color2": [
+    0.7,
+    0.95,
+    0.9
+   ],
+   "fill_opacity": 0.55,
+   "softness": 0.9,
+   "start": 8.5,
+   "end": 12.9
+  },
+  {
+   "type": "text",
+   "text": "{n}+",
+   "font": "bold_italic",
+   "size": 420,
+   "x": 610,
+   "y": 470,
+   "start": 8.7,
+   "end": 12.9,
+   "color": [
+    0.08,
+    0.09,
+    0.22
+   ],
+   "count": {
+    "from": 0,
+    "to": 80,
+    "dur": 1.8,
+    "format": "{:,.0f}"
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "zoom",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "tools. One account.",
+   "font": "bold_italic",
+   "size": 78,
+   "x": 610,
+   "y": 720,
+   "start": 9.6,
+   "end": 12.9,
+   "color": [
+    0.35,
+    0.2,
+    0.8
+   ],
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "chart",
+   "kind": "bar",
+   "data": [
+    18,
+    32,
+    52,
+    80
+   ],
+   "labels": [
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ],
+   "x": 1450,
+   "y": 520,
+   "w": 720,
+   "h": 470,
+   "colors": [
+    [
+     1,
+     0.4,
+     0.7
+    ],
+    [
+     0.55,
+     0.4,
+     1
+    ],
+    [
+     0.2,
+     0.7,
+     0.95
+    ],
+    [
+     0.1,
+     0.8,
+     0.6
+    ]
+   ],
+   "text_color": [
+    0.08,
+    0.09,
+    0.22
+   ],
+   "grow": {
+    "start": 9.3,
+    "dur": 1.5
+   },
+   "start": 9.0,
+   "end": 12.9,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "transition",
+   "style": "stripes",
+   "direction": "down",
+   "color": [
+    0.08,
+    0.09,
+    0.22
+   ],
+   "start": 12.3,
+   "end": 13.3
+  },
+  {
+   "type": "blob",
+   "r": 500,
+   "x": 1500,
+   "y": 250,
+   "color": [
+    1.0,
+    0.65,
+    0.25
+   ],
+   "color2": [
+    1.0,
+    0.35,
+    0.7
+   ],
+   "fill_opacity": 0.5,
+   "softness": 0.9,
+   "start": 12.8,
+   "end": 16.6
+  },
+  {
+   "type": "text",
+   "text": "Just type. Done.",
+   "font": "bold_italic",
+   "size": 130,
+   "x": 960,
+   "y": 290,
+   "start": 13.0,
+   "end": 16.6,
+   "fixed": true,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "rise",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1400,
+   "h": 140,
+   "r": 70,
+   "x": 960,
+   "y": 540,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.14,
+   "border": [
+    1,
+    1,
+    1
+   ],
+   "border_opacity": 0.4,
+   "border_w": 2,
+   "shadow": 0.4,
+   "start": 13.4,
+   "end": 16.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "zoom",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "Remove background from my photo",
+   "font": "medium",
+   "size": 52,
+   "x": 900,
+   "y": 540,
+   "start": 13.9,
+   "end": 16.6,
+   "reveal": {
+    "mode": "chars",
+    "step": 0.045
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "icon",
+   "name": "send",
+   "size": 78,
+   "x": 1550,
+   "y": 540,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 15.3,
+   "end": 16.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "⚡",
+   "label": "Instant",
+   "x": 420,
+   "y": 790,
+   "scale": 0.8,
+   "light": 0,
+   "start": 14.5,
+   "end": 16.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🔒",
+   "label": "Private",
+   "x": 940,
+   "y": 790,
+   "scale": 0.8,
+   "light": 0,
+   "start": 14.7,
+   "end": 16.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🌐",
+   "label": "In your browser",
+   "x": 1450,
+   "y": 790,
+   "scale": 0.8,
+   "light": 0,
+   "start": 14.9,
+   "end": 16.6,
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   },
+   "in": {
+    "anim": "slide_right",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "transition",
+   "style": "iris",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 16.1,
+   "end": 17.1
+  },
+  {
+   "type": "blob",
+   "r": 560,
+   "x": 960,
+   "y": 540,
+   "color": [
+    0.35,
+    0.9,
+    1.0
+   ],
+   "color2": [
+    0.55,
+    0.4,
+    1.0
+   ],
+   "fill_opacity": 0.35,
+   "softness": 0.95,
+   "start": 16.6,
+   "end": 20
+  },
+  {
+   "type": "circle",
+   "r": 230,
+   "x": 960,
+   "y": 380,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.08,
+   "border": [
+    1,
+    1,
+    1
+   ],
+   "border_opacity": 0.4,
+   "border_w": 3,
+   "start": 16.7,
+   "keys": {
+    "scale": [
+     [
+      16.7,
+      0.9
+     ],
+     [
+      20,
+      1.12,
+      "linear"
+     ]
+    ]
+   },
+   "in": {
+    "anim": "zoom",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "emoji",
+   "char": "🚀",
+   "size": 210,
+   "x": 960,
+   "y": 380,
+   "start": 17.0,
+   "float": {
+    "y": 12,
+    "speed": 1
+   },
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "text",
+   "text": "HWA Nexus",
+   "font": "bold_italic",
+   "size": 190,
+   "x": 960,
+   "y": 700,
+   "start": 17.4,
+   "gradient": {
+    "from": [
+     0.35,
+     0.9,
+     1.0
+    ],
+    "to": [
+     1.0,
+     0.35,
+     0.7
+    ]
+   },
+   "shadow": 0.5,
+   "in": {
+    "anim": "blur",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "text",
+   "text": "Edit. Create. Ship.",
+   "font": "medium_italic",
+   "size": 66,
+   "x": 960,
+   "y": 850,
+   "start": 18.1,
+   "color": [
+    0.85,
+    0.92,
+    1
+   ],
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "line",
+   "points": [
+    [
+     760,
+     925
+    ],
+    [
+     1160,
+     925
+    ]
+   ],
+   "width": 5,
+   "color": [
+    0.35,
+    0.9,
+    1.0
+   ],
+   "start": 18.6,
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.5
+   }
+  }
+ ]
+}
