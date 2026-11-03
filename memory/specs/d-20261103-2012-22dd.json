@@ -1,0 +1,446 @@
+{
+ "title": "Waqas - Workflow Diagnostic Test",
+ "duration": 6,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "dark_aurora"
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 2.1,
+   "zoom": 1.08,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 2.6,
+   "zoom": 1.12,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 6,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "script": [
+  {
+   "t": 0.3,
+   "text": "Hello, I am Waqas."
+  },
+  {
+   "t": 1.0,
+   "text": "Testing this workflow now."
+  },
+  {
+   "t": 2.7,
+   "text": "Workflow test completed successfully."
+  }
+ ],
+ "layers": [
+  {
+   "type": "grid",
+   "kind": "crosses",
+   "spacing": 64,
+   "color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "fill_opacity": 0.12,
+   "scroll": {
+    "x": 8,
+    "y": 4
+   },
+   "vignette": 0.85,
+   "start": 0,
+   "end": 2.3
+  },
+  {
+   "type": "line",
+   "points": [
+    [
+     960,
+     140
+    ],
+    [
+     960,
+     940
+    ]
+   ],
+   "width": 4,
+   "color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "start": 0.2,
+   "end": 2.3,
+   "in": {
+    "anim": "wipe_down",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.2
+   }
+  },
+  {
+   "type": "text",
+   "text": "SYSTEM DIAGNOSTIC // 01",
+   "font": "bold",
+   "size": 34,
+   "color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "x": 520,
+   "y": 380,
+   "start": 0.3,
+   "end": 2.3,
+   "in": {
+    "anim": "slide_down",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.2
+   }
+  },
+  {
+   "type": "text",
+   "text": "hello i am waqas",
+   "font": "bold_italic",
+   "size": 76,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "x": 520,
+   "y": 510,
+   "start": 0.5,
+   "end": 2.3,
+   "in": {
+    "anim": "slide_down",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.2
+   }
+  },
+  {
+   "type": "text",
+   "text": "testing this workflow",
+   "font": "medium_italic",
+   "size": 42,
+   "color": [
+    0.75,
+    0.7,
+    0.95
+   ],
+   "x": 520,
+   "y": 630,
+   "start": 0.7,
+   "end": 2.3,
+   "in": {
+    "anim": "slide_down",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.2
+   }
+  },
+  {
+   "type": "text",
+   "text": "EXECUTION STATUS",
+   "font": "bold",
+   "size": 30,
+   "color": [
+    0.75,
+    0.88,
+    1
+   ],
+   "x": 1400,
+   "y": 310,
+   "start": 0.4,
+   "end": 2.3,
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.2
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "ring",
+   "x": 1400,
+   "y": 540,
+   "w": 340,
+   "h": 340,
+   "color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "track": [
+    0.1,
+    0.1,
+    0.2
+   ],
+   "label": "{p}%",
+   "grow": {
+    "start": 0.5,
+    "dur": 1.4
+   },
+   "start": 0.3,
+   "end": 2.3,
+   "in": {
+    "anim": "spin",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.2
+   }
+  },
+  {
+   "type": "transition",
+   "style": "iris",
+   "color": [
+    0.04,
+    0.05,
+    0.08
+   ],
+   "start": 1.9,
+   "end": 2.7,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "type": "blob",
+   "x": 960,
+   "y": 540,
+   "r": 550,
+   "color": [
+    0.47,
+    0.16,
+    0.79
+   ],
+   "color2": [
+    0,
+    0.87,
+    0.85
+   ],
+   "fill_opacity": 0.35,
+   "softness": 0.85,
+   "start": 2.3,
+   "end": 6,
+   "keys": {
+    "r": [
+     [
+      2.3,
+      450
+     ],
+     [
+      6,
+      580,
+      "linear"
+     ]
+    ]
+   }
+  },
+  {
+   "type": "particles",
+   "count": 50,
+   "color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "size": 3,
+   "speed": 1,
+   "seed": 4,
+   "start": 2.3,
+   "end": 6
+  },
+  {
+   "type": "rrect",
+   "x": 960,
+   "y": 540,
+   "w": 960,
+   "h": 580,
+   "r": 40,
+   "fill": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.08,
+   "border": [
+    0,
+    0.87,
+    0.85
+   ],
+   "border_opacity": 0.4,
+   "border_w": 2,
+   "shadow": 0.4,
+   "shadow_color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "start": 2.3,
+   "end": 6,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.5
+   },
+   "float": {
+    "y": 8,
+    "speed": 0.8
+   }
+  },
+  {
+   "type": "image",
+   "path": "assets/sample_logo.png",
+   "x": 960,
+   "y": 340,
+   "w": 120,
+   "h": 120,
+   "r": 60,
+   "border": [
+    0,
+    0.87,
+    0.85
+   ],
+   "border_w": 3,
+   "start": 2.4,
+   "end": 6,
+   "in": {
+    "anim": "pop",
+    "dur": 0.5
+   },
+   "float": {
+    "y": 8,
+    "speed": 0.8
+   }
+  },
+  {
+   "type": "text",
+   "text": "WAQAS",
+   "font": "bold_italic",
+   "size": 130,
+   "x": 960,
+   "y": 480,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 2.5,
+   "end": 6,
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.6
+   },
+   "gradient": {
+    "from": [
+     0,
+     0.87,
+     0.85
+    ],
+    "to": [
+     0.75,
+     0.4,
+     1
+    ]
+   },
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "text": "WORKFLOW TEST COMPLETED",
+   "font": "bold",
+   "size": 38,
+   "x": 960,
+   "y": 600,
+   "color": [
+    0.85,
+    0.85,
+    0.95
+   ],
+   "start": 2.8,
+   "end": 6,
+   "in": {
+    "anim": "rise",
+    "dur": 0.5
+   },
+   "fixed": true
+  },
+  {
+   "type": "chip",
+   "emoji": "⚡",
+   "label": "System Operational",
+   "x": 960,
+   "y": 690,
+   "scale": 1.1,
+   "start": 3.1,
+   "end": 6,
+   "in": {
+    "anim": "slide_down",
+    "dur": 0.5
+   },
+   "float": {
+    "y": 6,
+    "speed": 1
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "bar",
+   "x": 960,
+   "y": 770,
+   "w": 420,
+   "h": 12,
+   "color": [
+    0,
+    0.87,
+    0.85
+   ],
+   "track": [
+    0.1,
+    0.1,
+    0.2
+   ],
+   "grow": {
+    "start": 3.7,
+    "dur": 1.6
+   },
+   "start": 3.5,
+   "end": 6,
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  }
+ ]
+}

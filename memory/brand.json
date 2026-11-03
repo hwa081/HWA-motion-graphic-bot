@@ -1,0 +1,19 @@
+{
+ "name": "",
+ "tagline": "",
+ "colors": {
+  "primary": "",
+  "secondary": "",
+  "accent": "",
+  "dark": "",
+  "light": ""
+ },
+ "fonts": {
+  "headline": "bold_italic",
+  "body": "medium_italic"
+ },
+ "logo": "",
+ "voice": "",
+ "always": [],
+ "never": []
+}

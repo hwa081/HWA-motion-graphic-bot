@@ -1,0 +1,82 @@
+[
+ {
+  "id": "l916",
+  "kind": "dont",
+  "text": "Text was hard to read on its background. Use light text on dark backgrounds and near-black text on light backgrounds.",
+  "weight": 1,
+  "count": 1,
+  "source": "qa",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l310",
+  "kind": "dont",
+  "text": "Reviewer found (score 6/10): Low contrast on 'EXECUTION STATUS' text layer between 0.7s and 2.2s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l122",
+  "kind": "dont",
+  "text": "Reviewer found (score 6/10): Black circle transition obscures center text at 2.2s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l289",
+  "kind": "dont",
+  "text": "Reviewer found (score 6/10): Static hold on final card layout from 3.8s to 5.8s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l750",
+  "kind": "dont",
+  "text": "Reviewer found (score 5/10): Empty screen without visual content at 0.2s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l587",
+  "kind": "dont",
+  "text": "Reviewer found (score 5/10): Black frame transition gap at 2.2s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l327",
+  "kind": "dont",
+  "text": "Reviewer found (score 5/10): Text layer 'WAQAS' cut off during entrance at 2.7s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l724",
+  "kind": "dont",
+  "text": "Reviewer found (score 5/10): Static end card held without visual pacing from 3.8s to 5.8s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-03T20:12:25Z",
+  "last": "2026-11-03T20:12:25Z"
+ }
+]

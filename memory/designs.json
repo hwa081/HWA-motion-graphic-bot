@@ -1,0 +1,81 @@
+[
+ {
+  "id": "d-20261103-2012-22dd",
+  "date": "2026-11-03T20:12:25Z",
+  "prompt": "hello i am waqas and i am testing this workflow",
+  "summary": {
+   "backgrounds": [
+    "dark_aurora"
+   ],
+   "entrance_anims": {
+    "slide_down": 4,
+    "fade": 2,
+    "wipe_down": 1,
+    "spin": 1,
+    "zoom": 1,
+    "pop": 1,
+    "wipe_right": 1,
+    "rise": 1
+   },
+   "layer_types": {
+    "text": 6,
+    "progress": 2,
+    "grid": 1,
+    "line": 1,
+    "transition": 1,
+    "blob": 1,
+    "particles": 1,
+    "rrect": 1,
+    "image": 1,
+    "chip": 1
+   },
+   "kinds": [
+    "bar",
+    "ring"
+   ],
+   "transitions": [
+    "iris"
+   ],
+   "camera": true,
+   "headlines": [
+    "WAQAS",
+    "hello i am waqas",
+    "testing this workflow",
+    "WORKFLOW TEST COMPLETED"
+   ],
+   "layers": 16,
+   "duration": 6,
+   "size": "16:9"
+  },
+  "review_score": 5.0,
+  "qa_errors": 0,
+  "qa_warnings": 0,
+  "rating": null,
+  "notes": [],
+  "size": "16:9",
+  "assets": 0,
+  "remix": {
+   "sources": [
+    "doc-05-archival-photo",
+    "doc-14-big-stat",
+    "doc-66-outro-logo"
+   ],
+   "backgrounds": [
+    "mono_dark",
+    "dark_aurora"
+   ],
+   "transitions": [
+    "iris",
+    "stripes"
+   ]
+  },
+  "plan": {
+   "concept": "A high-tech system diagnostic sequence seamlessly morphs into a polished developer identity card.",
+   "signature": "A vertical neon line divider that splits diagnostic test telemetry before collapsing into a central glowing avatar frame."
+  },
+  "originality": {
+   "nearest": "doc-07-archival-photo",
+   "similarity": 0.713
+  }
+ }
+]
