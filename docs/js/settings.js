@@ -172,7 +172,7 @@
             const name = $('.pn', p).value.trim(), base = $('.pu', p).value.trim().replace(/\/+$/, ''), model = $('.pm', p).value.trim();
             if (!name || !/^https:\/\//.test(base) || !model) return stat(msg, 'bad', 'Fill name, Base URL (https://…) and model');
             const entry = st.providers.find(x => x.id === pid); const oldSecret = secret;
-            if (entry.isNew) { let id = slug(name), n = 2; while (st.providers.some(x => x !== entry && x.id === id)) id = slug(name) + n++; entry.id = id; delete entry.isNew; }
+            if (entry.isNew) { let n = 1; while (st.providers.some(x => x !== entry && x.id === 'ai' + n)) n++; if (n > 8) return stat(msg, 'bad', 'Up to 8 extra AI services - remove one first'); entry.id = 'ai' + n; delete entry.isNew; }
             Object.assign(entry, { name, base_url: base, model, preset: $('.pp', p).value });
             if (!k && !has(secretName(entry.id)) && !has(oldSecret)) return stat(msg, 'bad', 'Paste the key');
             if (k) { const r = await test(); if (r && r.ok === false && !confirm('The test failed: ' + r.msg + '\n\nSave anyway?')) return; await G.putSecret(secretName(entry.id), k); if (!st.secrets.includes(secretName(entry.id))) st.secrets.push(secretName(entry.id)); }
