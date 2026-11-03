@@ -175,9 +175,11 @@
     const ta = $('#prompt'); ta.oninput = syncSend;
     ta.onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } };
     $('#btnSend').onclick = send;
-    $('#chipSummary').onclick = e => { e.stopPropagation(); $('#popup').hidden = !$('#popup').hidden; };
+    const togglePop = e => { e.stopPropagation(); const h = !$('#popup').hidden; $('#popup').hidden = h; $('#btnTune').classList.toggle('open', !h); };
+    $('#chipSummary').onclick = togglePop; $('#btnTune').onclick = togglePop;
+    $('#popClose').onclick = e => { e.stopPropagation(); $('#popup').hidden = true; $('#btnTune').classList.remove('open'); };
     $('#popup').onclick = e => e.stopPropagation();
-    document.addEventListener('click', () => { $('#popup').hidden = true; });
+    document.addEventListener('click', () => { $('#popup').hidden = true; $('#btnTune').classList.remove('open'); });
     $('#chipAgent').onclick = () => { const on = !$('#chipAgent').classList.contains('on'); $('#chipAgent').classList.toggle('on', on); st.cfg.mode = on ? 'code' : 'ai'; save(); };
     $$('#segMode button').forEach(b => b.onclick = () => { st.cfg.mode = b.dataset.mode; $('#chipAgent').classList.toggle('on', st.cfg.mode === 'code'); save(); });
     $$('#segInput button').forEach(b => b.onclick = () => { st.cfg.input = b.dataset.input; save(); $('#fileIn').accept = b.dataset.input === 'reference' ? 'video/mp4,video/webm,video/quicktime' : 'image/*'; $('#fileIn').click(); });
