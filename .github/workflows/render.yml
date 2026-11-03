@@ -117,7 +117,14 @@ jobs:
           AI_PROVIDERS: ${{ vars.AI_PROVIDERS }}
           AI_FALLBACK: ${{ vars.AI_FALLBACK }}
           OUTPUT_KEEP: ${{ vars.OUTPUT_KEEP }}
-          AI_ALL_SECRETS: ${{ toJSON(secrets) }}
+          AI_KEY_AI1: ${{ secrets.AI_KEY_AI1 }}
+          AI_KEY_AI2: ${{ secrets.AI_KEY_AI2 }}
+          AI_KEY_AI3: ${{ secrets.AI_KEY_AI3 }}
+          AI_KEY_AI4: ${{ secrets.AI_KEY_AI4 }}
+          AI_KEY_AI5: ${{ secrets.AI_KEY_AI5 }}
+          AI_KEY_AI6: ${{ secrets.AI_KEY_AI6 }}
+          AI_KEY_AI7: ${{ secrets.AI_KEY_AI7 }}
+          AI_KEY_AI8: ${{ secrets.AI_KEY_AI8 }}
           AI: ${{ inputs.ai }}
           JOB: ${{ inputs.job }}
           MODE: ${{ inputs.mode }}
