@@ -1,0 +1,34 @@
+{
+ "date": "2026-11-03T20:24:17Z",
+ "job": "jmw13my3ske3",
+ "results": [
+  {
+   "id": "gemini",
+   "name": "Gemini",
+   "group": "ai",
+   "ok": true,
+   "msg": "answered with gemini-3.6-flash"
+  },
+  {
+   "id": "pixabay",
+   "name": "Pixabay",
+   "group": "photos",
+   "ok": null,
+   "msg": "no key saved"
+  },
+  {
+   "id": "pexels",
+   "name": "Pexels",
+   "group": "photos",
+   "ok": null,
+   "msg": "no key saved"
+  },
+  {
+   "id": "iconify",
+   "name": "Iconify",
+   "group": "icons",
+   "ok": true,
+   "msg": "works (no key needed)"
+  }
+ ]
+}
