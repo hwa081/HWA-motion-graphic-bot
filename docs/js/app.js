@@ -63,7 +63,7 @@
     g.innerHTML = items.map((m, i) => {
       const sc = sizeClass(m.size);
       if (m.kind === 'job') {
-        return `<div class="tile busy ${sc} ${m.failed ? 'fail' : ''}" data-i="${i}"><div><div class="spin"></div><div>${esc(m.failed ? 'Failed' : (m.label || 'Working'))}</div><div class="st">${esc(m.detail || '')}</div></div></div>`;
+        return `<div class="tile busy ${sc} ${m.failed ? 'fail' : ''}" data-i="${i}"><div><div class="spin"></div><div>${esc(m.label || (m.failed ? 'Failed' : 'Working'))}</div><div class="st">${esc(m.detail || '')}</div></div></div>`;
       }
       const poster = m.poster ? `<img loading="lazy" src="${esc(m.poster)}" alt="">` : '<div class="ph"></div>';
       const badge = m.kind === 'video' ? `<span class="play">${PLAY}</span><span class="tag">${esc(m.size || '')} · ${esc(m.dur || '')}s</span>` : `<span class="tag">${esc(m.size || 'image')}</span>`;

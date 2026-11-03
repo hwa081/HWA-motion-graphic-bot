@@ -27,7 +27,7 @@
       try { rawIndex = txt ? JSON.parse(txt) : []; } catch (e) { rawIndex = []; }
       st.media = rawIndex.map(toItem);
       await syncRuns();
-      st.jobs = pend.map(p => ({ id: p.job, label: p.failed ? 'Failed' : (p.label || 'Working'), detail: p.detail || '', size: p.size, failed: !!p.failed, runUrl: p.runUrl, jobId: p.job }));
+      st.jobs = pend.map(p => ({ id: p.job, label: p.label || (p.failed ? 'Failed' : 'Working'), detail: p.detail || '', size: p.size, failed: !!p.failed, runUrl: p.runUrl, jobId: p.job }));
       if (st.view === 'media') S.renderGrid();
       if (st.view === 'tools' && S.hooks.renderTools) S.hooks.renderTools();
     } catch (e) { if (force) S.toast(e.message, true); }
@@ -48,7 +48,17 @@
       const indexed = rawIndex.find(e => e.id === p.job);
       if (run) {
         p.run = run.id; p.runUrl = run.html_url;
-        if (run.status === 'completed') {
+        if (run.conclusion === 'action_required' || (run.status === 'waiting' && !run.conclusion)) {
+          // GitHub holds the run until it is approved: try to approve it from here
+          if (!p.approveTried) {
+            p.approveTried = Date.now();
+            const r = await G.req('POST', '/repos/' + G.cfg().repo + '/actions/runs/' + run.id + '/approve');
+            p.approveOk = !!(r && r.ok);
+            if (!p.approveOk) p.approveMsg = (r && r.json && r.json.message) || ('HTTP ' + (r && r.status));
+          }
+          if (p.approveOk) { p.label = 'Approved'; p.detail = 'starting...'; if (Date.now() - p.approveTried > 90000) { p.failed = true; p.label = 'Failed'; p.detail = 'approved but it did not start - open the run in GitHub'; } }
+          else { p.failed = true; p.label = 'Needs approval'; p.detail = 'GitHub wants you to click "Approve and run" on this run (click here to open it)'; }
+        } else if (run.status === 'completed') {
           if (run.conclusion === 'success') { p.ok = true; if (!p.doneAt) p.doneAt = Date.now(); p.label = 'Finishing'; p.detail = 'saving the result'; }
           else { p.failed = true; p.label = 'Failed'; p.detail = run.conclusion + ' - click to open the log'; }
         } else {
