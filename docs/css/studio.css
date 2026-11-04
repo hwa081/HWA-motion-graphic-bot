@@ -209,3 +209,52 @@ h1{font-size:22px}h2{font-size:15px}
 .pop-head .icon-btn{width:26px;height:26px}
 #btnTune.open{background:#fff;color:#000}
 .popup{width:330px}
+
+/* ---- progress tile, projects menu, format chips, files ---- */
+.tile.busy>.jobbox{padding:10px;width:100%;text-align:center}
+.jobbox .pct{font-size:26px;font-weight:600;line-height:1}
+.jobbox .bar{height:5px;border-radius:3px;background:var(--surface3);margin:8px 6px 8px;overflow:hidden}
+.jobbox .bar i{display:block;height:100%;background:#fff;border-radius:3px;transition:width .6s}
+.jobbox .stg{font-size:12px}.jobbox .stg span{color:var(--muted)}
+.jobbox .eta{font-size:11px;color:var(--ok);margin-top:3px}
+.tile.busy.h .jobbox .pct{font-size:22px}
+.proj{text-align:left;cursor:pointer;border-radius:8px;padding:4px 6px}.proj:hover{background:var(--surface)}
+.side{position:relative}
+.projmenu{position:absolute;left:12px;right:12px;top:54px;z-index:20;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 10px 34px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:2px;max-height:70vh;overflow:auto}
+.app.collapsed .projmenu{display:none}
+.pm-h{font-size:11px;color:var(--muted);padding:4px 8px}
+.pm-item,.pm-act{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;font-size:13px}
+.pm-item:hover,.pm-act:hover{background:var(--surface2)}.pm-item.on{background:var(--surface3)}.pm-item small{color:var(--muted)}
+.pm-act.danger{color:var(--bad)}
+.projmenu hr{border:0;border-top:1px solid var(--line);margin:4px 0}
+.fmt-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:2px 4px 8px}
+.fmt-lab{font-size:11px;color:var(--muted);margin-right:2px}
+.fchip{height:26px;padding:0 10px;border-radius:13px;background:var(--surface2);font-size:12px;color:#ccc;border:1px solid transparent}
+.fchip:hover{background:var(--surface3)}.fchip.on{background:var(--surface3);color:#fff;border-color:#555}.fchip.locked{cursor:default;opacity:.8}
+.qual{display:flex;background:var(--bg2);border-radius:13px;padding:2px;gap:2px}
+.qual button{height:22px;padding:0 10px;border-radius:11px;font-size:12px;color:#bbb}.qual button.on{background:#fff;color:#000}.qual button:disabled{opacity:.35;cursor:not-allowed}
+.v-files{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}.vf-h{font-size:12px;color:var(--muted)}
+.btn.small{height:30px;font-size:12px;justify-content:flex-start}
+.vf-note{font-size:12px;color:var(--warn);line-height:1.4}
+
+/* ---- activity, ideas, job buttons ---- */
+.nav-badge{margin-left:auto;background:#fff;color:#000;border-radius:10px;font-size:11px;padding:1px 7px;font-weight:600}
+.app.collapsed .nav-badge{display:none}
+.ideas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px;max-width:560px}
+.ideas-h{width:100%;font-size:12px;color:var(--muted)}
+.idea{padding:7px 13px;border-radius:16px;background:var(--surface2);font-size:12.5px}.idea:hover{background:var(--surface3)}
+.empty{text-align:center}
+.sub-lead{color:var(--muted);font-size:13px;margin:-8px 0 16px;line-height:1.5}
+.actcard{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:8px 0}
+.actcard.fail{border-color:#5a2a2a}
+.act-main{flex:1;min-width:0}.act-title{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.act-meta{font-size:12px;color:var(--muted);margin-top:3px}
+.actcard .jobbox{width:240px;flex:none;padding:0;text-align:center}
+.runrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--text);text-decoration:none}.runrow:hover{background:var(--surface)}
+.rr-t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rr-s{color:var(--muted);font-size:12px}.rr-w{color:var(--muted);font-size:12px;width:80px;text-align:right}
+.jobbtns{display:flex;gap:5px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.jb{height:24px;padding:0 10px;border-radius:12px;background:var(--surface3);font-size:11.5px}.jb:hover{background:#44444a}.jb.primary{background:#fff;color:#000}
+.failmark{width:26px;height:26px;border-radius:50%;background:var(--bad);color:#000;font-weight:700;display:grid;place-items:center;margin:0 auto 6px}
+@media (max-width:860px){.actcard{flex-direction:column;align-items:stretch}.actcard .jobbox{width:auto}}
+@media (min-width:861px){.tile.busy,.tile.busy.h,.tile.busy.sq{width:210px;height:auto;min-height:150px}}
+.tile.busy{display:grid;place-items:center;align-content:center}
+.tile.busy .jobbox{width:100%}
