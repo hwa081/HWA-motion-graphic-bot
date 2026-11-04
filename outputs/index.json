@@ -1,5 +1,20 @@
 [
  {
+  "id": "jmw1q9j47ie7",
+  "job": "jmw1q9j47ie7",
+  "kind": "report",
+  "title": "good but 1st frame mai top left button jo hai us ka text bahir hai us se",
+  "prompt": "good but 1st frame mai top left button jo hai us ka text bahir hai us se",
+  "mode": "feedback",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-04T06:35:17Z",
+  "ok": true,
+  "trashed": false,
+  "report": "outputs/jmw1q9j47ie7/report.md"
+ },
+ {
   "id": "jmw1ntmf2qh3",
   "job": "jmw1ntmf2qh3",
   "kind": "video",

@@ -88,5 +88,15 @@
   "source": "qa",
   "created": "2026-11-04T05:56:17Z",
   "last": "2026-11-04T05:56:17Z"
+ },
+ {
+  "id": "l985",
+  "kind": "do",
+  "text": "User feedback: good but 1st frame mai top left button jo hai us ka text bahir hai us se",
+  "weight": 1,
+  "count": 1,
+  "source": "feedback",
+  "created": "2026-11-04T06:35:17Z",
+  "last": "2026-11-04T06:35:17Z"
  }
 ]

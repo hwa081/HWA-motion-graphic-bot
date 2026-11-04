@@ -126,8 +126,13 @@
   "review_score": null,
   "qa_errors": 0,
   "qa_warnings": 2,
-  "rating": null,
-  "notes": [],
+  "rating": 3,
+  "notes": [
+   {
+    "date": "2026-11-04T06:21:04Z",
+    "note": "good but 1st frame mai top left button jo hai us ka text bahir hai us se"
+   }
+  ],
   "size": "16:9",
   "assets": 0,
   "remix": {
