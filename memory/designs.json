@@ -240,5 +240,84 @@
    "nearest": "doc-71-kinetic-statement",
    "similarity": 0.667
   }
+ },
+ {
+  "id": "d-20261104-1244-dd69",
+  "date": "2026-11-04T12:44:04Z",
+  "prompt": "interduce yourself",
+  "summary": {
+   "backgrounds": [
+    "light_pastel",
+    "dark_aurora"
+   ],
+   "entrance_anims": {
+    "fade": 7,
+    "pop": 5,
+    "zoom": 2,
+    "blur": 1,
+    "rise": 1,
+    "slide_right": 1,
+    "slide_up": 1
+   },
+   "layer_types": {
+    "text": 9,
+    "chip": 3,
+    "circle": 3,
+    "transition": 2,
+    "image": 1,
+    "grid": 1,
+    "progress": 1,
+    "blob": 1,
+    "rrect": 1,
+    "icon": 1
+   },
+   "kinds": [
+    "ring"
+   ],
+   "transitions": [
+    "flash",
+    "glitch"
+   ],
+   "camera": true,
+   "headlines": [
+    "ALEX RIVERA",
+    "{n}+",
+    "Core Expertise",
+    "Available for new projects"
+   ],
+   "layers": 23,
+   "duration": 6,
+   "size": "16:9"
+  },
+  "review_score": null,
+  "qa_errors": 1,
+  "qa_warnings": 0,
+  "rating": null,
+  "notes": [],
+  "size": "16:9",
+  "assets": 0,
+  "remix": {
+   "sources": [
+    "doc-05-archival-photo",
+    "doc-13-big-stat",
+    "doc-17-ping-map"
+   ],
+   "backgrounds": [
+    "light_pastel",
+    "dark_aurora"
+   ],
+   "transitions": [
+    "glitch",
+    "flash"
+   ]
+  },
+  "plan": {
+   "concept": "A snappy, modern creative portfolio intro moving from a clean personal avatar showcase to high-energy stats and a call to collaborate.",
+   "signature": "Dynamic split persona display featuring a live code prompt bar transforming into a high-impact profile stat circle."
+  },
+  "originality": {
+   "nearest": "d-20261104-0941-a75d",
+   "similarity": 0.657
+  }
  }
 ]

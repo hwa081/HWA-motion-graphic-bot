@@ -138,5 +138,15 @@
   "source": "review",
   "created": "2026-11-04T09:41:35Z",
   "last": "2026-11-04T09:41:35Z"
+ },
+ {
+  "id": "l982",
+  "kind": "dont",
+  "text": "Stacked text layers overlapped. Keep at least 1.2 x the font size between the y positions of two lines, and time them apart.",
+  "weight": 1,
+  "count": 1,
+  "source": "qa",
+  "created": "2026-11-04T12:44:04Z",
+  "last": "2026-11-04T12:44:04Z"
  }
 ]

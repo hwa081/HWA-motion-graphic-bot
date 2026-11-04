@@ -1,5 +1,24 @@
 [
  {
+  "id": "jmw22hvjpfqm",
+  "job": "jmw22hvjpfqm",
+  "kind": "video",
+  "title": "interduce yourself",
+  "prompt": "interduce yourself",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "6",
+  "ai": "gemini",
+  "date": "2026-11-04T12:44:06Z",
+  "ok": true,
+  "trashed": false,
+  "video": "outputs/jmw22hvjpfqm/video.mp4",
+  "poster": "outputs/jmw22hvjpfqm/poster.jpg",
+  "spec": "outputs/jmw22hvjpfqm/spec.json",
+  "report": "outputs/jmw22hvjpfqm/report.md",
+  "design_id": "d-20261104-1244-dd69"
+ },
+ {
   "id": "jmw1wwdkgf2q",
   "job": "jmw1wwdkgf2q",
   "kind": "video",

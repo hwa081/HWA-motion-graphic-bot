@@ -1,0 +1,476 @@
+{
+ "title": "Alex Rivera - Portfolio Intro",
+ "duration": 6,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "light_pastel"
+  },
+  {
+   "t": 1.8,
+   "style": "dark_aurora",
+   "fade": 0.4
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1.0,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 2.0,
+   "zoom": 1.04,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 4.2,
+   "zoom": 1.08,
+   "x": 960,
+   "y": 520
+  },
+  {
+   "t": 6.0,
+   "zoom": 1.0,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "layers": [
+  {
+   "type": "image",
+   "path": "assets/sample_logo.png",
+   "x": 560,
+   "y": 540,
+   "w": 280,
+   "h": 280,
+   "r": 140,
+   "start": 0.1,
+   "end": 2.2,
+   "shadow": 0.3,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "HELLO, I AM",
+   "font": "medium_italic",
+   "size": 38,
+   "x": 1120,
+   "y": 420,
+   "color": [
+    0.96,
+    0.25,
+    0.37
+   ],
+   "start": 0.2,
+   "end": 2.2,
+   "in": {
+    "anim": "blur",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "ALEX RIVERA",
+   "font": "bold_italic",
+   "size": 110,
+   "x": 1120,
+   "y": 520,
+   "color": [
+    0.06,
+    0.09,
+    0.16
+   ],
+   "start": 0.4,
+   "end": 2.2,
+   "in": {
+    "anim": "rise",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "text",
+   "text": "Creative Technologist",
+   "font": "medium_italic",
+   "size": 44,
+   "x": 1120,
+   "y": 620,
+   "color": [
+    0.2,
+    0.25,
+    0.35
+   ],
+   "start": 0.6,
+   "end": 2.2,
+   "in": {
+    "anim": "fade",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.35
+   }
+  },
+  {
+   "type": "transition",
+   "style": "glitch",
+   "direction": "right",
+   "color": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "start": 1.8,
+   "end": 2.3
+  },
+  {
+   "type": "grid",
+   "kind": "dots",
+   "spacing": 60,
+   "color": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "fill_opacity": 0.15,
+   "start": 2.0,
+   "end": 6.0
+  },
+  {
+   "type": "progress",
+   "kind": "ring",
+   "x": 540,
+   "y": 540,
+   "w": 320,
+   "h": 320,
+   "color": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "track": [
+    0.1,
+    0.15,
+    0.25
+   ],
+   "grow": {
+    "start": 2.2,
+    "dur": 1.2
+   },
+   "start": 2.0,
+   "end": 4.2,
+   "in": "pop",
+   "out": "fade"
+  },
+  {
+   "type": "text",
+   "text": "{n}+",
+   "font": "bold_italic",
+   "size": 100,
+   "x": 540,
+   "y": 510,
+   "color": [
+    0.97,
+    0.98,
+    0.99
+   ],
+   "count": {
+    "from": 0,
+    "to": 8,
+    "dur": 1.4,
+    "format": "{:d}"
+   },
+   "start": 2.1,
+   "end": 4.2,
+   "in": "fade",
+   "out": "fade"
+  },
+  {
+   "type": "text",
+   "text": "YEARS EXP.",
+   "font": "medium_italic",
+   "size": 30,
+   "x": 540,
+   "y": 590,
+   "color": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "start": 2.3,
+   "end": 4.2,
+   "in": "fade",
+   "out": "fade"
+  },
+  {
+   "type": "text",
+   "text": "Core Expertise",
+   "font": "bold_italic",
+   "size": 60,
+   "x": 1220,
+   "y": 330,
+   "color": [
+    0.97,
+    0.98,
+    0.99
+   ],
+   "start": 2.2,
+   "end": 4.2,
+   "in": {
+    "anim": "slide_right",
+    "dur": 0.5
+   },
+   "out": "fade"
+  },
+  {
+   "type": "chip",
+   "emoji": "🎨",
+   "label": "Motion Graphics",
+   "x": 1080,
+   "y": 460,
+   "scale": 1.0,
+   "rot": -3,
+   "start": 2.4,
+   "end": 4.2,
+   "in": "pop",
+   "out": "fade"
+  },
+  {
+   "type": "chip",
+   "emoji": "💻",
+   "label": "UI/UX Design",
+   "x": 1420,
+   "y": 460,
+   "scale": 1.0,
+   "rot": 3,
+   "start": 2.55,
+   "end": 4.2,
+   "in": "pop",
+   "out": "fade"
+  },
+  {
+   "type": "chip",
+   "emoji": "⚡",
+   "label": "3D Dev",
+   "x": 1250,
+   "y": 580,
+   "scale": 1.0,
+   "rot": -2,
+   "start": 2.7,
+   "end": 4.2,
+   "in": "pop",
+   "out": "fade"
+  },
+  {
+   "type": "transition",
+   "style": "flash",
+   "direction": "up",
+   "color": [
+    0.96,
+    0.25,
+    0.37
+   ],
+   "start": 3.9,
+   "end": 4.4
+  },
+  {
+   "type": "blob",
+   "x": 960,
+   "y": 520,
+   "r": 480,
+   "color": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "color2": [
+    0.96,
+    0.25,
+    0.37
+   ],
+   "fill_opacity": 0.28,
+   "softness": 0.9,
+   "start": 4.2,
+   "end": 6.0
+  },
+  {
+   "type": "rrect",
+   "w": 1100,
+   "h": 260,
+   "x": 960,
+   "y": 480,
+   "r": 28,
+   "fill": [
+    0.06,
+    0.09,
+    0.16
+   ],
+   "fill_opacity": 0.88,
+   "border": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "border_opacity": 0.5,
+   "border_w": 2,
+   "shadow": 0.4,
+   "start": 4.2,
+   "end": 6.0,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "circle",
+   "x": 450,
+   "y": 380,
+   "r": 9,
+   "fill": [
+    0.96,
+    0.25,
+    0.37
+   ],
+   "start": 4.3,
+   "end": 6.0,
+   "in": "fade"
+  },
+  {
+   "type": "circle",
+   "x": 480,
+   "y": 380,
+   "r": 9,
+   "fill": [
+    0.95,
+    0.75,
+    0.2
+   ],
+   "start": 4.35,
+   "end": 6.0,
+   "in": "fade"
+  },
+  {
+   "type": "circle",
+   "x": 510,
+   "y": 380,
+   "r": 9,
+   "fill": [
+    0.2,
+    0.8,
+    0.4
+   ],
+   "start": 4.4,
+   "end": 6.0,
+   "in": "fade"
+  },
+  {
+   "type": "text",
+   "text": "> lets_work_together()",
+   "font": "medium_italic",
+   "size": 48,
+   "anchor": "l",
+   "x": 450,
+   "y": 465,
+   "color": [
+    0.97,
+    0.98,
+    0.99
+   ],
+   "reveal": {
+    "mode": "chars",
+    "step": 0.04
+   },
+   "start": 4.4,
+   "end": 6.0
+  },
+  {
+   "type": "text",
+   "text": "@alexrivera_dev",
+   "font": "bold_italic",
+   "size": 40,
+   "anchor": "l",
+   "x": 450,
+   "y": 540,
+   "color": [
+    0.22,
+    0.74,
+    0.97
+   ],
+   "start": 4.8,
+   "end": 6.0,
+   "in": "fade"
+  },
+  {
+   "type": "icon",
+   "name": "arrow_up",
+   "size": 52,
+   "x": 1440,
+   "y": 480,
+   "color": [
+    0.96,
+    0.25,
+    0.37
+   ],
+   "start": 4.7,
+   "end": 6.0,
+   "in": "pop",
+   "keys": {
+    "angle": [
+     [
+      4.7,
+      0
+     ],
+     [
+      5.2,
+      45
+     ]
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "text": "Available for new projects",
+   "font": "bold_italic",
+   "size": 54,
+   "x": 960,
+   "y": 780,
+   "start": 4.8,
+   "end": 6.0,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   },
+   "gradient": {
+    "from": [
+     0.22,
+     0.74,
+     0.97
+    ],
+    "to": [
+     0.96,
+     0.25,
+     0.37
+    ]
+   }
+  }
+ ]
+}
