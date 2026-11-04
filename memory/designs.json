@@ -324,5 +324,81 @@
    "nearest": "d-20261104-0941-a75d",
    "similarity": 0.657
   }
+ },
+ {
+  "id": "d-20261104-1950-4eb6",
+  "date": "2026-11-04T19:50:46Z",
+  "prompt": "make video on this \"In a world where technology evolves every second, artificial intelligence is transforming the way we think, create, and imagine. From futuristic machines to intelligent robots, the boundaries between reality and science fiction are disappearing. The future is no longer a distant dream; it is being built right now.\"",
+  "summary": {
+   "backgrounds": [
+    "dark_aurora",
+    "neon_night"
+   ],
+   "entrance_anims": {
+    "fade": 4,
+    "slide_down": 2,
+    "rise": 2,
+    "tilt": 1,
+    "spin": 1,
+    "pop": 1,
+    "wipe_right": 1
+   },
+   "layer_types": {
+    "text": 9,
+    "particles": 2,
+    "blob": 2,
+    "grid": 1,
+    "rrect": 1,
+    "transition": 1,
+    "progress": 1,
+    "line": 1
+   },
+   "kinds": [
+    "ring"
+   ],
+   "transitions": [
+    "stripes"
+   ],
+   "camera": true,
+   "headlines": [
+    "SCIENCE FICTION",
+    "IS NOW REALITY",
+    "THE FUTURE IS",
+    "BEING BUILT NOW"
+   ],
+   "layers": 18,
+   "duration": 6,
+   "size": "16:9"
+  },
+  "review_score": null,
+  "qa_errors": 0,
+  "qa_warnings": 0,
+  "rating": null,
+  "notes": [],
+  "size": "16:9",
+  "assets": 0,
+  "remix": {
+   "sources": [
+    "doc-15-big-stat",
+    "doc-48-chapter-opener",
+    "doc-63-glitch-transition"
+   ],
+   "backgrounds": [
+    "ocean",
+    "dark_aurora"
+   ],
+   "transitions": [
+    "iris",
+    "stripes"
+   ]
+  },
+  "plan": {
+   "concept": "A cinematic high-tech showcase revealing how AI merges science fiction into immediate reality.",
+   "signature": "Macro zoom-out reveal from glowing grid nodes into a bold futuristic statement layout with dynamic scanning lines."
+  },
+  "originality": {
+   "nearest": "doc-01-title-hero",
+   "similarity": 0.69
+  }
  }
 ]

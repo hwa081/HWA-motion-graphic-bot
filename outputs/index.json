@@ -1,5 +1,28 @@
 [
  {
+  "id": "jmw2i090o5ze",
+  "job": "jmw2i090o5ze",
+  "kind": "video",
+  "title": "make video on this \"In a world where technology evolves every second, artificial intellige",
+  "prompt": "make video on this \"In a world where technology evolves every second, artificial intelligence is transforming the way we think, create, and imagine. From futuristic machines to intelligent robots, the boundaries between reality and science fiction are disappearing. The future is no longer a distant dream; it is being built right now.\"",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "6",
+  "ai": "gemini",
+  "date": "2026-11-04T19:50:58Z",
+  "ok": true,
+  "trashed": false,
+  "project": "default",
+  "quality": "draft",
+  "formats": "none",
+  "video": "outputs/jmw2i090o5ze/video.mp4",
+  "video_name": "AI_The_Future_Is_Being_Built_Now_with_sound.mp4",
+  "poster": "outputs/jmw2i090o5ze/poster.jpg",
+  "spec": "outputs/jmw2i090o5ze/spec.json",
+  "report": "outputs/jmw2i090o5ze/report.md",
+  "design_id": "d-20261104-1950-4eb6"
+ },
+ {
   "id": "jmw243vbs071",
   "job": "jmw243vbs071",
   "kind": "report",
