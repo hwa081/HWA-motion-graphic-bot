@@ -1,5 +1,20 @@
 [
  {
+  "id": "jmw13p1ffng7",
+  "job": "jmw13p1ffng7",
+  "kind": "report",
+  "title": "checks",
+  "prompt": "",
+  "mode": "checks",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-04T05:13:39Z",
+  "ok": true,
+  "trashed": false,
+  "report": "outputs/jmw13p1ffng7/report.md"
+ },
+ {
   "id": "jmw13my3ske3",
   "job": "jmw13my3ske3",
   "kind": "report",
