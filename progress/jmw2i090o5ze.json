@@ -1,1 +1,1 @@
-{"job": "jmw2i090o5ze", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 3, "pct": 38, "detail": "Automatic quality check", "frames": null, "eta": null, "elapsed": 1084, "updated": 1793820941, "done": false}
+{"job": "jmw2i090o5ze", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 3, "pct": 50.0, "detail": "AI looks at a preview and improves it (round 1)", "frames": null, "eta": null, "elapsed": 1089, "updated": 1793820947, "done": false}
