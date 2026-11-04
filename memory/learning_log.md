@@ -34,3 +34,7 @@ Design: backgrounds light_pastel, dark_aurora; entrances fade, pop, zoom, blur, 
 What was wrong at first: Text overlap: at 2.9s "Motion Graphics" (layer 10) and "UI/UX Design" (layer 11) cover each other. Move one (e
 Fixed by the bot: -
 Still open: Text overlap: at 2.9s "Motion Graphics" (layer 10) and "UI/UX Design" (layer 11) cover each other. Move one (e
+
+## 2026-11-04T12:59:51Z - feedback on d-20261104-1244-dd69
+Rating: 2/5. Note: keyframes smoth nahi
+Lessons stored: User feedback: keyframes smoth nahi

@@ -292,8 +292,13 @@
   "review_score": null,
   "qa_errors": 1,
   "qa_warnings": 0,
-  "rating": null,
-  "notes": [],
+  "rating": 2,
+  "notes": [
+   {
+    "date": "2026-11-04T12:48:35Z",
+    "note": "keyframes smoth nahi"
+   }
+  ],
   "size": "16:9",
   "assets": 0,
   "remix": {
