@@ -90,6 +90,10 @@
     if (!r.ok) throw new Error(errText(r));
     return r.text;
   };
+  G.readRef = async function (path, ref) {      // a file on another branch (live progress lives on "bot-progress")
+    const r = await req('GET', repoPath('/contents/' + path.split('/').map(encodeURIComponent).join('/') + '?ref=' + encodeURIComponent(ref)), undefined, { Accept: 'application/vnd.github.raw+json' });
+    return r.ok ? r.text : null;
+  };
   G.rawUrl = path => { const c = G.cfg(); return 'https://raw.githubusercontent.com/' + c.repo + '/' + G.branch() + '/' + path.split('/').map(encodeURIComponent).join('/'); };
   G.putFile = async function (path, b64, message) {
     const p = '/contents/' + path.split('/').map(encodeURIComponent).join('/');

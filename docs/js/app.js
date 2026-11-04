@@ -15,9 +15,9 @@
     $, $$, store, esc,
     state: {
       view: 'media', filter: 'all', query: '', media: [], jobs: [],
-      cfg: Object.assign({ mode: 'ai', input: 'ingredients', size: '16:9', dur: 8, n: 1, model: 'gemini', review: true, sound: true }, store.get('composer', {})),
+      cfg: Object.assign({ mode: 'ai', input: 'ingredients', size: '16:9', dur: 8, n: 1, model: 'gemini', review: true, sound: true, quality: 'draft', formats: [] }, store.get('composer', {})),
       attach: [],           // {file, kind:'image'|'video', url}
-      libTab: 'designs'
+      libTab: 'designs', project: store.get('project', 'default')
     },
     hooks: {}             // onSend, renderSettings, renderLibrary, renderTools, onOpen, refresh
   };
@@ -41,6 +41,7 @@
     if (view === 'settings' && S.hooks.renderSettings) S.hooks.renderSettings();
     if (view === 'library' && S.hooks.renderLibrary) S.hooks.renderLibrary();
     if (view === 'tools' && S.hooks.renderTools) S.hooks.renderTools();
+    if (view === 'activity' && S.hooks.renderActivity) S.hooks.renderActivity();
     document.getElementById('app').classList.remove('showside');
   };
 
@@ -50,20 +51,43 @@
   S.items = function () {
     const q = st.query.trim().toLowerCase();
     let all = st.jobs.map(j => Object.assign({ kind: 'job' }, j)).concat(st.media.filter(m => m.kind !== 'report'));
+    if (st.project && st.project !== '*') all = all.filter(m => (m.project || 'default') === st.project);
+    const replaced = new Set(st.media.filter(m => m.parent && !m.trashed).map(m => m.parent));
+    all = all.filter(m => !(m.kind === 'video' && replaced.has(m.id)));
     if (st.filter === 'trash') all = all.filter(m => m.trashed);
     else all = all.filter(m => !m.trashed);
     if (st.filter === 'video') all = all.filter(m => m.kind === 'video' || m.kind === 'job');
-    if (st.filter === 'image') all = all.filter(m => m.kind === 'image');
-    if (st.filter === 'scene') all = all.filter(m => m.kind === 'video' && m.scenes);
+    if (st.filter === 'draft') all = all.filter(m => m.kind === 'video' && m.quality === 'draft');
+    if (st.filter === 'long') all = all.filter(m => m.kind === 'video' && m.long);
     if (q) all = all.filter(m => (m.title || '').toLowerCase().includes(q) || (m.prompt || '').toLowerCase().includes(q));
     return all;
   };
+  const fmtEta = s => s == null ? '' : (s >= 90 ? Math.round(s / 60) + ' min' : Math.max(1, Math.round(s)) + ' s') + ' left';
+  function jobHtml(m) {
+    const label = esc(m.label || (m.failed ? 'Failed' : 'Working'));
+    const pr = m.prog;
+    if (!m.failed && pr && typeof pr.pct === 'number') {
+      const stages = pr.stages || [], cur = Math.min(stages.length - 1, pr.stage || 0);
+      const frames = pr.frames && pr.frames[1] && !String(pr.detail || '').includes(pr.frames[1]) ? ` · ${pr.frames[0]}/${pr.frames[1]} frames` : '';
+      return `<div class="pct">${Math.round(pr.pct)}%</div><div class="bar"><i style="width:${Math.max(2, Math.min(100, pr.pct))}%"></i></div>
+        <div class="stg">${esc(stages[cur] || label)} <span>(${cur + 1}/${stages.length})</span></div>
+        <div class="st">${esc(pr.detail || m.detail || '')}${esc(frames)}</div>
+        <div class="eta">${esc(fmtEta(pr.eta))}${pr.eta == null && pr.elapsed ? esc(Math.round(pr.elapsed / 60 * 10) / 10 + ' min so far') : ''}</div>`;
+    }
+    if (m.failed) {
+      const resumable = m.canResume;
+      return `<div class="failmark">!</div><div>${label}</div><div class="st">${esc(m.detail || '')}</div>
+        <div class="jobbtns"><button class="jb primary" data-act="continue" data-job="${esc(m.jobId)}">${resumable ? 'Continue' : 'Try again'}</button>${m.runUrl ? `<button class="jb" data-act="log" data-job="${esc(m.jobId)}">Log</button>` : ''}<button class="jb" data-act="remove" data-job="${esc(m.jobId)}">Remove</button></div>`;
+    }
+    return `<div class="spin"></div><div>${label}</div><div class="st">${esc(m.detail || '')}</div>`;
+  }
+  S.jobHtml = jobHtml;
   S.renderGrid = function () {
     const g = $('#grid'); const items = S.items();
     g.innerHTML = items.map((m, i) => {
       const sc = sizeClass(m.size);
       if (m.kind === 'job') {
-        return `<div class="tile busy ${sc} ${m.failed ? 'fail' : ''}" data-i="${i}"><div><div class="spin"></div><div>${esc(m.label || (m.failed ? 'Failed' : 'Working'))}</div><div class="st">${esc(m.detail || '')}</div></div></div>`;
+        return `<div class="tile busy ${sc} ${m.failed ? 'fail' : ''}" data-i="${i}"><div class="jobbox">${jobHtml(m)}</div></div>`;
       }
       const poster = m.poster ? `<img loading="lazy" src="${esc(m.poster)}" alt="">` : '<div class="ph"></div>';
       const badge = m.kind === 'video' ? `<span class="play">${PLAY}</span><span class="tag">${esc(m.size || '')} · ${esc(m.dur || '')}s</span>` : `<span class="tag">${esc(m.size || 'image')}</span>`;
@@ -74,8 +98,17 @@
     if (empty) {
       const conn = S.hooks.connected && S.hooks.connected();
       $('#emptySub').innerHTML = conn ? 'Type what you want to create in the bar below.' : 'Open <b>Settings</b> to connect GitHub and add your API keys, then type what you want to create below.';
+      const ideas = [
+        ['YouTube intro, 8 s', 'A punchy 8 second YouTube channel intro: bold kinetic typography, neon glow, quick logo reveal at the end', { dur: 8, size: '16:9' }],
+        ['Shorts / Reels hook, 10 s', 'A vertical 10 second hook for Shorts: one big claim, three animated stat counters, strong final call to action', { dur: 10, size: '9:16' }],
+        ['Product promo, 30 s', 'A 30 second product promo for a smart watch: hero shot, three feature cards, price reveal, clean modern light theme', { dur: 30, size: '16:9' }],
+        ['Explainer, 1 min', 'A 1 minute explainer: how solar panels turn sunlight into electricity, simple diagrams, step by step', { dur: 60, size: '16:9' }],
+        ['Documentary, 5 min', 'A 5 minute calm documentary about the deep ocean: five chapters, big titles, slow camera moves, facts as animated cards', { dur: 300, size: '16:9' }]
+      ];
+      $('#ideas').innerHTML = '<div class="ideas-h">Ideas to start with</div>' + ideas.map((x, i) => `<button class="idea" data-i="${i}">${esc(x[0])}</button>`).join('');
+      $$('#ideas .idea').forEach(b => b.onclick = () => { const x = ideas[+b.dataset.i]; Object.assign(st.cfg, x[2], { mode: 'ai' }); save(); $('#prompt').value = x[1]; syncSend(); $('#prompt').focus(); });
     }
-    $$('.tile', g).forEach(t => t.onclick = () => { const m = items[+t.dataset.i]; if (m && m.kind !== 'job') S.openViewer(m); else if (m && m.failed && S.hooks.onJobClick) S.hooks.onJobClick(m); });
+    $$('.tile', g).forEach(t => t.onclick = e => { const jb = e.target.closest('.jb'); if (jb) { e.stopPropagation(); if (S.hooks.onJobAction) S.hooks.onJobAction(jb.dataset.job, jb.dataset.act); return; } const m = items[+t.dataset.i]; if (m && m.kind !== 'job') S.openViewer(m); });
   };
 
   /* ---------------- viewer ---------------- */
@@ -84,19 +117,38 @@
     cur = m; stars = 0;
     $('#vMedia').innerHTML = m.kind === 'report' ? '<pre style="width:100%;max-height:76vh;margin:0">Loading…</pre>' : m.kind === 'video' ? `<video src="${esc(m.url)}" controls autoplay loop playsinline poster="${esc(m.poster || '')}"></video>` : `<img src="${esc(m.url || m.poster)}" alt="">`;
     $('#vTitle').textContent = m.prompt || m.title || '';
-    $('#vMeta').textContent = [m.size, m.dur ? m.dur + 's' : '', m.mode, m.date ? new Date(m.date).toLocaleString() : ''].filter(Boolean).join(' · ');
+    $('#vMeta').textContent = [m.quality === 'draft' ? 'DRAFT' : '', m.size, m.dur ? m.dur + 's' : '', m.mode, m.date ? new Date(m.date).toLocaleString() : ''].filter(Boolean).join(' · ');
+    const vf = $('#vFiles'); vf.innerHTML = '';
+    if (m.kind === 'video') {
+      const files = m.files || [];
+      if (files.length) {
+        vf.innerHTML = '<div class="vf-h">Files</div>';
+        files.forEach(f => { const b = document.createElement('button'); b.className = 'btn small'; b.textContent = f.name.replace(/^.*\./, '.') + ' · ' + f.name + ' · ' + (f.size > 1e6 ? (f.size / 1e6).toFixed(1) + ' MB' : Math.max(1, Math.round(f.size / 1e3)) + ' KB'); b.onclick = () => S.download(S.hooks.rawUrl ? S.hooks.rawUrl(f.path) : f.path, f.name); vf.appendChild(b); });
+      }
+      const heavy = String(m.formats || '').split(',').filter(x => ['wfp', 'fcpxml', 'xml'].includes(x.trim()));
+      if (m.quality === 'draft' && heavy.length) { const n = document.createElement('div'); n.className = 'vf-note'; n.textContent = 'Editor files (' + heavy.join(', ') + ') are made when you press "Make final".'; vf.appendChild(n); }
+      else if (heavy.length && (m.files || []).some(f => /\.(wfp|xml|fcpxml)$/.test(f.name)) && m.video_name) { const n = document.createElement('div'); n.className = 'vf-note'; n.textContent = 'Put ' + m.video_name + ' (Download video) in your media folder, then open the project file.'; vf.appendChild(n); }
+    }
     $('#vNote').value = ''; renderStars(); $('#vReport').textContent = 'Loading…';
     const a = $('#vActions'); a.innerHTML = '';
     const mk = (label, fn, cls) => { const b = document.createElement('button'); b.className = 'btn ' + (cls || ''); b.textContent = label; b.onclick = fn; a.appendChild(b); };
     $('.v-rate').style.display = m.kind === 'report' ? 'none' : '';
     if (m.kind === 'report') { /* text result: no media actions */ } else {
-    if (m.url) mk('Download', () => { const l = document.createElement('a'); l.href = m.url; l.download = (m.id || 'video') + '.mp4'; l.target = '_blank'; l.click(); }, 'primary');
+    if (m.url) mk('Download video', () => S.download(m.url, m.video_name || ((m.id || 'video') + '.mp4')), 'primary');
+    if (S.hooks.viewerExtra) S.hooks.viewerExtra(m, mk);
     mk('Use as reference', () => { if (S.hooks.useAsReference) S.hooks.useAsReference(m); });
     mk('Make a variation', () => { $('#prompt').value = m.prompt || ''; syncSend(); S.closeViewer(); $('#prompt').focus(); });
     mk(m.trashed ? 'Restore' : 'Move to trash', () => { if (S.hooks.trash) S.hooks.trash(m, !m.trashed); S.closeViewer(); }, 'danger');
     }
     $('#viewer').hidden = false;
     if (S.hooks.onOpen) S.hooks.onOpen(m);
+  };
+  S.download = async function (url, name) {
+    try {
+      const r = await fetch(url); if (!r.ok) throw new Error('HTTP ' + r.status);
+      const b = await r.blob(); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name || 'file'; document.body.appendChild(a); a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+    } catch (e) { window.open(url, '_blank', 'noopener'); }
   };
   S.closeViewer = function () { $('#viewer').hidden = true; $('#vMedia').innerHTML = ''; cur = null; };
   function renderStars() {
@@ -108,12 +160,17 @@
   /* ---------------- composer ---------------- */
   function summary() {
     const c = st.cfg;
-    $('#chipSummary').textContent = `${c.mode === 'code' ? 'Code' : 'Video'} · ${c.size} · ${c.dur}s · x${c.n}`;
+    const dl = c.dur >= 60 ? (c.dur % 60 ? Math.floor(c.dur / 60) + 'm' + (c.dur % 60) + 's' : (c.dur / 60) + ' min') : c.dur + 's';
+    $('#chipSummary').textContent = `${c.mode === 'code' ? 'Code' : (c.dur > 60 ? 'Long video' : 'Video')} · ${c.size} · ${dl} · x${c.n}`;
     S.estimate();
   }
   S.estimate = function () {
     const c = st.cfg; let req = c.mode === 'code' ? 22 : (c.review ? 6 : 4);
     if (st.attach.some(a => a.kind === 'video')) req += 1;
+    if (c.mode !== 'code' && c.dur > 60) {
+      const parts = Math.ceil(c.dur / 30); req = parts * 3 + 2;
+      $('#cost').textContent = `Long video: about ${parts} parts, ~${req * c.n} AI requests. If the free quota ends, press Continue later - finished parts are saved.`; return;
+    }
     $('#cost').textContent = `Generating will use about ${req * c.n} AI request${req * c.n > 1 ? 's' : ''} (${c.n} run${c.n > 1 ? 's' : ''})`;
   };
   function syncSeg() {
@@ -121,10 +178,14 @@
     $$('#segMode button').forEach(b => b.classList.toggle('on', b.dataset.mode === c.mode));
     $$('#segInput button').forEach(b => b.classList.toggle('on', b.dataset.input === c.input));
     $$('#segSize button, #segSize2 button').forEach(b => b.classList.toggle('on', b.dataset.size === c.size));
-    $$('#segDur button').forEach(b => b.classList.toggle('on', +b.dataset.dur === c.dur));
+    $$('#segDur button, #segDur2 button').forEach(b => b.classList.toggle('on', +b.dataset.dur === c.dur));
     $$('#segCount button').forEach(b => b.classList.toggle('on', +b.dataset.n === c.n));
     $('#optReview').checked = !!c.review; $('#optSound').checked = !!c.sound;
-    $('#durCustom').value = [4, 6, 8, 10].includes(c.dur) ? '' : c.dur;
+    $$('#fmtRow .fchip[data-f]').forEach(b => b.classList.toggle('on', (c.formats || []).includes(b.dataset.f)));
+    const q = c.mode === 'code' ? 'final' : (c.quality || 'draft');
+    $$('#qual button').forEach(b => { b.classList.toggle('on', b.dataset.q === q); b.disabled = c.mode === 'code' && b.dataset.q === 'draft'; });
+    $('#qual').title = c.mode === 'code' ? 'Code Studio always makes the full-quality video' : 'Draft = fast small preview (half size). Final = full quality + the editor files.';
+    $('#durCustom').value = [4, 6, 8, 10, 30, 60, 180, 300].includes(c.dur) ? '' : c.dur;
     summary();
   }
   function save() { store.set('composer', st.cfg); syncSeg(); }
@@ -161,10 +222,9 @@
     $$('#nav .nav-item[data-view], .side-bottom .nav-item[data-view], .top-right [data-view]').forEach(b => b.onclick = () => S.show(b.dataset.view, b.dataset.filter));
     $('#btnHome').onclick = () => S.show('media', 'all');
     $('#btnCollapse').onclick = () => $('#app').classList.toggle('collapsed');
-    $('#btnProjMenu').onclick = () => S.toast('Project: ' + $('#projName').textContent);
     $('#btnRefresh').onclick = () => { if (S.hooks.refresh) S.hooks.refresh(true); };
     $('#btnHelp').onclick = () => S.toast('Settings → connect GitHub → add keys → type a prompt below.');
-    $('#btnFilter').onclick = () => { const order = ['all', 'video', 'image']; S.show('media', order[(order.indexOf(st.filter) + 1) % 3]); S.toast('Showing: ' + st.filter); };
+    $('#btnFilter').onclick = () => { const order = ['all', 'video', 'draft', 'long']; S.show('media', order[(order.indexOf(st.filter) + 1) % order.length]); S.toast('Showing: ' + st.filter); };
     $('#search').oninput = e => { st.query = e.target.value; if (st.view !== 'media') S.show('media'); else S.renderGrid(); };
     // viewer
     $('#vClose').onclick = S.closeViewer;
@@ -184,10 +244,12 @@
     $$('#segMode button').forEach(b => b.onclick = () => { st.cfg.mode = b.dataset.mode; $('#chipAgent').classList.toggle('on', st.cfg.mode === 'code'); save(); });
     $$('#segInput button').forEach(b => b.onclick = () => { st.cfg.input = b.dataset.input; save(); $('#fileIn').accept = b.dataset.input === 'reference' ? 'video/mp4,video/webm,video/quicktime' : 'image/*'; $('#fileIn').click(); });
     $$('#segSize button, #segSize2 button').forEach(b => b.onclick = () => { st.cfg.size = b.dataset.size; save(); });
-    $$('#segDur button').forEach(b => b.onclick = () => { st.cfg.dur = +b.dataset.dur; save(); });
+    $$('#segDur button, #segDur2 button').forEach(b => b.onclick = () => { st.cfg.dur = +b.dataset.dur; save(); });
     $$('#segCount button').forEach(b => b.onclick = () => { st.cfg.n = +b.dataset.n; save(); });
-    $('#durCustom').onchange = e => { const v = parseFloat(e.target.value); if (v >= 3 && v <= 60) { st.cfg.dur = v; save(); } else if (e.target.value) S.toast('Length must be 3 to 60 seconds', true); };
+    $('#durCustom').onchange = e => { const v = parseFloat(e.target.value); if (v >= 3 && v <= 600) { st.cfg.dur = v; save(); } else if (e.target.value) S.toast('Length must be 3 to 600 seconds (10 minutes)', true); };
     $('#selModel').onchange = e => { st.cfg.model = e.target.value; save(); };
+    $$('#fmtRow .fchip[data-f]').forEach(b => b.onclick = () => { const f = b.dataset.f, a = st.cfg.formats || []; st.cfg.formats = a.includes(f) ? a.filter(x => x !== f) : a.concat(f); save(); });
+    $$('#qual button').forEach(b => b.onclick = () => { st.cfg.quality = b.dataset.q; save(); });
     $('#optReview').onchange = e => { st.cfg.review = e.target.checked; save(); };
     $('#optSound').onchange = e => { st.cfg.sound = e.target.checked; save(); };
     $('#btnAttach').onclick = () => { $('#fileIn').accept = 'image/*,video/mp4,video/webm,video/quicktime'; $('#fileIn').click(); };
@@ -209,7 +271,6 @@
   S.init = function () {
     wire(); S.setModels([{ id: 'gemini', label: 'Gemini' }]); syncSeg(); syncSend();
     $('#chipAgent').classList.toggle('on', st.cfg.mode === 'code');
-    $('#projName').textContent = new Date().toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }) + ' - ' + new Date().toTimeString().slice(0, 5);
     const q = new URLSearchParams(location.search);
     if (q.has('demo')) S.loadDemo();
     S.show('media', 'all');
