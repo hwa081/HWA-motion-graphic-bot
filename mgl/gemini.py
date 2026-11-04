@@ -121,9 +121,17 @@ def generate(key, model, system, contents, json_mode=True, temperature=0.8, max_
     raise ex
 
 
-def ask(key, models, system, contents, json_mode=True, temperature=0.8, log=print, max_wait=90):
-    """try each model (with patient retries on rate limits) until one answers"""
-    problems = []
+TRANSIENT = (None, 408, 425, 429, 500, 502, 503, 504)      # None = network error: worth waiting for
+
+
+def _patience():
+    try: return max(0.0, float(os.environ.get('AI_PATIENCE_MIN', '12') or 12)) * 60.0
+    except ValueError: return 720.0
+
+
+def ask_once(key, models, system, contents, json_mode=True, temperature=0.8, log=print, max_wait=90):
+    """try each model (with a few retries on rate limits) until one answers. Raises GeminiError; .transient = every failure was a wait-and-retry kind"""
+    problems, transient = [], True
     for model in models:
         for attempt in range(3):
             try:
@@ -133,15 +141,36 @@ def ask(key, models, system, contents, json_mode=True, temperature=0.8, log=prin
             except GeminiError as ex:
                 st = getattr(ex, 'status', None)
                 problems.append('%s: %s' % (model, ex))
-                if st in (429, 500, 502, 503, 504) and attempt < 2:
-                    wait = min(max_wait, ex.retry_after or (8 * (attempt + 1)))
-                    log('     %s - waiting %.0fs then retrying' % (st, wait))
+                if st in TRANSIENT and attempt < 2:
+                    wait = min(max_wait, ex.retry_after or (8 * (attempt + 1)) if st is not None else 6 * (attempt + 1))
+                    log('     %s - waiting %.0fs then retrying' % (st or 'network problem', wait))
                     time.sleep(wait)
                     continue
                 if st in (401,) or (st == 400 and 'api key' in str(ex).lower()):
-                    raise GeminiError('API key rejected: %s' % ex)
+                    e2 = GeminiError('API key rejected: %s' % ex); e2.transient = False; raise e2
+                if st not in TRANSIENT: transient = False
                 break   # next model
-    raise GeminiError('all models failed:\n  ' + '\n  '.join(problems[-8:]))
+    e = GeminiError('all models failed:\n  ' + '\n  '.join(problems[-8:]))
+    e.transient = transient
+    raise e
+
+
+def ask(key, models, system, contents, json_mode=True, temperature=0.8, log=print, max_wait=90, patience=None):
+    """like ask_once, but when every model is only busy / rate limited / unreachable it keeps waiting (up to AI_PATIENCE_MIN minutes, default 12)
+    instead of failing: a slow video is better than a failed one."""
+    patience = _patience() if patience is None else patience
+    t0, rnd = time.time(), 0
+    while True:
+        try:
+            return ask_once(key, models, system, contents, json_mode, temperature, log, max_wait)
+        except GeminiError as ex:
+            left = patience - (time.time() - t0)
+            if not getattr(ex, 'transient', False) or left <= 5:
+                raise
+            rnd += 1
+            wait = min(left, 30 * rnd, 150)
+            log('     the AI is busy or unreachable - waiting %.0fs, then trying again (%.0f min of patience left)' % (wait, left / 60))
+            time.sleep(wait)
 
 
 def extract_json(text):

@@ -6,7 +6,8 @@ Gemini stays the default (it has its own client in mgl.gemini). On top of it, AN
     GEMINI_API_KEY            secret
     AI_PROVIDERS              variable, JSON list [{"id","name","base_url","model"}]   (no keys inside)
     AI_KEY_<ID>               secret per provider (id upper-cased, non letters/digits -> _)
-    AI_ALL_SECRETS            all secrets as JSON (workflow toJSON(secrets)); only the AI_KEY_* entries are used and the variable is removed at once
+    AI_KEY_AI1 .. AI_KEY_AI8  the 8 slots the workflow passes explicitly (no toJSON(secrets): GitHub flags that as malicious).
+    AI_ALL_SECRETS            optional, old style: all secrets as JSON; only AI_KEY_* entries are used
     AI_PROVIDER / AI          which one first (run input "ai" wins over the variable)
     AI_FALLBACK               "false" = never switch to another AI when the chosen one fails
 

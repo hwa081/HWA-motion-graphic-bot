@@ -1,3 +1,4 @@
+import json
 """mgl.spec - turns a JSON scene description into frames.
 
 Public API:
@@ -670,3 +671,44 @@ def render_frame(spec, t, ctx):
         except Exception as ex:   # never kill the whole render because of one layer
             ctx.warn('layers[%d] (%s) failed: %s: %s' % (i, L.get('type'), type(ex).__name__, ex))
     return (np.clip(f, 0, 1) * 255 + 0.5).astype(np.uint8)
+
+
+# ------------------------------------------------------------------ never fail: repair or replace
+def salvage(spec, root='.'):
+    """Repair what can be repaired: drop layers that do not validate, reset a bad background / camera / fps / size.
+    -> (spec, notes) or (None, notes) when nothing usable is left."""
+    notes = []
+    if not isinstance(spec, dict): return None, ['not an object']
+    sp = json.loads(json.dumps(spec))
+    if not _isnum(sp.get('duration')) or not (0.5 <= sp['duration'] <= MAX_DURATION): sp['duration'] = 8.0; notes.append('duration reset')
+    if 'size' in sp and E.norm_size(sp['size']) is None: sp.pop('size'); notes.append('size removed')
+    if sp.get('fps', 30) not in (24, 25, 30, 60): sp.pop('fps', None); notes.append('fps removed')
+    bg = sp.get('background', 'dark_aurora')
+    if any((not isinstance(k, dict) or k.get('style') not in E.BG_STYLES or not _isnum(k.get('t', 0))) for k in _bg_keys_raw(bg)):
+        sp['background'] = 'dark_aurora'; notes.append('background reset')
+    errs, _ = validate(sp, root)
+    if any('camera' in e for e in errs): sp.pop('camera', None); notes.append('camera removed')
+    layers = sp.get('layers') if isinstance(sp.get('layers'), list) else []
+    layers = layers[:MAX_LAYERS]
+    keep = []
+    for i, L in enumerate(layers):
+        if _validate_layer(i, L, sp['duration'], root, []): notes.append('layer %d dropped' % i)
+        else: keep.append(L)
+    if not keep: return None, notes + ['no valid layer left']
+    sp['layers'] = keep
+    errs, _ = validate(sp, root)
+    if errs: return None, notes + errs[:3]
+    return sp, notes
+
+
+def fallback_spec(title, duration=8.0, size='16:9'):
+    """a simple, always valid title video (used only when the AI never produced a usable design)"""
+    W, H = E.SIZES[E.norm_size(size) or '16:9']
+    d = float(duration)
+    txt = re.sub(r'\s+', ' ', str(title or 'Video')).strip()[:60] or 'Video'
+    sp = {'title': txt, 'duration': d, 'size': E.norm_size(size) or '16:9', 'fps': 30, 'background': 'dark_aurora',
+          'layers': [{'type': 'particles', 'count': 60, 'color': [1, 1, 1], 'size': 3, 'speed': 0.9, 'seed': 5, 'start': 0, 'end': d},
+                     {'type': 'text', 'text': txt, 'x': W // 2, 'y': H // 2, 'size': 96 if W >= H else 80, 'color': '#FFFFFF', 'start': 0.3, 'end': d}]}
+    errs, _ = validate(sp, '.')
+    if errs: raise ValueError('fallback spec invalid: ' + '; '.join(errs[:3]))
+    return sp
