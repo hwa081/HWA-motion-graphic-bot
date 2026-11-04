@@ -1,1 +1,1 @@
-{"job": "jmw2i090o5ze", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 4, "pct": 66, "detail": "Rendering the video", "frames": null, "eta": null, "elapsed": 1990, "updated": 1793821847, "done": false}
+{"job": "jmw2i090o5ze", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 4, "pct": 79.0, "detail": "Rendering frames 45 / 90", "frames": [45, 90], "eta": 4, "elapsed": 1995, "updated": 1793821852, "done": false}
