@@ -501,6 +501,10 @@ def make_parser():
     ap.add_argument('--design-id', default='')
     ap.add_argument('--out', default='out')
     ap.add_argument('--formats', default=os.environ.get('FORMATS', 'wfp,fcpxml,xml'), help='wfp,fcpxml,xml,gif,webm,poster,frames,mp4-light | all | none')
+    ap.add_argument('--project', default=os.environ.get('PROJECT', ''), help='Studio page project id (only used to group the result)')
+    ap.add_argument('--quality', default=os.environ.get('QUALITY', 'final'), help='draft = fast small preview (half size, 15 fps, no editor files yet) | final')
+    ap.add_argument('--parent', default=os.environ.get('PARENT', ''), help='id of the draft this final video replaces')
+    ap.add_argument('--resume', default=os.environ.get('RESUME', 'auto'), help='auto = continue unfinished work of the same brief | off = start from zero')
     ap.add_argument('--media-dir', default=os.environ.get('MEDIA_DIR', ''), help='folder on your PC where the MP4 will be kept (used inside the project files)')
     ap.add_argument('--audio', default=os.environ.get('AUDIO', ''), help='music/voice file in the repo (mp3/wav/m4a) added under the video')
     ap.add_argument('--sound', default=os.environ.get('SOUND', 'kinetic'), help='generated sound from the plan: kinetic (typography SFX only, no music) | ui (UI / SaaS animation SFX, no music) | uplift | calm | tech (music + SFX) | none')
@@ -509,16 +513,62 @@ def make_parser():
     return ap
 
 
+LIGHT_FORMATS = ('srt', 'gif', 'poster')
+
+
+def apply_quality(a):
+    """draft: half size, 15 fps, fast encoder, and only the light formats now (the heavy ones are made when you press Final)"""
+    a.quality = (a.quality or 'final').strip().lower()
+    a.formats_wanted = a.formats
+    if a.mode not in ('ai', 'spec') or a.quality != 'draft':
+        a.quality = 'draft' if (a.quality == 'draft' and a.mode in ('ai', 'spec')) else 'final'
+        return
+    import render as R
+    R.DEFAULTS.update(scale=0.5, fps=15, preset='ultrafast', crf=27)
+    try:
+        from mgl import export as X
+        wanted = X.parse_formats(a.formats if (a.formats or '').strip() else 'none')
+    except ValueError:
+        wanted = []
+    a.formats = ','.join(f for f in wanted if f in LIGHT_FORMATS) or 'none'
+    print('DRAFT: half size, 15 fps. Editor files (%s) are made when you press Final.' % (', '.join(f for f in wanted if f not in LIGHT_FORMATS) or 'none chosen'))
+
+
 def main():
     a = make_parser().parse_args()
-    rc = run_mode(a)
+    prog = None
+    try:
+        from mgl import progress
+        prog = progress.install(os.environ.get('JOB', '').strip(), a.mode)
+    except Exception as ex:
+        print('live progress off: %s' % ex)
+    apply_quality(a)
+    rc = 1
+    try:
+        rc = run_mode(a)
+    except SystemExit as ex:
+        rc = ex.code if isinstance(ex.code, int) else 1
+        if not isinstance(ex.code, int) and ex.code: print('ERROR: %s' % ex.code)
+    except Exception as ex:                # whatever happens: report it, publish the reason, never leave the page guessing
+        import traceback; traceback.print_exc()
+        print('ERROR: %s' % ex); rc = 1
+    if rc:
+        try:
+            tail = getattr(sys.stdout, 'tail', None) or []
+            os.makedirs(a.out, exist_ok=True)
+            open(os.path.join(a.out, 'error_report.md'), 'w', encoding='utf-8').write(
+                '# This run did not finish\n\nBrief: %s\n\nThe saved work (design / finished parts) is kept: press Continue on the page and it goes on from there.\n\n## Last lines of the log\n\n```\n%s\n```\n' % (a.prompt.strip(), '\n'.join(tail[-40:])))
+        except Exception: pass
     try:                                   # put the result where the Studio page can show it (outputs/ is committed by the workflow)
         from mgl import publish
         keep = int(os.environ.get('OUTPUT_KEEP', '30') or 30)
-        e = publish.publish(ROOT, a.out, a.mode, os.environ.get('JOB', '').strip(), a.prompt.strip(), E_norm(a.size), a.duration, (os.environ.get('AI') or os.environ.get('AI_PROVIDER') or '').strip(), keep, only_if_job=True)
+        print('publishing for the Studio page ...')
+        e = publish.publish(ROOT, a.out, a.mode, os.environ.get('JOB', '').strip(), a.prompt.strip(), E_norm(a.size), a.duration, (os.environ.get('AI') or os.environ.get('AI_PROVIDER') or '').strip(), keep, only_if_job=True,
+                            project=a.project.strip(), quality=(a.quality if a.mode in ('ai', 'spec') else ''), parent=a.parent.strip(), formats=getattr(a, 'formats_wanted', a.formats))
         if e: print('published for the Studio page: outputs/%s (%s)' % (e['id'], e['kind']))
     except Exception as ex:
         print('could not publish for the Studio page: %s' % ex)
+    if prog: prog.finish()
     return rc
 
 
@@ -579,8 +629,9 @@ def run_mode(a):
         d = float(a.duration)
     except ValueError:
         print('duration must be a number of seconds'); return 1
-    if not (3 <= d <= 60):
-        print('duration must be between 3 and 60 seconds'); return 1
+    longform = d > 60 and a.mode == 'ai'
+    if not (3 <= d <= (600 if a.mode == 'ai' else 60)):
+        print('duration must be between 3 and %d seconds' % (600 if a.mode == 'ai' else 60)); return 1
     d = int(d) if d.is_integer() else d
     size = E.norm_size(a.size)
     if size is None:
@@ -602,15 +653,62 @@ def run_mode(a):
         do_exports(a.out, a.formats, a.media_dir, a.split, a.audio, a.sound)
         print('done ->', a.out)
         return 0
-    ask = make_ask()
+    resume = (a.resume or 'auto').strip().lower() not in ('off', 'no', 'false', '0')
+    from mgl import work as WK
+    if longform:
+        return run_long_video(a, d, size, images, resume)
+    key = WK.make_key(a.prompt, d, size, 'ai')
+    wk = WK.Work(ROOT, key, enabled=resume)
+    saved = wk.load()
+    import render as R
+    from mgl import spec as S
+    if saved and isinstance(saved.get('spec'), dict):
+        print('[resume] the design of this video was saved by an earlier run - skipping the AI work, rendering now')
+        sp = saved['spec']
+        json.dump(sp, open(os.path.join(a.out, 'spec.json'), 'w'), indent=1, ensure_ascii=False)
+        open(os.path.join(a.out, 'report.md'), 'w', encoding='utf-8').write('# Agent report\n\nBrief: %s\n\nContinued from the design saved by an earlier run (no new AI requests).\n' % a.prompt)
+    else:
+        ask = make_ask()
+        if ask is None: return 1
+        try:
+            sp = agent.run_agent(a.prompt, d, a.out, ask, review=(a.review.strip().lower() in ('true', '1', 'yes')), size=size,
+                                 reference=videos[0] if videos else None, images=images, render_final=False,
+                                 plan=os.environ.get('PLAN', 'true').strip().lower() not in ('false', '0', 'no', 'off'))
+        except (agent.AgentError, gemini.GeminiError) as ex:
+            print('\nERROR: %s' % ex); return 1
+        wk.save({'prompt': a.prompt, 'spec': sp, 'size': size, 'duration': d, 'done': False})      # the AI work is saved BEFORE the (long) render
+    print('[render] final video ...')
+    ctx = S.Context(ROOT)
+    try:
+        R.render_video(sp, os.path.join(a.out, 'video.mp4'), ctx, quiet=False)
+    except BaseException as ex:
+        print('\nERROR while rendering: %s - the design is saved, run it again to continue' % ex); return 1
+    if ctx.warnings:
+        with open(os.path.join(a.out, 'report.md'), 'a', encoding='utf-8') as f: f.write('\nFinal render warnings: %s\n' % '; '.join(ctx.warnings))
+    wk.clear()
+    do_exports(a.out, a.formats, a.media_dir, a.split, a.audio, a.sound)
+    print('done ->', a.out)
+    return 0
+
+
+def run_long_video(a, d, size, images, resume):
+    """more than 60 s: part by part with saved checkpoints (mgl/longform.py)"""
+    import agent
+    from mgl import gemini, longform as LF, export as X
+    ask = make_ask(budget=int(os.environ.get('LONG_REQUESTS', '90') or 90))
     if ask is None: return 1
     try:
-        agent.run_agent(a.prompt, d, a.out, ask, review=(a.review.strip().lower() in ('true', '1', 'yes')), size=size,
-                        reference=videos[0] if videos else None, images=images,
-                        plan=os.environ.get('PLAN', 'true').strip().lower() not in ('false', '0', 'no', 'off'))
-    except (agent.AgentError, gemini.GeminiError) as ex:
-        print('\nERROR: %s' % ex); return 1
-    do_exports(a.out, a.formats, a.media_dir, a.split, a.audio, a.sound)
+        res = LF.run_long(a.prompt, d, a.out, ask, size=size, images=images, root=ROOT, sound=a.sound, resume=resume, keep=(a.quality == 'draft'))
+    except (agent.AgentError, gemini.GeminiError, ValueError) as ex:
+        print('\nSTOPPED: %s\nThe finished parts are saved. Start the same video again (or press Continue on the page) and it goes on with the next part.' % ex)
+        return 1
+    fm = []
+    try: fm = [f for f in X.parse_formats(a.formats if (a.formats or '').strip() else 'none') if f != 'srt']
+    except ValueError as ex: print('formats: %s' % ex)
+    if fm and a.quality != 'draft':
+        name = res['name']; ws = os.path.join(a.out, name + '_with_sound.mp4')
+        files, problems = X.export_all(a.out, fm, a.media_dir, video=ws if os.path.isfile(ws) else None, name=name, cuts=res['boundaries'][:-1], spec=None)
+        for pr in problems: print('export problem:', pr)
     print('done ->', a.out)
     return 0
 

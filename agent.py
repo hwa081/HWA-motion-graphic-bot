@@ -214,8 +214,8 @@ def reference_sheet(path, n=12, cols=4, tile_w=480):
 
 
 # ------------------------------------------------------------------ the loop
-def obtain_spec(ask, system, history, duration, size_key, log, root=ROOT, max_tries=4):
-    last_errors = []
+def obtain_spec(ask, system, history, duration, size_key, log, root=ROOT, max_tries=4, title=None):
+    last_errors = []; last_sp = None
     for attempt in range(1, max_tries + 1):
         log('[spec] attempt %d/%d' % (attempt, max_tries))
         txt = ask(system, history)
@@ -226,6 +226,7 @@ def obtain_spec(ask, system, history, duration, size_key, log, root=ROOT, max_tr
             last_errors = ['The answer was not valid JSON (%s). Return one complete JSON object only.' % ex]
             sp = None
         if sp is not None:
+            last_sp = sp
             errs, warns = S.validate(sp, root)
             for w in warns: log('   warning: %s' % w)
             if not errs:
@@ -234,6 +235,14 @@ def obtain_spec(ask, system, history, duration, size_key, log, root=ROOT, max_tr
         log('   %d problem(s): %s' % (len(last_errors), '; '.join(last_errors[:3])))
         history.append({'role': 'user', 'parts': [gemini.text_part(
             'The spec has problems:\n- ' + '\n- '.join(last_errors[:25]) + '\n\nFix them and return the COMPLETE corrected JSON object only.')]})
+    fixed, notes = S.salvage(last_sp, root) if last_sp is not None else (None, [])
+    if fixed is not None:
+        log('[spec] repaired the last design instead of failing (%s)' % ', '.join(notes[:6]))
+        fixed['duration'] = duration; fixed['size'] = size_key
+        if not S.validate(fixed, root)[0]: return fixed
+    if title:
+        log('[spec] the AI gave no usable design - using a simple title video so the run does not fail')
+        return S.fallback_spec(title, duration, size_key)
     raise AgentError('could not get a valid spec after %d tries. Last problems:\n- %s' % (max_tries, '\n- '.join(last_errors[:10])))
 
 
@@ -347,7 +356,7 @@ def run_agent(prompt, duration, out_dir, ask, review=True, max_review=2, max_qa=
         report.append('A revision (%s) scored lower (%.1f vs %.1f) and was thrown away.' % (tag, ev[3], best.score))
         return False
 
-    sp = resolve(obtain_spec(ask, system, history, duration, size_key, log, root))
+    sp = resolve(obtain_spec(ask, system, history, duration, size_key, log, root, title=prompt[:60]))
     qa_now, nov, cur_res, q0 = evaluate(sp)
     qa_first, nov_first, res_first = qa_now, nov, cur_res
     best.offer(sp, q0, 'first draft', (qa_now, nov, cur_res, q0))

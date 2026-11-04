@@ -1,5 +1,20 @@
 # Motion Graphic Bot - merged version
 
+## Studio v2: progress, projects, files, Draft/Final, long videos, resume, Activity
+### Studio v2 - "slow is fine, failing is not"
+- AI: patient retries (429 / 5xx / network, up to `AI_PATIENCE_MIN`, default 12 min), model and provider fallback.
+- A design with a few broken layers is repaired (broken layers dropped); if the AI never gives a usable design, a simple title video is made instead of failing.
+- Render: parallel -> one worker -> light encoder retries; a frame that errors repeats the previous frame.
+- If a run still stops, `error_report.md` is published: the tile shows the reason and Continue resumes from the saved work.
+- mgl/progress.py: reads what the bot prints (stage, %, frames, ETA) and writes progress/<job>.json on branch bot-progress; page shows bar, stage n/7, time left.
+- render.py: parallel frame rendering (same pixels as one worker, tested), DEFAULTS for draft (half size, 15 fps, ultrafast).
+- run.py: --project --quality draft|final --parent --resume; draft makes only light files, heavy editor files at Final; publish lists files (wfp, xml, fcpxml, srt, gif ...), video_name, project, quality, parent, formats.
+- mgl/work.py: checkpoints work/<key>.json (repo + bot-progress branch); single videos save the design before rendering, so a stop costs no AI requests.
+- mgl/longform.py: 61-600 s videos part by part (outline, per-part design saved at once, style anchor from part 1, render, sound, join); stops cleanly on quota/time and continues with the first missing part.
+- Page: projects menu, file chips + Draft/Final in the prompt bar, 30 s - 5 min buttons, Continue/Log/Remove on stopped jobs, Activity view, ideas, Drafts / Long videos filters, files download in the viewer.
+- Workflow: inputs project, quality, parent, resume; PROGRESS_TOKEN; timeout 345 min; ffmpeg install skipped when present.
+- Tests: page 25 pass; bot tests for progress, parallel render, draft/final publish, long video + resume.
+
 ## Studio page (GitHub Pages) - Google Flow style front end
 - docs/: static site (index.html, css/studio.css, js/{app,crypto,gh,settings,jobs,library}.js, vendor/nacl-fast.min.js, ARCHITECTURE.md). No editor (cancelled).
 - Settings page: GitHub token + connection check, Gemini / Pixabay / Pexels keys (tested, then encrypted in-browser and saved as GitHub Secrets), any number of OpenAI-compatible AI providers (AI_KEY_<ID> secrets), default AI + fallback + bot options as repo Variables, "test all keys in the cloud" (mode checks).

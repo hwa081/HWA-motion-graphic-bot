@@ -15,7 +15,7 @@ on:
         required: false
         default: ""
       duration:
-        description: "ai: length in seconds (3 to 60)"
+        description: "ai: length in seconds (3 to 60; 61 to 600 = long video, made part by part and saved as it goes)"
         required: false
         default: "10"
       size:
@@ -66,6 +66,24 @@ on:
         description: "label used by the Studio page to find this run (leave empty when you start it by hand)"
         required: false
         default: ""
+      project:
+        description: "Studio page project id (only used to group results on the page)"
+        required: false
+        default: ""
+      quality:
+        description: "draft = fast small preview (half size, 15 fps; editor files are made when you press Final) | final = full quality"
+        type: choice
+        default: "final"
+        options: ["final", "draft"]
+      resume:
+        description: "auto = continue unfinished work of the same brief (saved in the work/ folder) | off = start from zero"
+        type: choice
+        default: "auto"
+        options: ["auto", "off"]
+      parent:
+        description: "Studio page: id of the draft this final video replaces"
+        required: false
+        default: ""
       design_id:
         description: "feedback: video id from report.md (empty = latest) | design: library design id like doc-01-title-hero (empty = list matches for the prompt)"
         required: false
@@ -81,7 +99,7 @@ concurrency:
 jobs:
   make:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 345
     steps:
       - name: Get the code
         uses: actions/checkout@v6
@@ -96,8 +114,12 @@ jobs:
 
       - name: Install ffmpeg and emoji font
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg fonts-noto-color-emoji libcairo2
+          if command -v ffmpeg >/dev/null 2>&1 && fc-list 2>/dev/null | grep -qi emoji && ldconfig -p | grep -q libcairo.so.2; then
+            echo "ffmpeg, emoji font and cairo are already there"
+          else
+            sudo apt-get update -o Acquire::Retries=3
+            sudo apt-get install -y --no-install-recommends ffmpeg fonts-noto-color-emoji libcairo2
+          fi
 
       - name: Install Python packages
         run: pip install -r requirements.txt
@@ -117,7 +139,14 @@ jobs:
           AI_PROVIDERS: ${{ vars.AI_PROVIDERS }}
           AI_FALLBACK: ${{ vars.AI_FALLBACK }}
           OUTPUT_KEEP: ${{ vars.OUTPUT_KEEP }}
-          AI_ALL_SECRETS: ${{ toJSON(secrets) }}
+          AI_KEY_AI1: ${{ secrets.AI_KEY_AI1 }}
+          AI_KEY_AI2: ${{ secrets.AI_KEY_AI2 }}
+          AI_KEY_AI3: ${{ secrets.AI_KEY_AI3 }}
+          AI_KEY_AI4: ${{ secrets.AI_KEY_AI4 }}
+          AI_KEY_AI5: ${{ secrets.AI_KEY_AI5 }}
+          AI_KEY_AI6: ${{ secrets.AI_KEY_AI6 }}
+          AI_KEY_AI7: ${{ secrets.AI_KEY_AI7 }}
+          AI_KEY_AI8: ${{ secrets.AI_KEY_AI8 }}
           AI: ${{ inputs.ai }}
           JOB: ${{ inputs.job }}
           MODE: ${{ inputs.mode }}
@@ -133,6 +162,14 @@ jobs:
           AUDIO: ${{ inputs.audio }}
           SOUND: ${{ inputs.sound }}
           DESIGN_ID: ${{ inputs.design_id }}
+          PROJECT: ${{ inputs.project }}
+          QUALITY: ${{ inputs.quality }}
+          PARENT: ${{ inputs.parent }}
+          RESUME: ${{ inputs.resume }}
+          LONG_REQUESTS: ${{ vars.LONG_REQUESTS }}
+          PROGRESS_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
         run: |
           python run.py --mode "$MODE" --prompt "$PROMPT" --duration "$DURATION" --size "$SIZE" --review "$REVIEW" --files "$FILES" --rating "$RATING" --design-id "$DESIGN_ID" --formats "$FORMATS" --media-dir "$MEDIA_DIR" --level "$LEVEL" --audio "$AUDIO" --sound "$SOUND"
 

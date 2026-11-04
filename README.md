@@ -29,10 +29,22 @@ Wahi se bot chalta hai, keys lagti hain, connection check hota hai. (Editor nahi
 **Kaise kaam karta hai:** prompt bhejne par page workflow `render.yml` ko `workflow_dispatch` se chalata hai, run ko dekhta hai (Queued / Running / step ka naam), aur video `outputs/<id>/video.mp4` mein repo mein save hoti hai; grid `outputs/index.json` se bharta hai. x2-x4 variations ek ke baad ek chalti hain.
 
 **Dhyan rakhein:**
+* Extra AI services ke liye 8 slots hain (secrets `AI_KEY_AI1` ... `AI_KEY_AI8`); workflow unhein naam se leta hai. (`toJSON(secrets)` GitHub "malicious workflow" samajh kar run rok deta hai, is liye nahi use kiya.)
 * Nayi video repo se ~5 minute tak purani cache dikha sakta hai (raw.githubusercontent.com cache).
 * Browser se upload ki limit ~25 MB per file (images / reference videos).
 * Token chori na ho: kisi ko na dein; shak ho to GitHub mein delete karke naya banayein.
 * Page sirf aap ke liye hai jab token laga ho; baqi log page dekh to sakte hain par bot nahi chala sakte.
+
+## 0b. Studio ke naye features: progress, projects, files, Draft/Final, lambi video, Continue (naya)
+* **Live progress:** video banate waqt tile par % , stage (jaise Render 5/7), frames aur "kitna time baqi" dikhta hai. Bot ye `progress/<job>.json` mein **alag branch `bot-progress`** par likhta hai (is se Pages baar baar rebuild nahi hota). Activity page par sab chalte kaam ek jagah.
+* **Projects:** sidebar ke upar project ka naam dabayein -> naya project, rename, delete, "All projects". Har video apne project mein jati hai (`outputs/projects.json`).
+* **Files chunna (prompt bar mein):** MP4 hamesha banti hai. Saath mein `.wfp` (Filmora), FCPXML, XML (Premiere/DaVinci), SRT, GIF tick karein. Video khulne par har file ka download button hai. Editor ki file ke saath `video_name` wali mp4 bhi download karke usi folder mein rakhein.
+* **Draft / Final:** Draft = aadha size, 15 fps, tez encoder (2-5 guna jaldi, lagbhag 3-5x chhoti file). Pasand aaye to video kholein -> **Make final** (naya AI kharch nahi: saved design dobara render hota hai) aur tab `.wfp/.xml` bhi banti hain. Seedha full quality ke liye prompt bar mein **Final** chunein. Code Studio hamesha Final.
+* **Lambi video (61 se 600 second):** popup mein 3 min / 5 min ya Custom (max 600). Bot pehle outline (parts) banata hai, har part (~30 s) ko design karke **foran save** karta hai, phir sab parts render karke ek MP4 mein jodta hai. Sirf **AI plan** mode; Code Studio 60 s tak. 5 min ki video ~ 10 parts, ~32 AI request (`LONG_REQUESTS` variable, default 90).
+* **Ruk jaye to wahin se (Continue):** har kaam ke baad design `work/<key>.json` mein save hota hai (repo mein, aur turant `bot-progress` branch par). Run ruk jaye (free quota khatam, 6 ghante ki limit, cancel) to tile par **Continue** dabayein, ya wahi prompt dobara bhejein: bot saved parts chhor kar agle part se shuru karta hai. "Resume off" sirf workflow input `resume = off` se. Video poori hone par checkpoint khud hat jata hai.
+* **Activity:** sidebar -> Activity: chalte kaam (progress, Continue / Log / Remove) aur GitHub ke recent runs.
+* **Tez kaam:** frames parallel render hote hain (public repo par 4 cores), ffmpeg/fonts pehle se hon to install skip hota hai.
+* **Update karte waqt:** `docs/`, `.github/workflows/render.yml` aur saare `mgl/`, `run.py`, `render.py`, `scripts/commit_memory.sh` replace karein. Page token mein **Contents: Read and write** zaroori hai (progress aur work file parhne ke liye).
 
 ## 1. Files GitHub par daalen (sirf ek baar)
 > Zip ko pehle **computer par extract** karein (GitHub zip khud nahi kholta). Computer ke browser se karein.
@@ -220,3 +232,7 @@ mgl/assets.py   photo/icon/Canva search   mgl/gemini.py  Gemini client      agen
 library/        116 designs (script + storyboard + spec + frames + PDF)   libgen/  library builder   mgl/library.py  search + prompt
 LIBRARY.md      the book the AI reads   examples/  4 working specs   recipes/  hand-written reference intro   fonts/  Poppins (OFL)
 ```
+
+
+### Robustness (no failed videos)
+Slow is accepted, failure is not: patient AI retries, repair/fallback of the design, render retries (parallel -> serial -> light encoder, broken frame repeated), and a published failure reason with Continue. See CHANGELOG.
