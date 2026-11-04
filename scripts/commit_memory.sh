@@ -2,7 +2,7 @@
 # Saves what the bot learned (memory/, downloaded library files) back into the repository.
 # Safe to run when nothing changed. Used by the GitHub workflow after every run.
 set -u
-PATHS="memory assets/library custom outputs"
+PATHS="memory assets/library custom outputs work"
 if [ -n "${GITHUB_TOKEN:-}" ] && [ -n "${GITHUB_REPOSITORY:-}" ]; then
   # the checkout step does not keep credentials on disk (so AI-written code can never read them); authenticate only here
   HOST="${GITHUB_SERVER_URL:-https://github.com}"; HOST="${HOST#https://}"
