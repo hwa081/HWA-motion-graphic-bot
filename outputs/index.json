@@ -1,5 +1,24 @@
 [
  {
+  "id": "jmw1ntmf2qh3",
+  "job": "jmw1ntmf2qh3",
+  "kind": "video",
+  "title": "hello i am waqas and i am testing this workflow",
+  "prompt": "hello i am waqas and i am testing this workflow",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "6",
+  "ai": "gemini",
+  "date": "2026-11-04T05:56:19Z",
+  "ok": true,
+  "trashed": false,
+  "video": "outputs/jmw1ntmf2qh3/video.mp4",
+  "poster": "outputs/jmw1ntmf2qh3/poster.jpg",
+  "spec": "outputs/jmw1ntmf2qh3/spec.json",
+  "report": "outputs/jmw1ntmf2qh3/report.md",
+  "design_id": "d-20261104-0556-c7d1"
+ },
+ {
   "id": "jmw13p1ffng7",
   "job": "jmw13p1ffng7",
   "kind": "report",

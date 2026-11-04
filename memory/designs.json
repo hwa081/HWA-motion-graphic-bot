@@ -77,5 +77,81 @@
    "nearest": "doc-07-archival-photo",
    "similarity": 0.713
   }
+ },
+ {
+  "id": "d-20261104-0556-c7d1",
+  "date": "2026-11-04T05:56:17Z",
+  "prompt": "hello i am waqas and i am testing this workflow",
+  "summary": {
+   "backgrounds": [
+    "sunset",
+    "mono_light"
+   ],
+   "entrance_anims": {
+    "fade": 5,
+    "bounce": 3,
+    "blur": 1,
+    "wipe_left": 1,
+    "wipe_right": 1,
+    "slide_left": 1
+   },
+   "layer_types": {
+    "text": 7,
+    "rrect": 3,
+    "particles": 1,
+    "blob": 1,
+    "chip": 1,
+    "line": 1,
+    "transition": 1,
+    "grid": 1,
+    "progress": 1
+   },
+   "kinds": [
+    "bar"
+   ],
+   "transitions": [
+    "stripes"
+   ],
+   "camera": true,
+   "headlines": [
+    "HELLO, I AM WAQAS",
+    "TESTING THIS WORKFLOW",
+    "DEVELOPER WORKFLOW TEST",
+    "✓ PARSER OK"
+   ],
+   "layers": 17,
+   "duration": 6,
+   "size": "16:9"
+  },
+  "review_score": null,
+  "qa_errors": 0,
+  "qa_warnings": 2,
+  "rating": null,
+  "notes": [],
+  "size": "16:9",
+  "assets": 0,
+  "remix": {
+   "sources": [
+    "doc-05-archival-photo",
+    "doc-14-big-stat",
+    "doc-66-outro-logo"
+   ],
+   "backgrounds": [
+    "sunset",
+    "mono_light"
+   ],
+   "transitions": [
+    "flash",
+    "stripes"
+   ]
+  },
+  "plan": {
+   "concept": "A sleek, energetic developer check-in that introduces Waqas and dynamically benchmarks workflow execution in real time.",
+   "signature": "A high-velocity diagonal split with an animated live-telemetry progress runner that keeps active motion until the final frame."
+  },
+  "originality": {
+   "nearest": "doc-02-title-hero",
+   "similarity": 0.649
+  }
  }
 ]

@@ -4,10 +4,10 @@
   "kind": "dont",
   "text": "Text was hard to read on its background. Use light text on dark backgrounds and near-black text on light backgrounds.",
   "weight": 1,
-  "count": 1,
+  "count": 2,
   "source": "qa",
   "created": "2026-11-03T20:12:25Z",
-  "last": "2026-11-03T20:12:25Z"
+  "last": "2026-11-04T05:56:17Z"
  },
  {
   "id": "l310",
@@ -78,5 +78,15 @@
   "source": "review",
   "created": "2026-11-03T20:12:25Z",
   "last": "2026-11-03T20:12:25Z"
+ },
+ {
+  "id": "l370",
+  "kind": "dont",
+  "text": "Some text was too small for a phone screen. Use at least 28px (16:9) or 40px (9:16) for every readable line.",
+  "weight": 1,
+  "count": 1,
+  "source": "qa",
+  "created": "2026-11-04T05:56:17Z",
+  "last": "2026-11-04T05:56:17Z"
  }
 ]

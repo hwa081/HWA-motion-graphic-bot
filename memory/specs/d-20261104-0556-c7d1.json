@@ -1,0 +1,334 @@
+{
+ "title": "Waqas Workflow Benchmark",
+ "duration": 6,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "sunset"
+  },
+  {
+   "t": 2.5,
+   "style": "mono_light",
+   "fade": 0.5
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 2.5,
+   "zoom": 1.05,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 2.51,
+   "zoom": 1,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 6,
+   "zoom": 1.06,
+   "x": 960,
+   "y": 520
+  }
+ ],
+ "layers": [
+  {
+   "type": "particles",
+   "count": 45,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "size": 3,
+   "speed": 1,
+   "seed": 8,
+   "start": 0,
+   "end": 2.8
+  },
+  {
+   "type": "blob",
+   "x": 1400,
+   "y": 300,
+   "r": 500,
+   "color": "#FF5E3A",
+   "color2": "#7928CA",
+   "fill_opacity": 0.4,
+   "softness": 0.85,
+   "start": 0,
+   "end": 2.8
+  },
+  {
+   "type": "chip",
+   "emoji": "⚡",
+   "label": "INIT_TEST // V.01",
+   "x": 440,
+   "y": 280,
+   "scale": 1.1,
+   "start": 0.1,
+   "end": 2.8,
+   "in": {
+    "anim": "blur",
+    "dur": 0.4
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "HELLO, I AM WAQAS",
+   "font": "bold_italic",
+   "size": 110,
+   "x": 960,
+   "y": 480,
+   "color": "#FFFFFF",
+   "start": 0.2,
+   "end": 2.8,
+   "fixed": true,
+   "shadow": 0.5,
+   "in": {
+    "anim": "wipe_left",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "line",
+   "points": [
+    [
+     250,
+     590
+    ],
+    [
+     1670,
+     590
+    ]
+   ],
+   "width": 4,
+   "color": "#FF5E3A",
+   "start": 0.5,
+   "end": 2.8,
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "DEVELOPER WORKFLOW TEST",
+   "font": "medium_italic",
+   "size": 42,
+   "x": 960,
+   "y": 660,
+   "color": "#F8FAFC",
+   "start": 0.6,
+   "end": 2.8,
+   "fixed": true,
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "transition",
+   "style": "stripes",
+   "direction": "right",
+   "color": "#7928CA",
+   "start": 2.3,
+   "end": 3.1
+  },
+  {
+   "type": "grid",
+   "kind": "crosses",
+   "spacing": 80,
+   "color": "#0F172A",
+   "fill_opacity": 0.08,
+   "scroll": {
+    "x": 8,
+    "y": 4
+   },
+   "start": 2.6,
+   "end": 6
+  },
+  {
+   "type": "text",
+   "text": "TESTING THIS WORKFLOW",
+   "font": "bold_italic",
+   "size": 96,
+   "x": 960,
+   "y": 210,
+   "color": "#0F172A",
+   "start": 2.7,
+   "end": 6,
+   "fixed": true,
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "bar",
+   "x": 960,
+   "y": 380,
+   "w": 1200,
+   "h": 36,
+   "color": "#7928CA",
+   "track": [
+    0.85,
+    0.88,
+    0.92
+   ],
+   "label": "EXECUTION: {p}%",
+   "grow": {
+    "start": 2.8,
+    "dur": 3
+   },
+   "start": 2.7,
+   "end": 6,
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "rrect",
+   "x": 540,
+   "y": 570,
+   "w": 400,
+   "h": 90,
+   "r": 20,
+   "fill": "#0F172A",
+   "fill_opacity": 0.06,
+   "border": "#7928CA",
+   "border_w": 2,
+   "start": 3.1,
+   "end": 6,
+   "in": {
+    "anim": "bounce",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "✓ PARSER OK",
+   "font": "bold",
+   "size": 32,
+   "x": 540,
+   "y": 570,
+   "color": "#0F172A",
+   "start": 3.2,
+   "end": 6,
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "x": 960,
+   "y": 670,
+   "w": 400,
+   "h": 90,
+   "r": 20,
+   "fill": "#0F172A",
+   "fill_opacity": 0.06,
+   "border": "#FF5E3A",
+   "border_w": 2,
+   "start": 3.4,
+   "end": 6,
+   "in": {
+    "anim": "bounce",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "⚡ RENDER 60 FPS",
+   "font": "bold",
+   "size": 32,
+   "x": 960,
+   "y": 670,
+   "color": "#0F172A",
+   "start": 3.5,
+   "end": 6,
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "x": 1380,
+   "y": 770,
+   "w": 400,
+   "h": 90,
+   "r": 20,
+   "fill": "#0F172A",
+   "fill_opacity": 0.06,
+   "border": "#7928CA",
+   "border_w": 2,
+   "start": 3.7,
+   "end": 6,
+   "in": {
+    "anim": "bounce",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "● LIVE TELEMETRY",
+   "font": "bold",
+   "size": 32,
+   "x": 1380,
+   "y": 770,
+   "color": "#0F172A",
+   "start": 3.8,
+   "end": 6,
+   "in": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "SYSTEM STATUS: ACTIVE [{n}ms]",
+   "font": "medium_italic",
+   "size": 28,
+   "x": 960,
+   "y": 920,
+   "color": "#7928CA",
+   "start": 2.8,
+   "end": 6,
+   "fixed": true,
+   "count": {
+    "from": 12,
+    "to": 98,
+    "dur": 3.2,
+    "format": "{:d}"
+   }
+  }
+ ]
+}
