@@ -158,5 +158,87 @@
    "nearest": "doc-02-title-hero",
    "similarity": 0.649
   }
+ },
+ {
+  "id": "d-20261104-0941-a75d",
+  "date": "2026-11-04T09:41:35Z",
+  "prompt": "this is the make video on this script \"A mysterious signal is detected coming from deep beneath the ocean.\nScientists discover an ancient machine buried under the seabed.\nSuddenly, the machine activates and starts transmitting strange coordinates.\nThe coordinates point directly toward an unknown planet beyond our solar system.\"",
+  "summary": {
+   "backgrounds": [
+    "ocean",
+    "neon_night",
+    "mono_dark"
+   ],
+   "entrance_anims": {
+    "fade": 5,
+    "slide_up": 3,
+    "pop": 3,
+    "slide_right": 2,
+    "wipe_up": 1,
+    "tilt": 1,
+    "wipe_right": 1,
+    "zoom": 1
+   },
+   "layer_types": {
+    "text": 7,
+    "circle": 5,
+    "grid": 3,
+    "blob": 3,
+    "particles": 2,
+    "rrect": 2,
+    "chip": 2,
+    "transition": 2,
+    "icon": 1,
+    "progress": 1
+   },
+   "kinds": [
+    "bar",
+    "custom"
+   ],
+   "transitions": [
+    "flash",
+    "wipe"
+   ],
+   "camera": true,
+   "headlines": [
+    "DEEP SIGNAL DETECTED",
+    "ANCIENT MACHINE ONLINE",
+    "DESTINATION: EXTRA-SOLAR",
+    "DISTANCE: {n} LIGHT YEARS"
+   ],
+   "layers": 30,
+   "duration": 10,
+   "size": "16:9"
+  },
+  "review_score": 6.0,
+  "qa_errors": 0,
+  "qa_warnings": 0,
+  "rating": null,
+  "notes": [],
+  "size": "16:9",
+  "assets": 0,
+  "remix": {
+   "sources": [
+    "doc-14-big-stat",
+    "doc-71-kinetic-statement",
+    "doc-44-orbit-diagram"
+   ],
+   "backgrounds": [
+    "light_pastel",
+    "neon_night"
+   ],
+   "transitions": [
+    "wipe",
+    "flash"
+   ]
+  },
+  "plan": {
+   "concept": "A deep-sea ocean telemetry grid detects an ancient submerged signal, triggering an exoplanet coordinate transmission.",
+   "signature": "A high-tech pulsing sonar grid that shifts seamlessly into glowing orbital vector lines targeting an unknown world."
+  },
+  "originality": {
+   "nearest": "doc-71-kinetic-statement",
+   "similarity": 0.667
+  }
  }
 ]

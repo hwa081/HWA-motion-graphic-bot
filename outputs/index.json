@@ -1,5 +1,24 @@
 [
  {
+  "id": "jmw1wwdkgf2q",
+  "job": "jmw1wwdkgf2q",
+  "kind": "video",
+  "title": "this is the make video on this script \"A mysterious signal is detected coming from deep be",
+  "prompt": "this is the make video on this script \"A mysterious signal is detected coming from deep beneath the ocean.\nScientists discover an ancient machine buried under the seabed.\nSuddenly, the machine activates and starts transmitting strange coordinates.\nThe coordinates point directly toward an unknown planet beyond our solar system.\"",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-04T09:41:36Z",
+  "ok": true,
+  "trashed": false,
+  "video": "outputs/jmw1wwdkgf2q/video.mp4",
+  "poster": "outputs/jmw1wwdkgf2q/poster.jpg",
+  "spec": "outputs/jmw1wwdkgf2q/spec.json",
+  "report": "outputs/jmw1wwdkgf2q/report.md",
+  "design_id": "d-20261104-0941-a75d"
+ },
+ {
   "id": "jmw1q9j47ie7",
   "job": "jmw1q9j47ie7",
   "kind": "report",

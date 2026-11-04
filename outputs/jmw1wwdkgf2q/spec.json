@@ -1,0 +1,780 @@
+{
+ "title": "Subsea Deep Signal to Extra-Solar Target",
+ "duration": 10,
+ "size": "16:9",
+ "fps": 30,
+ "background": [
+  {
+   "t": 0,
+   "style": "ocean"
+  },
+  {
+   "t": 3.2,
+   "style": "neon_night",
+   "fade": 0.4
+  },
+  {
+   "t": 6.5,
+   "style": "mono_dark",
+   "fade": 0.4
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "zoom": 1.12,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 3.2,
+   "zoom": 1.0,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 6.5,
+   "zoom": 1.06,
+   "x": 960,
+   "y": 540
+  },
+  {
+   "t": 10.0,
+   "zoom": 1.0,
+   "x": 960,
+   "y": 540
+  }
+ ],
+ "script": [
+  {
+   "t": 0.0,
+   "text": "A mysterious signal is detected coming from deep beneath the ocean."
+  },
+  {
+   "t": 3.0,
+   "text": "Scientists discover an ancient machine buried under the seabed."
+  },
+  {
+   "t": 5.2,
+   "text": "Suddenly, the machine activates and starts transmitting strange coordinates."
+  },
+  {
+   "t": 7.5,
+   "text": "The coordinates point directly toward an unknown planet beyond our solar system."
+  }
+ ],
+ "layers": [
+  {
+   "type": "grid",
+   "kind": "dots",
+   "spacing": 64,
+   "color": [
+    0,
+    0.94,
+    1
+   ],
+   "fill_opacity": 0.12,
+   "scroll": {
+    "x": 8,
+    "y": 4
+   },
+   "vignette": 0.85,
+   "start": 0,
+   "end": 3.3
+  },
+  {
+   "type": "particles",
+   "count": 60,
+   "color": [
+    0.6,
+    0.9,
+    1
+   ],
+   "size": 3,
+   "speed": 0.8,
+   "seed": 4,
+   "start": 0,
+   "end": 3.3
+  },
+  {
+   "type": "blob",
+   "x": 960,
+   "y": 650,
+   "r": 520,
+   "color": [
+    0.02,
+    0.12,
+    0.3
+   ],
+   "color2": [
+    0.05,
+    0.08,
+    0.2
+   ],
+   "fill_opacity": 0.7,
+   "softness": 0.9,
+   "start": 0,
+   "end": 3.3
+  },
+  {
+   "type": "circle",
+   "x": 960,
+   "y": 620,
+   "r": 180,
+   "fill": [
+    0,
+    0,
+    0
+   ],
+   "fill_opacity": 0,
+   "border": [
+    0,
+    0.94,
+    1
+   ],
+   "border_w": 3,
+   "border_opacity": 0.6,
+   "start": 0,
+   "end": 3.3,
+   "in": "fade",
+   "keys": {
+    "scale": [
+     [
+      0,
+      0.2
+     ],
+     [
+      3.2,
+      2.4
+     ]
+    ]
+   }
+  },
+  {
+   "type": "circle",
+   "x": 960,
+   "y": 620,
+   "r": 320,
+   "fill": [
+    0,
+    0,
+    0
+   ],
+   "fill_opacity": 0,
+   "border": [
+    0,
+    0.94,
+    1
+   ],
+   "border_w": 2,
+   "border_opacity": 0.35,
+   "start": 0.4,
+   "end": 3.3,
+   "in": "fade",
+   "keys": {
+    "scale": [
+     [
+      0.4,
+      0.2
+     ],
+     [
+      3.2,
+      1.9
+     ]
+    ]
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1420,
+   "h": 180,
+   "x": 960,
+   "y": 250,
+   "r": 30,
+   "fill": [
+    0.02,
+    0.06,
+    0.15
+   ],
+   "fill_opacity": 0.75,
+   "border": [
+    0,
+    0.94,
+    1
+   ],
+   "border_opacity": 0.4,
+   "border_w": 2,
+   "shadow": 0.5,
+   "shadow_color": [
+    0,
+    0,
+    0
+   ],
+   "start": 0.2,
+   "end": 3.2,
+   "fixed": true,
+   "in": {
+    "anim": "slide_right",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "DEEP SIGNAL DETECTED",
+   "font": "bold_italic",
+   "size": 100,
+   "x": 960,
+   "y": 215,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "shadow": 0.9,
+   "shadow_color": [
+    0,
+    0,
+    0
+   ],
+   "start": 0.2,
+   "end": 3.2,
+   "fixed": true,
+   "in": {
+    "anim": "slide_right",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "SUBSEABED ANOMALY LOCATED",
+   "font": "medium_italic",
+   "size": 40,
+   "x": 960,
+   "y": 295,
+   "color": [
+    0.3,
+    0.95,
+    1
+   ],
+   "start": 0.7,
+   "end": 3.2,
+   "fixed": true,
+   "in": {
+    "anim": "wipe_up",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "📡",
+   "label": "DEPTH -10,924M",
+   "x": 960,
+   "y": 620,
+   "scale": 1.2,
+   "start": 1.2,
+   "end": 3.2,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "transition",
+   "style": "wipe",
+   "direction": "right",
+   "color": [
+    0,
+    0.94,
+    1
+   ],
+   "start": 3.0,
+   "end": 3.6
+  },
+  {
+   "type": "grid",
+   "kind": "lines",
+   "spacing": 64,
+   "color": [
+    0.5,
+    0.2,
+    0.9
+   ],
+   "fill_opacity": 0.15,
+   "scroll": {
+    "x": 12,
+    "y": 6
+   },
+   "vignette": 0.8,
+   "start": 3.2,
+   "end": 6.6
+  },
+  {
+   "type": "blob",
+   "x": 960,
+   "y": 540,
+   "r": 580,
+   "color": [
+    0.4,
+    0.05,
+    0.6
+   ],
+   "color2": [
+    0.05,
+    0.4,
+    0.7
+   ],
+   "fill_opacity": 0.4,
+   "softness": 0.85,
+   "start": 3.2,
+   "end": 6.6
+  },
+  {
+   "type": "text",
+   "text": "ANCIENT MACHINE ONLINE",
+   "font": "bold_italic",
+   "size": 96,
+   "x": 960,
+   "y": 180,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "shadow": 0.8,
+   "shadow_color": [
+    0,
+    0,
+    0
+   ],
+   "start": 3.3,
+   "end": 6.5,
+   "fixed": true,
+   "in": {
+    "anim": "tilt",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "rrect",
+   "w": 1200,
+   "h": 90,
+   "x": 960,
+   "y": 340,
+   "r": 30,
+   "fill": [
+    0.03,
+    0.06,
+    0.18
+   ],
+   "fill_opacity": 0.9,
+   "border": [
+    0,
+    0.94,
+    1
+   ],
+   "border_opacity": 0.8,
+   "border_w": 2,
+   "start": 3.6,
+   "end": 6.5,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "text",
+   "text": "TRANSMITTING COORDINATES...",
+   "font": "bold_italic",
+   "size": 36,
+   "anchor": "l",
+   "x": 400,
+   "y": 340,
+   "color": [
+    0.2,
+    0.95,
+    1
+   ],
+   "start": 3.9,
+   "end": 6.5,
+   "reveal": {
+    "mode": "chars",
+    "step": 0.04
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "icon",
+   "name": "send",
+   "size": 46,
+   "x": 1500,
+   "y": 340,
+   "color": [
+    0.2,
+    0.95,
+    1
+   ],
+   "start": 3.9,
+   "end": 6.5,
+   "in": {
+    "anim": "pop",
+    "dur": 0.4
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "progress",
+   "kind": "bar",
+   "x": 960,
+   "y": 480,
+   "w": 1000,
+   "h": 50,
+   "color": [
+    1,
+    0.2,
+    0.55
+   ],
+   "track": [
+    0.05,
+    0.08,
+    0.22
+   ],
+   "label": "SIGNAL STRENGTH: {p}%",
+   "grow": {
+    "start": 4.2,
+    "dur": 1.8
+   },
+   "start": 4.1,
+   "end": 6.5,
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "card",
+   "kind": "custom",
+   "title": "VECTOR DATA",
+   "big_text": "RA 19h 50m",
+   "subtitle": "DEC +08°52'",
+   "emoji": "✨",
+   "header": [
+    0.0,
+    0.55,
+    0.85
+   ],
+   "body": [
+    0.06,
+    0.1,
+    0.22
+   ],
+   "body2": [
+    0.12,
+    0.2,
+    0.38
+   ],
+   "x": 960,
+   "y": 760,
+   "scale": 1.4,
+   "start": 4.5,
+   "end": 6.5,
+   "in": {
+    "anim": "pop",
+    "dur": 0.6
+   },
+   "out": {
+    "anim": "fade",
+    "dur": 0.3
+   }
+  },
+  {
+   "type": "transition",
+   "style": "flash",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "start": 6.3,
+   "end": 6.8
+  },
+  {
+   "type": "grid",
+   "kind": "crosses",
+   "spacing": 80,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "fill_opacity": 0.1,
+   "scroll": {
+    "x": 5,
+    "y": 5
+   },
+   "vignette": 0.9,
+   "start": 6.5,
+   "end": 10.0
+  },
+  {
+   "type": "particles",
+   "count": 80,
+   "color": [
+    0.4,
+    0.8,
+    1
+   ],
+   "size": 3,
+   "speed": 1.2,
+   "seed": 12,
+   "start": 6.5,
+   "end": 10.0
+  },
+  {
+   "type": "blob",
+   "x": 1400,
+   "y": 520,
+   "r": 450,
+   "color": [
+    1,
+    0.3,
+    0.5
+   ],
+   "color2": [
+    0.2,
+    0.8,
+    1
+   ],
+   "fill_opacity": 0.4,
+   "softness": 0.9,
+   "start": 6.5,
+   "end": 10.0
+  },
+  {
+   "type": "line",
+   "points": [
+    [
+     300,
+     750
+    ],
+    [
+     1400,
+     520
+    ]
+   ],
+   "width": 4,
+   "color": [
+    0,
+    0.94,
+    1
+   ],
+   "start": 6.6,
+   "end": 10.0,
+   "in": {
+    "anim": "wipe_right",
+    "dur": 0.8
+   }
+  },
+  {
+   "type": "circle",
+   "x": 300,
+   "y": 750,
+   "r": 35,
+   "fill": [
+    0,
+    0.8,
+    1
+   ],
+   "shadow": 0.6,
+   "shadow_color": [
+    0,
+    0.8,
+    1
+   ],
+   "shadow_blur": 30,
+   "start": 6.6,
+   "end": 10.0,
+   "in": {
+    "anim": "pop",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "EARTH ORIGIN",
+   "font": "medium_italic",
+   "size": 30,
+   "x": 300,
+   "y": 820,
+   "color": [
+    0.8,
+    0.95,
+    1
+   ],
+   "start": 6.9,
+   "end": 10.0,
+   "in": {
+    "anim": "fade",
+    "dur": 0.4
+   }
+  },
+  {
+   "type": "circle",
+   "x": 1400,
+   "y": 520,
+   "r": 80,
+   "fill": [
+    1,
+    0.3,
+    0.5
+   ],
+   "shadow": 0.8,
+   "shadow_color": [
+    1,
+    0.3,
+    0.5
+   ],
+   "shadow_blur": 60,
+   "float": {
+    "y": 8,
+    "speed": 0.8
+   },
+   "start": 7.2,
+   "end": 10.0,
+   "in": {
+    "anim": "zoom",
+    "dur": 0.7
+   }
+  },
+  {
+   "type": "circle",
+   "x": 1400,
+   "y": 520,
+   "r": 160,
+   "fill": [
+    0,
+    0,
+    0
+   ],
+   "fill_opacity": 0,
+   "border": [
+    1,
+    0.8,
+    0.3
+   ],
+   "border_w": 2,
+   "border_opacity": 0.5,
+   "start": 7.4,
+   "end": 10.0,
+   "in": {
+    "anim": "fade",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "chip",
+   "emoji": "🪐",
+   "label": "TARGET: EXOPLANET X-1",
+   "x": 1200,
+   "y": 310,
+   "scale": 0.85,
+   "start": 7.6,
+   "end": 10.0,
+   "in": {
+    "anim": "slide_left",
+    "dur": 0.5
+   }
+  },
+  {
+   "type": "text",
+   "text": "DESTINATION: EXTRA-SOLAR",
+   "font": "bold_italic",
+   "size": 90,
+   "x": 960,
+   "y": 140,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "gradient": {
+    "from": [
+     0,
+     0.94,
+     1
+    ],
+    "to": [
+     1,
+     0.4,
+     0.7
+    ]
+   },
+   "start": 6.6,
+   "end": 10.0,
+   "fixed": true,
+   "in": {
+    "anim": "rise",
+    "dur": 0.6
+   }
+  },
+  {
+   "type": "text",
+   "text": "DISTANCE: {n} LIGHT YEARS",
+   "font": "bold_italic",
+   "size": 48,
+   "x": 960,
+   "y": 950,
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "count": {
+    "from": 0,
+    "to": 422,
+    "dur": 1.8,
+    "format": "{:,}"
+   },
+   "start": 7.8,
+   "end": 10.0,
+   "fixed": true,
+   "in": {
+    "anim": "slide_up",
+    "dur": 0.5
+   }
+  }
+ ]
+}

@@ -18,3 +18,12 @@ Still open: Text too small to read on a phone: layer 16 "SYSTEM STATUS: ACTIVE [
 ## 2026-11-04T06:35:17Z - feedback on d-20261104-0556-c7d1
 Rating: 3/5. Note: good but 1st frame mai top left button jo hai us ka text bahir hai us se
 Lessons stored: User feedback: good but 1st frame mai top left button jo hai us ka text bahir hai us se
+
+## d-20261104-0941-a75d - 16:9 (out)
+Brief: this is the make video on this script "A mysterious signal is detected coming from deep beneath the ocean.
+Scientists discover an ancient machine buried under t
+Design: backgrounds ocean, neon_night, mono_dark; entrances fade, slide_up, pop, slide_right, wipe_up; transitions flash, wipe; camera yes
+What was wrong at first: Text cut off: at 8.2s layer 26 "DESTINATION: EXOPLANET X-1" extends beyond the 1920x1080 canvas (text is 1042p
+Fixed by the bot: Text cut off: at 8.2s layer 26 "DESTINATION: EXOPLANET X-1" extends beyond the 1
+Still open: nothing
+AI review round 1: score 6.0 - Low contrast on title text 'DEEP SIGNAL DETECTED' at 0.3s; Text truncated in progress bar at 4.6s; Low contrast on card metadata text layer at 4.6s

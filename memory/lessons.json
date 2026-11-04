@@ -98,5 +98,45 @@
   "source": "feedback",
   "created": "2026-11-04T06:35:17Z",
   "last": "2026-11-04T06:35:17Z"
+ },
+ {
+  "id": "l831",
+  "kind": "dont",
+  "text": "Long text got cut off at the canvas edge. Keep every text line short: width is about characters x size x 0.6 and must stay under 90% of the canvas width.",
+  "weight": 1,
+  "count": 1,
+  "source": "qa",
+  "created": "2026-11-04T09:41:35Z",
+  "last": "2026-11-04T09:41:35Z"
+ },
+ {
+  "id": "l323",
+  "kind": "dont",
+  "text": "Reviewer found (score 6/10): Low contrast on title text 'DEEP SIGNAL DETECTED' at 0.3s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-04T09:41:35Z",
+  "last": "2026-11-04T09:41:35Z"
+ },
+ {
+  "id": "l791",
+  "kind": "dont",
+  "text": "Reviewer found (score 6/10): Text truncated in progress bar at 4.6s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-04T09:41:35Z",
+  "last": "2026-11-04T09:41:35Z"
+ },
+ {
+  "id": "l897",
+  "kind": "dont",
+  "text": "Reviewer found (score 6/10): Low contrast on card metadata text layer at 4.6s",
+  "weight": 1,
+  "count": 1,
+  "source": "review",
+  "created": "2026-11-04T09:41:35Z",
+  "last": "2026-11-04T09:41:35Z"
  }
 ]
