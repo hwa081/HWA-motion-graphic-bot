@@ -1,5 +1,24 @@
 [
  {
+  "id": "jmw30uklid85",
+  "job": "jmw30uklid85",
+  "kind": "report",
+  "title": "make video on this: in a world where technology evolves every second, artificial intellige",
+  "prompt": "make video on this: in a world where technology evolves every second, artificial intelligence is transforming the way we think, create, and imagine. From futuristic machines to intelligent robots, the boundaries between reality and science fiction are disappearing. The future is no longer a distant dream; it is being built right now.",
+  "mode": "code",
+  "size": "16:9",
+  "dur": "6",
+  "ai": "gemini",
+  "date": "2026-11-05T04:45:42Z",
+  "ok": false,
+  "trashed": false,
+  "project": "default",
+  "formats": "none",
+  "note": "ERROR: all models failed:",
+  "report": "outputs/jmw30uklid85/report.md",
+  "design_id": "d-20261104-1950-4eb6"
+ },
+ {
   "id": "jmw2zrkptr8d",
   "job": "jmw2zrkptr8d",
   "kind": "report",
