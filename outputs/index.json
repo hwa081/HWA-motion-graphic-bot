@@ -1,5 +1,25 @@
 [
  {
+  "id": "jmw32yalqcfh",
+  "job": "jmw32yalqcfh",
+  "kind": "report",
+  "title": "n a small town, suddenly every clock stopped, but people's lives continued normally.\nA boy",
+  "prompt": "n a small town, suddenly every clock stopped, but people's lives continued normally.\nA boy looked at his watch and saw images of the future instead of time.\nEvery image showed the city destroyed, and the disaster was only five minutes away.\nIn the final image, he saw himself burning the entire city to the ground.",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "6",
+  "ai": "gemini",
+  "date": "2026-11-05T05:34:26Z",
+  "ok": false,
+  "trashed": false,
+  "project": "default",
+  "quality": "draft",
+  "formats": "none",
+  "note": "ERROR: all models failed:",
+  "report": "outputs/jmw32yalqcfh/report.md",
+  "design_id": "d-20261104-1950-4eb6"
+ },
+ {
   "id": "jmw2k6g8xyr1",
   "job": "jmw2k6g8xyr1",
   "kind": "report",
