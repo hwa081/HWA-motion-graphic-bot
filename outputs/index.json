@@ -1,5 +1,25 @@
 [
  {
+  "id": "jmw3yez0l3q5",
+  "job": "jmw3yez0l3q5",
+  "kind": "report",
+  "title": "In a small town, suddenly every clock stopped, but people's lives continued normally.\nA bo",
+  "prompt": "In a small town, suddenly every clock stopped, but people's lives continued normally.\nA boy looked at his watch and saw images of the future instead of time.\nEvery image showed the city destroyed, and the disaster was only five minutes away.\nIn the final image, he saw himself burning the entire city to the ground.",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-05T20:13:32Z",
+  "ok": false,
+  "trashed": false,
+  "project": "default",
+  "quality": "draft",
+  "formats": "wfp",
+  "note": "ERROR: all models failed: | gemini-3.7-flash: HTTP 429 from gemini-3.7-flash: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit.",
+  "report": "outputs/jmw3yez0l3q5/report.md",
+  "design_id": "d-20261104-1950-4eb6"
+ },
+ {
   "id": "jmw3x60s77mw",
   "job": "jmw3x60s77mw",
   "kind": "report",
