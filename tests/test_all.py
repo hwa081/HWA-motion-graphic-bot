@@ -1800,6 +1800,8 @@ def _():
             if fx:
                 n_pen += 1; m = J.loads(fx['effectMask']['custom_mask']); assert len(m['paths'][0]['points']) >= 3
     assert n_pen == 3, n_pen
+    hp = [q for t_ in w['timelineInfos'][0]['trackInfos'] for c in t_['clipList'] if N._find_fx(c, 'graphic/effect/path') for q in J.loads(N._find_fx(c, 'graphic/effect/path')['effectMask']['custom_mask'])['paths'][0]['points'] if 'right_ctrl_point' in q or 'left_ctrl_point' in q]
+    assert len(hp) >= 4 and all(q.get('right_ctrl_point', q.get('left_ctrl_point'))['type'] in (1, 2) for q in hp)      # Bezier handles (circle + smooth line)
     assert N.kf([(0.52, 100.0)]).endswith('acf13857afa3ad4ab3f294973212c028"}')      # checksum copied from a real Filmora trim keyframe
 
 print('\n%d passed, %d failed' % (len(PASSED), len(FAILED)))
