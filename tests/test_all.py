@@ -130,6 +130,32 @@ def _():
     finally:
         gemini.list_models = orig; os.environ.pop('GEMINI_MODEL', None)
 
+@check('gemini.ask: patient - a busy / unreachable AI is waited for (rounds), only real errors fail at once, patience 0 gives up')
+def _():
+    orig, sleep = gemini.generate, gemini.time.sleep
+    n = {'c': 0}; slept = []
+    def busy_then_ok(key, model, system, contents, json_mode=True, temperature=0.8, max_tokens=0):
+        n['c'] += 1
+        if n['c'] <= 8:                                           # 2 models x 3 tries = round 1 fails, round 2 fails partly
+            ex = gemini.GeminiError('HTTP 503 overloaded' if n['c'] % 2 else 'network error: timed out'); ex.status = 503 if n['c'] % 2 else None; ex.retry_after = None; raise ex
+        return 'finally'
+    gemini.generate = busy_then_ok; gemini.time.sleep = lambda s: slept.append(s)
+    try:
+        txt, model = gemini.ask('k', ['a', 'b'], None, [], log=lambda *a: None, patience=600)
+        assert txt == 'finally' and n['c'] == 9 and max(slept) >= 30, (n, slept)
+        n['c'] = 0
+        try: gemini.ask('k', ['a', 'b'], None, [], log=lambda *a: None, patience=0); assert False
+        except gemini.GeminiError as ex: assert 'all models failed' in str(ex)
+        def real_error(*a, **k):
+            ex = gemini.GeminiError('HTTP 404 model not found'); ex.status = 404; ex.retry_after = None; raise ex
+        gemini.generate = real_error; slept.clear()
+        try: gemini.ask('k', ['a'], None, [], log=lambda *a: None, patience=600); assert False
+        except gemini.GeminiError: pass
+        assert not any(x >= 30 for x in slept), 'a real error must not be waited for'
+    finally:
+        gemini.generate, gemini.time.sleep = orig, sleep
+
+
 @check('gemini.ask: retries 429, falls back to next model, reports all failures')
 def _():
     calls = []
@@ -637,13 +663,11 @@ def _():
     finally:
         gemini.ask = orig
 
-@check('agent gives up cleanly when the model keeps failing')
+@check('agent never fails on a model that keeps answering junk: simple title video instead')
 def _():
     ask = Scripted(gen=['not json'] * 4)
-    try:
-        agent.run_agent('x', 3, tempfile.mkdtemp(), ask, review=False, mem=_mem(), log=lambda *a: None, render_final=False); assert False
-    except agent.AgentError as ex:
-        assert 'valid spec' in str(ex)
+    sp = agent.run_agent('x', 3, tempfile.mkdtemp(), ask, review=False, mem=_mem(), log=lambda *a: None, render_final=False)
+    assert not S.validate(sp, ROOT)[0]
 
 
 @check('real HTTP path: run.py --mode check / ai against a local fake Gemini server (429 retry, key header, JSON mode, vision parts)')
@@ -1501,6 +1525,282 @@ def _():
     n = len(idx); run('', '--mode', 'remix', '--prompt', 'ocean documentary', '--out', 'o5', OUTPUT_KEEP='2')
     assert len(json.load(open(os.path.join(proj, 'outputs', 'index.json')))) == n                                    # no job id -> reports are not published
 
+
+@check('progress: printed lines become stage + percent (never going down) + frames/ETA; Tee passes output through; local file is written')
+def _():
+    from mgl import progress as PG
+    st = {}
+    for line in ['reference video read (5.0s)', '[remix] ideas from a, b', '[plan] concept here', '[spec] attempt 1/3', '   asset image: x', '[qa] 0 error(s), 1 warning(s)', '[review] round 1', '[render] final video ...']:
+        PG.parse_line(line, st)
+    assert st['stage'] == 4 and 60 < st['pct'] < 70, st
+    p0 = st['pct']; PG.parse_line('[spec] attempt 1/3', st); assert st['pct'] == p0                                          # never goes down
+    PG.parse_line('frame 60/240  (12s, 2 workers)', st)
+    assert st['frames'] == [60, 240] and st['eta'] == 36 and 70 < st['pct'] < 75, st
+    PG.parse_line('Exporting: srt, gif', st); assert st['stage'] == 5 and st['pct'] >= 95
+    f = os.path.join(tempfile.mkdtemp(), 'p.json'); pr = PG.Progress('j1', 'ai', None, local_path=f); pr.start()
+    import io; buf = io.StringIO(); t = PG.Tee(buf, pr); t.write('[spec] attempt 2/3\nframe 3/10  (2s)\n'); t.flush()
+    assert buf.getvalue().startswith('[spec]') and pr.state['frames'] == [3, 10]
+    d = pr.snapshot(); assert d['job'] == 'j1' and d['stages'][0] == 'Start' and 0 < d['pct'] < 100 and pr.snapshot(done=True)['pct'] == 100
+    pr.finish()
+    assert PG.install('', 'ai') is None                                                                                      # no job label -> no progress
+    os.environ.pop('PROGRESS_TOKEN', None)
+
+
+@check('render: parallel workers give exactly the same pixels as one worker; draft (half size, 15 fps) is smaller and faster')
+def _():
+    import subprocess, hashlib
+    sp = json.load(open(os.path.join(ROOT, 'examples', 'logo_reveal.json'))); sp['duration'] = 1.5
+    d = tempfile.mkdtemp()
+    def frames(f): return subprocess.run(['ffmpeg', '-v', 'error', '-i', f, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
+    R.render_video(sp, os.path.join(d, 'a.mp4'), S.Context(ROOT), quiet=True, workers=1)
+    R.render_video(sp, os.path.join(d, 'b.mp4'), S.Context(ROOT), quiet=True, workers=3)
+    assert hashlib.md5(frames(os.path.join(d, 'a.mp4'))).hexdigest() == hashlib.md5(frames(os.path.join(d, 'b.mp4'))).hexdigest()
+    R.render_video(sp, os.path.join(d, 'c.mp4'), S.Context(ROOT), quiet=True, scale=0.5, fps=15, preset='ultrafast')
+    import cv2
+    cap = cv2.VideoCapture(os.path.join(d, 'c.mp4')); w, h, fps, n = cap.get(3), cap.get(4), cap.get(5), cap.get(7); cap.release()
+    assert (int(w), int(h)) == (960, 540) and round(fps) == 15 and abs(n - 22) <= 2 and os.path.getsize(os.path.join(d, 'c.mp4')) < os.path.getsize(os.path.join(d, 'a.mp4'))
+
+
+@check('run.py: draft makes the light files only, publish lists editor/preview files + project + quality + formats wanted; final run (parent) is full size with the editor files')
+def _():
+    import subprocess, shutil, cv2
+    proj = tempfile.mkdtemp()
+    for item in ('mgl', 'fonts', 'examples', 'assets', 'recipes', 'scripts', 'library', 'agent.py', 'render.py', 'run.py', 'LIBRARY.md', 'requirements.txt', 'studio', 'custom', 'libgen'):
+        src = os.path.join(ROOT, item); dst = os.path.join(proj, item)
+        if os.path.exists(src): shutil.copytree(src, dst, ignore=shutil.ignore_patterns('__pycache__')) if os.path.isdir(src) else shutil.copy(src, dst)
+    env = {k: v for k, v in os.environ.items() if k != 'GEMINI_API_KEY'}
+    env.update(PROGRESS_FILE=os.path.join(proj, 'prog.json'), PROGRESS_REMOTE='false')
+    def run(job, *args):
+        return subprocess.run([sys.executable, 'run.py'] + list(args), cwd=proj, env=dict(env, JOB=job), capture_output=True, text=True, timeout=600)
+    r = run('d1', '--mode', 'spec', '--files', 'examples/logo_reveal.json', '--formats', 'srt,wfp,xml', '--sound', 'none', '--quality', 'draft', '--project', 'pA', '--out', 'o1')
+    assert r.returncode == 0 and 'DRAFT' in r.stdout, r.stdout[-600:] + r.stderr[-400:]
+    idx = json.load(open(os.path.join(proj, 'outputs', 'index.json'))); e = idx[0]
+    assert e['quality'] == 'draft' and e['project'] == 'pA' and e['formats'] == 'srt,wfp,xml', e
+    assert [f['name'] for f in e.get('files', [])] and not any(f['name'].endswith(('.wfp', '.xml')) for f in e['files'])
+    cap = cv2.VideoCapture(os.path.join(proj, 'outputs', 'd1', 'video.mp4')); assert int(cap.get(3)) == 960 and round(cap.get(5)) == 15; cap.release()
+    assert os.path.isfile(os.path.join(proj, 'prog.json')) and json.load(open(os.path.join(proj, 'prog.json')))['job'] == 'd1'
+    r = run('f1', '--mode', 'spec', '--files', 'outputs/d1/spec.json', '--formats', 'srt,wfp,xml', '--sound', 'none', '--quality', 'final', '--parent', 'd1', '--project', 'pA', '--out', 'o2')
+    assert r.returncode == 0, r.stdout[-600:] + r.stderr[-400:]
+    e = json.load(open(os.path.join(proj, 'outputs', 'index.json')))[0]
+    names = [f['name'] for f in e['files']]
+    assert e['id'] == 'f1' and e['parent'] == 'd1' and e['quality'] == 'final' and any(n.endswith('.wfp') for n in names) and any(n.endswith('.xml') for n in names), (e, r.stdout[-500:])
+    assert e['video_name'].endswith('.mp4') and e['video_name'] != 'video.mp4', e
+    cap = cv2.VideoCapture(os.path.join(proj, 'outputs', 'f1', 'video.mp4')); assert int(cap.get(3)) == 1920; cap.release()
+    assert os.path.isfile(os.path.join(proj, 'outputs', 'f1', 'files', next(n for n in names if n.endswith('.wfp'))))
+
+
+@check('longform: outline is cleaned to the wanted total (parts 12-45 s), fallback split works, checkpoint save/load/clear, same brief = same key')
+def _():
+    from mgl import longform as LF, work as WK
+    out = LF.clean_outline({'parts': [{'title': 'a', 'brief': 'x', 'seconds': 100}, {'title': 'b', 'brief': 'y', 'seconds': 5}, {'title': 'c', 'brief': 'z', 'seconds': 60}]}, 150, 5)
+    assert len(out) == 3 and all(12 <= p['seconds'] <= 45 for p in out), out
+    fb = LF.fallback_outline('about the sea', 300, LF.n_parts(300)); assert len(fb) == 10 and abs(sum(p['seconds'] for p in fb) - 300) < 0.5 and fb[0]['title'] == 'Opening' and fb[-1]['title'] == 'Ending'
+    assert WK.make_key('A  Brief', 300, '16:9', 'ai') == WK.make_key('a brief', 300, '16:9', 'ai') != WK.make_key('a brief', 301, '16:9', 'ai')
+    root = tempfile.mkdtemp(); w = WK.Work(root, 'k1'); assert w.load() is None
+    w.save({'parts': [1], 'done': False}); assert WK.Work(root, 'k1').load()['parts'] == [1]
+    assert WK.Work(root, 'k1', enabled=False).load() is None                                   # resume off
+    w.clear(); assert WK.Work(root, 'k1').load() is None
+
+
+@check('longform e2e: 2 parts designed + saved, the 2nd part hits the request budget -> run stops, checkpoint keeps part 1; next run only designs part 2, renders, joins ONE video, clears the checkpoint')
+def _():
+    import shutil
+    from mgl import longform as LF, work as WK
+    root = tempfile.mkdtemp()
+    for d in ('fonts',):
+        shutil.copytree(os.path.join(ROOT, d), os.path.join(root, d))
+    state = {'n': 0}
+    def make_ask(limit):
+        def ask(system, contents, json_mode=True):
+            if ask.calls >= limit: raise agent.BudgetError('request budget of %d reached' % limit)
+            ask.calls += 1
+            if system == LF.OUTLINE_SYSTEM:
+                return json.dumps({'title': 't', 'parts': [{'title': 'First', 'brief': 'hook', 'seconds': 12}, {'title': 'Second', 'brief': 'end', 'seconds': 12}]})
+            state['n'] += 1; state.setdefault('prompts', []).append(contents[0]['parts'][0]['text'])
+            return json.dumps(GOOD)
+        ask.calls, ask.budget = 0, limit
+        return ask
+    R.DEFAULTS.update(scale=0.25, fps=8, preset='ultrafast', crf=30)
+    try:
+        out = tempfile.mkdtemp(); ask1 = make_ask(2)                                       # outline + part 1, then the budget is used up
+        try:
+            LF.run_long('a calm story about the sea', 24, out, ask1, root=root, log=lambda *a: None, sound='none', key='kk'); assert False, 'should stop'
+        except agent.BudgetError:
+            pass
+        saved = WK.Work(root, 'kk').load()
+        assert saved and saved['parts'][0]['spec'] and not saved['parts'][1]['spec'], 'part 1 is saved, part 2 is missing'
+        assert not os.path.exists(os.path.join(out, 'video.mp4'))
+        out2 = tempfile.mkdtemp(); ask2 = make_ask(5); n_before = state['n']
+        res = LF.run_long('a calm story about the sea', 24, out2, ask2, root=root, log=lambda *a: None, sound='none', key='kk')
+        new_prompts = state['prompts'][n_before:]
+        assert res['resumed'] and res['parts'] == 2 and new_prompts and not any('PART 1 of 2' in t for t in new_prompts) and all(not t.startswith('Split this') for t in new_prompts), 'only part 2 needed AI'
+        assert 'PART 2 of 2' in new_prompts[0] and 'STYLE OF PART 1' in new_prompts[0] and 'LAST part' in new_prompts[0]
+        import cv2
+        cap = cv2.VideoCapture(os.path.join(out2, 'video.mp4')); n = cap.get(7); fps = cap.get(5); cap.release()
+        assert abs(n / fps - 24.0) < 1.0, (n, fps)                                          # two parts of 12 s joined
+        assert WK.Work(root, 'kk').load() is None and os.path.isfile(os.path.join(out2, 'long_plan.json')) and 'Second' in open(os.path.join(out2, 'report.md')).read()
+    finally:
+        R.DEFAULTS.update(scale=1.0, fps=None, preset='medium', crf=None)
+
+
+@check('run.py: a saved design is rendered without any AI key (resume), the checkpoint is removed, resume=off starts from zero (needs the AI key again)')
+def _():
+    import subprocess, shutil as sh
+    from mgl import work as WK
+    proj = tempfile.mkdtemp()
+    for item in ('mgl', 'fonts', 'examples', 'assets', 'recipes', 'scripts', 'library', 'agent.py', 'render.py', 'run.py', 'LIBRARY.md', 'requirements.txt', 'studio', 'custom', 'libgen'):
+        src = os.path.join(ROOT, item); dst = os.path.join(proj, item)
+        if os.path.exists(src): sh.copytree(src, dst, ignore=sh.ignore_patterns('__pycache__')) if os.path.isdir(src) else sh.copy(src, dst)
+    env = {k: v for k, v in os.environ.items() if k not in ('GEMINI_API_KEY', 'AI_PROVIDERS')}; env['PROGRESS_REMOTE'] = 'false'
+    sp = load('logo_reveal'); sp['duration'] = 3
+    key = WK.make_key('my saved brief', 3, '16:9', 'ai')
+    WK.Work(proj, key).save({'prompt': 'my saved brief', 'spec': sp, 'done': False})
+    def run(*extra):
+        return subprocess.run([sys.executable, 'run.py', '--mode', 'ai', '--prompt', 'my saved brief', '--duration', '3', '--formats', 'none', '--sound', 'none', '--out', tempfile.mkdtemp()] + list(extra), cwd=proj, env=env, capture_output=True, text=True, timeout=300)
+    r = run('--resume', 'off'); assert r.returncode != 0 and 'No AI key' in r.stdout, r.stdout[-400:]
+    assert WK.Work(proj, key).load() is not None, 'resume=off must not delete the saved work'
+    r = run(); assert r.returncode == 0 and '[resume]' in r.stdout and 'done ->' in r.stdout, r.stdout[-600:] + r.stderr[-300:]
+    assert WK.Work(proj, key).load() is None
+
+
+@check('never fail: salvage + fallback spec')
+def _():
+    sp = {'duration': 5, 'background': 'nope', 'layers': [{'type': 'bogus'}, {'type': 'text', 'text': 'x', 'x': 10, 'y': 10, 'size': 50, 'start': 0, 'end': 5}]}
+    fixed, notes = S.salvage(sp, ROOT); assert fixed and len(fixed['layers']) == 1 and not S.validate(fixed, ROOT)[0], notes
+    assert S.salvage({'layers': [{'type': 'bogus'}]}, ROOT)[0] is None
+    fb = S.fallback_spec('A very long title ' * 10, 6, '9:16'); assert not S.validate(fb, ROOT)[0] and fb['size'] == '9:16'
+    # obtain_spec: every answer broken in one layer -> repaired instead of AgentError
+    bad = json.dumps({'duration': 4, 'background': 'dark_aurora', 'layers': [{'type': 'bogus'}, {'type': 'text', 'text': 'Hi', 'x': 960, 'y': 540, 'size': 80, 'start': 0, 'end': 4}]})
+    got = agent.obtain_spec(lambda sy, h: bad, 'sys', [], 4, '16:9', lambda *a: None, ROOT)
+    assert len(got['layers']) == 1
+    junk = agent.obtain_spec(lambda sy, h: 'not json at all', 'sys', [], 4, '16:9', lambda *a: None, ROOT, title='My brief')
+    assert not S.validate(junk, ROOT)[0]
+
+@check('never fail: render retries and repeats a broken frame')
+def _():
+    import render as RR
+    sp = load('logo_reveal'); sp['duration'] = 1
+    calls = {'n': 0}; orig = S.render_frame
+    def flaky(spec, t, ctx):
+        calls['n'] += 1
+        if calls['n'] == 5: raise RuntimeError('boom')
+        return orig(spec, t, ctx)
+    S.render_frame = flaky
+    try:
+        out = os.path.join(tempfile.mkdtemp(), 'v.mp4'); ctx = S.Context(ROOT)
+        RR.render_video(sp, out, ctx, workers=1, scale=0.25, fps=10)
+        assert os.path.getsize(out) > 500 and any('previous frame repeated' in w for w in ctx.warnings), ctx.warnings
+    finally:
+        S.render_frame = orig
+
+@check('never fail: failed run publishes its reason')
+def _():
+    from mgl import publish as PB
+    root = tempfile.mkdtemp(); out = tempfile.mkdtemp()
+    open(os.path.join(out, 'error_report.md'), 'w').write('# x\nERROR: every AI failed\n')
+    e = PB.publish(root, out, 'ai', job='j1', prompt='p'); assert e and e['ok'] is False and 'every AI failed' in e['note'], e
+
+
+@check('sound: viral style = editor SFX only (no music), placed from the plan, deterministic, pack has the viral files')
+def _():
+    from mgl import sound as SN
+    import wave, hashlib
+    sp = load('saas_intro'); d = tempfile.mkdtemp()
+    a = os.path.join(d, 'a.wav'); b = os.path.join(d, 'b.wav')
+    ia = SN.compose(sp, a, style='viral'); SN.compose(sp, b, style='viral')
+    assert ia['style'] == 'viral' and ia['sfx_count'] > 3 and set(ia['sfx']) <= set(SN.VIRAL_KINDS) | {'tick'}, ia
+    assert hashlib.md5(open(a, 'rb').read()).hexdigest() == hashlib.md5(open(b, 'rb').read()).hexdigest()
+    w = wave.open(a); assert abs(w.getnframes() / w.getframerate() - sp['duration']) < 0.05; w.close()
+    ev = SN.viral_events({'duration': 8, 'layers': [{'type': 'text', 'text': 'Big', 'size': 180, 'start': 1.0, 'end': 8, 'in': {'anim': 'pop', 'dur': 0.4}},
+                                                    {'type': 'image', 'path': 'x.png', 'start': 3.0, 'end': 6, 'in': {'anim': 'slide_up', 'dur': 0.5}, 'out': {'anim': 'fade', 'dur': 0.5}}]})
+    kinds = [e[1] for e in ev]; assert 'gravel' in kinds and ('shutter' in kinds or 'burst' in kinds) and 'slice' in kinds, kinds
+    names = [os.path.basename(p) for p in SN.sfx_pack(os.path.join(d, 'pack'))]
+    assert 'viral_dark_gravel_hit.wav' in names and 'viral_multiple_shuttle.wav' in names
+
+@check('sound: premium style = soft warm UI sounds (nothing harsh above 4 kHz, rounded attacks), deterministic, in the pack')
+def _():
+    from mgl import sound as SN
+    import wave, hashlib
+    rng = np.random.default_rng(5)
+    def hf(x):
+        x = np.asarray(x, float); sp = np.abs(np.fft.rfft(x * np.hanning(len(x)))) ** 2; fr = np.fft.rfftfreq(len(x), 1 / SN.SR); return sp[fr > 4000].sum() / sp.sum()
+    for name, x in (('tap', SN.pr_tap(rng)), ('key', SN.pr_key(rng)), ('pop', SN.pr_pop(rng)), ('ping', SN.pr_ping(rng, 4)), ('chime', SN.pr_chime(rng)), ('whoosh', SN.pr_whoosh(rng)), ('swell', SN.pr_swell(rng)), ('thud', SN.pr_thud(rng)), ('drop', SN.pr_drop(rng)), ('bloom', SN.pr_bloom(rng))):
+        assert np.isfinite(x).all() and hf(x) < 0.02, (name, hf(x))
+        assert np.argmax(np.abs(x) > 0.9 * np.abs(x).max()) / SN.SR >= 0.002, name        # no instant click
+    sp = load('saas_intro'); d = tempfile.mkdtemp(); a = os.path.join(d, 'a.wav'); b = os.path.join(d, 'b.wav')
+    ia = SN.compose(sp, a, style='premium'); SN.compose(sp, b, style='premium')
+    assert ia['style'] == 'premium' and 2 <= ia['sfx_count'] - ia['sfx'].get('key', 0) <= sp['duration'] * 3 and ia['sfx'].get('key', 0) <= sp['duration'] * 4 and set(ia['sfx']) <= set(SN.PREMIUM_KINDS), ia
+    assert hashlib.md5(open(a, 'rb').read()).hexdigest() == hashlib.md5(open(b, 'rb').read()).hexdigest()
+    w = wave.open(a); fr = np.frombuffer(w.readframes(w.getnframes()), '<i2').astype(float); w.close()
+    assert np.abs(fr).max() < 32767 * 0.65
+    ev = SN.premium_events({'duration': 8, 'layers': [{'type': 'text', 'text': 'Hello there', 'size': 100, 'start': 1.0, 'end': 8, 'in': {'anim': 'pop', 'dur': 0.4}},
+                                                      {'type': 'text', 'text': 'typed', 'size': 80, 'start': 3.0, 'end': 8, 'reveal': {'mode': 'letters', 'step': 0.1}},
+                                                      {'type': 'chip', 'label': 'Go', 'start': 5.0, 'end': 8, 'in': {'anim': 'pop', 'dur': 0.4}}]})
+    byt = {}
+    for t_, k, v, p_ in ev: byt.setdefault(k, []).append(t_)
+    assert not [t_ for t_ in byt.get('key', []) if t_ < 2.5] and len([t_ for t_ in byt['key'] if 3 <= t_ < 4]) >= 4, byt          # typing keys ONLY where text types in
+    assert 'slide' in byt and byt['slide'][0] < 1.5, byt                                                                         # a popping headline = soft whoosh, not typing/pop
+    assert all(t_ > 4.5 for t_ in byt.get('pop', [])) and byt.get('pop'), byt                                                      # pop = popups only
+    assert 'premium_glass_ping.wav' in [os.path.basename(p) for p in SN.sfx_pack(os.path.join(d, 'pack'))]
+
+@check('sound: your own sfx_pack files are used by name (premium / viral), others stay synthetic')
+def _():
+    from mgl import sound as SN
+    import scipy.io.wavfile as WV, importlib
+    d = tempfile.mkdtemp(); sr = SN.SR; tt_ = np.arange(int(sr * 0.3)) / sr
+    WV.write(os.path.join(d, 'my_pop_1.wav'), sr, (np.sin(2 * np.pi * 900 * tt_) * 20000).astype('<i2'))
+    WV.write(os.path.join(d, 'soft whoosh.wav'), sr, (np.sin(2 * np.pi * 300 * tt_) * 20000).astype('<i2'))
+    WV.write(os.path.join(d, 'readme.txt.wav'), sr, np.zeros(10, '<i2'))
+    os.environ['SFX_PACK'] = d
+    try:
+        pk = SN.load_pack(); assert set(pk) >= {'pop', 'whoosh'} and len(pk['pop'][0]) > 1000, list(pk)
+        sp = load('saas_intro'); a = os.path.join(d, 'with.wav'); SN.compose(sp, a, style='premium')
+        os.environ['SFX_PACK'] = tempfile.mkdtemp(); b = os.path.join(d, 'without.wav'); SN.compose(sp, b, style='premium')
+        assert open(a, 'rb').read() != open(b, 'rb').read()
+    finally:
+        os.environ.pop('SFX_PACK', None)
+
+@check('sound: typing clip in sfx_pack -> key hits drive text timing (per-character reveal times) and the key sounds')
+def _():
+    from mgl import sound as SN, spec as S2
+    import scipy.io.wavfile as WV
+    d = tempfile.mkdtemp(); sr = SN.SR; x = np.zeros(int(sr * 1.2))
+    hits = [0.05 + 0.06 * i for i in range(16)]
+    for h in hits:
+        k = np.arange(int(0.02 * sr)) / sr; i0 = int(h * sr); x[i0:i0 + len(k)] += np.random.default_rng(1).standard_normal(len(k)) * np.exp(-k / 0.004)
+    WV.write(os.path.join(d, 'typing_6.wav'), sr, (x / abs(x).max() * 20000).astype('<i2'))
+    os.environ['SFX_PACK'] = d
+    try:
+        tc = SN.typing_clip(); assert tc and 14 <= len(tc['rel']) <= 17 and 0.04 < np.median(np.diff(tc['rel'])) < 0.08, tc and tc['rel']
+        sp = {'duration': 8, 'size': '16:9', 'background': 'dark_aurora', 'layers': [
+            {'type': 'text', 'text': 'Typing demo text', 'x': 960, 'y': 540, 'size': 80, 'start': 1.0, 'end': 7, 'reveal': {'mode': 'chars', 'step': 0.2}},
+            {'type': 'text', 'text': 'Words come in', 'x': 960, 'y': 700, 'size': 70, 'start': 2.0, 'end': 7, 'reveal': {'mode': 'words', 'step': 0.5}}]}
+        assert SN.sync_spec(sp, 'premium') == 2 and SN.sync_spec(sp, 'kinetic') == 0
+        tm = sp['layers'][0]['reveal']['times']; assert len(tm) == len('Typing demo text') and tm[0] == 1.0 and all(b >= a - 0.006 for a, b in zip(tm, tm[1:])) and tm[-1] < 3.0, tm
+        assert not S2.validate(sp, ROOT)[0], S2.validate(sp, ROOT)[0]
+        a1 = S2.render_frame(sp, 1.0 + 0.05, S2.Context(ROOT)); a2 = S2.render_frame(sp, tm[-1] + 0.1, S2.Context(ROOT)); assert (a1 != a2).any()
+        ev = SN.premium_events(sp); ks = sorted(t_ for t_, k, v, p_ in ev if k == 'key' and t_ < 1.9)
+        assert len(ks) == 14 and abs(ks[0] - 1.0) < 0.01 and all(abs(a - b) < 0.01 for a, b in zip(ks, [tm[i] for i, c in enumerate('Typing demo text') if c != ' '])), (ks, tm)
+        info = SN.compose(sp, os.path.join(d, 'o.wav'), style='premium'); assert info['sfx'].get('key', 0) >= 14 and set(info['sfx']) <= set(SN.PREMIUM_KINDS)
+    finally:
+        os.environ.pop('SFX_PACK', None)
+
+@check('native wfp: pen layers (points, fill, stroke, trim keyframes) build a valid project')
+def _():
+    import tempfile, zipfile, json as J
+    from mgl import native_wfp as N
+    d = tempfile.mkdtemp()
+    r = N.build(os.path.join(d, 'pen.wfp'), 'pen', N.pen_demo_scene())
+    assert not r['problems'], r['problems']
+    z = zipfile.ZipFile(r['path']); w = J.loads(z.read([n for n in z.namelist() if n.endswith('timeline.wesproj')][0]))
+    n_pen = 0
+    for t_ in w['timelineInfos'][0]['trackInfos']:
+        for c in t_['clipList']:
+            fx = N._find_fx(c, 'graphic/effect/path')
+            if fx:
+                n_pen += 1; m = J.loads(fx['effectMask']['custom_mask']); assert len(m['paths'][0]['points']) >= 3
+    assert n_pen == 3, n_pen
+    assert N.kf([(0.52, 100.0)]).endswith('acf13857afa3ad4ab3f294973212c028"}')      # checksum copied from a real Filmora trim keyframe
 
 print('\n%d passed, %d failed' % (len(PASSED), len(FAILED)))
 sys.exit(1 if FAILED else 0)
