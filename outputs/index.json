@@ -1,5 +1,25 @@
 [
  {
+  "id": "jmw3x60s77mw",
+  "job": "jmw3x60s77mw",
+  "kind": "report",
+  "title": "script: Aaj hum ek aisi duniya mein jee rahe hain jahan technology har second badal rahi h",
+  "prompt": "script: Aaj hum ek aisi duniya mein jee rahe hain jahan technology har second badal rahi hai. Jo cheezein kuch saal pehle sirf science fiction movies mein dekhi jaati thi, aaj woh hamari real life ka hissa ban chuki hain.\n\nArtificial Intelligence, yaani AI, ab sirf computers tak mehdood nahi rahi. Yeh hamare phones, cars, hospitals, offices aur hatta ke hamari daily life mein bhi shamil ho chuki h",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "300",
+  "ai": "gemini",
+  "date": "2026-11-05T19:27:53Z",
+  "ok": false,
+  "trashed": false,
+  "project": "default",
+  "quality": "draft",
+  "formats": "none",
+  "note": "STOPPED: all models failed: | gemini-3.8-flash: HTTP 429 from gemini-3.8-flash: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit.",
+  "report": "outputs/jmw3x60s77mw/report.md",
+  "design_id": "d-20261104-1950-4eb6"
+ },
+ {
   "id": "jmw3qwd3dhe9",
   "job": "jmw3qwd3dhe9",
   "kind": "report",
