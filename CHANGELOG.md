@@ -2,7 +2,8 @@
 
 ## Native Filmora: free pen shapes
 - mgl/native_wfp.py: new layer type `pen` (polygon / polyline from points, fill + second colour, stroke, drop shadow, trim draw-on, transform + opacity keyframes), cloned from a real Filmora project (mgl/templates/pen_sample.wfp). `ngon()` makes circles / polygons / stars. `pen_demo_scene()` = demo. Confirmed by the user: the demo opens and plays in Filmora.
-- Not known yet: bezier curve handles (circles are drawn with many straight points), whether fillType 1 is solid or gradient.
+- Bezier curves (from the user's second sample, mgl/templates/pen_curves_sample.wfp): a point may carry `left_ctrl_point` (type 1, incoming) and `right_ctrl_point` (type 2, outgoing) with absolute frame coordinates. Layer points: (x, y) corner or (x, y, left, right). Helpers `circle()` (true round, 4 points) and `smooth()` (Catmull-Rom curve through points, open or closed).
+- Not known yet: whether fillType 1 is solid or gradient; the rotation pivot.
 
 ## Studio v2: progress, projects, files, Draft/Final, long videos, resume, Activity
 ### Studio v2 - "slow is fine, failing is not"
