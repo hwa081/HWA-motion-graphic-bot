@@ -106,8 +106,18 @@ def publish(root, out_dir, mode, job='', prompt='', size='', duration='', ai='',
     if report == err_rep and video is None:
         entry['ok'] = False
         try:
-            lines = [l for l in open(err_rep, encoding='utf-8').read().splitlines() if l.startswith(('ERROR', 'STOPPED', 'could not'))]
-            entry['note'] = (lines[-1] if lines else 'The run stopped before the video was ready')[:240]
+            allv = open(err_rep, encoding='utf-8').read().splitlines()
+            idx = [i for i, l in enumerate(allv) if l.startswith(('ERROR', 'STOPPED', 'could not'))]
+            if idx:
+                i = idx[-1]
+                # the reason often continues on the next indented lines (e.g. "all models failed:" + one line per model)
+                tail = [allv[i].strip()]
+                for l in allv[i + 1:i + 5]:
+                    if l.startswith('  ') and l.strip(): tail.append(l.strip())
+                    else: break
+                entry['note'] = ' | '.join(tail)[:420]
+            else:
+                entry['note'] = 'The run stopped before the video was ready'
         except Exception: entry['note'] = 'The run stopped before the video was ready'
     if report:
         shutil.copyfile(report, os.path.join(dst, 'report.md')); entry['report'] = 'outputs/%s/report.md' % oid
