@@ -1,5 +1,9 @@
 # Motion Graphic Bot - merged version
 
+## Native Filmora: free pen shapes
+- mgl/native_wfp.py: new layer type `pen` (polygon / polyline from points, fill + second colour, stroke, drop shadow, trim draw-on, transform + opacity keyframes), cloned from a real Filmora project (mgl/templates/pen_sample.wfp). `ngon()` makes circles / polygons / stars. `pen_demo_scene()` = demo. Confirmed by the user: the demo opens and plays in Filmora.
+- Not known yet: bezier curve handles (circles are drawn with many straight points), whether fillType 1 is solid or gradient.
+
 ## Studio v2: progress, projects, files, Draft/Final, long videos, resume, Activity
 ### Studio v2 - "slow is fine, failing is not"
 - AI: patient retries (429 / 5xx / network, up to `AI_PATIENCE_MIN`, default 12 min), model and provider fallback.
@@ -45,3 +49,13 @@ Filmora .wfp: media type (audio ke saath 8, bina audio 2), thumb.fsthumb, ID for
 - mgl/native_wfp.py: rectangles + text as real editable Filmora layers, cloned from a real Filmora project (mgl/templates/native_sample.wfp).
 - Metadata policy: only project name and save path change (tested to open). Duration sync (project length = scene length) is on by default; tested to open.
 - Older video-import .wfp export did not open in Filmora; use native mode for Filmora projects.
+
+### Viral SFX style
+- New sound style `viral` (now the default): editor-style effects (dark gravel hit, snapshot woosh, camera shutter / multiple shuttle, gone fast, airy slice, bass drop, noise riser, tape stop, sparkle, rewind), no music, placed from the plan (cuts, hero words, images, exits). Page: sound style dropdown next to the Sound checkbox. The SFX pack now also contains the 11 viral sounds.
+
+### Premium UI SFX (default)
+- New sound style `premium`, now the default: soft warm app sounds (taps, glass pings in one key, airy whooshes, deep soft thuds, chime, bloom). Everything is low-passed (no energy above ~4 kHz), rounded attacks, quieter mix. `viral` stays as the punchy option.
+- Premium: text now sounds like soft typing (a key per letter/word, a short flurry for headlines); the bubble pop is only used for popups (chips, cards, icons, emoji).
+- Premium placement v2: typing keys only where text really types in (letter/word reveal); headlines that blur/slide/wipe/pop get a soft whoosh, the one hero headline a soft thud; cards, chips, icons and emoji get the bubble pop; scene changes get a soft whoosh; the bloom marks the closing headline.
+- `sfx_pack/` folder: your own sound files are used by name in the premium / viral styles.
+- Typing sync: with a typing clip in sfx_pack (premium style) text types exactly on the key hits (reveal `times` now also work for chars / letters); typing_6 from the sample video is included.
