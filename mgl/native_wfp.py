@@ -14,6 +14,7 @@ import copy, hashlib, json, os, re, struct, time, uuid, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SAMPLE = os.path.join(HERE, 'templates', 'native_sample.wfp')
+PEN_SAMPLE = os.path.join(HERE, 'templates', 'pen_sample.wfp')     # made in Filmora by the user: two free pen shapes with fill / stroke / shadows / trim / keyframes
 W, H, FPS, U = 1920.0, 1080.0, 25, 10000000
 
 
@@ -126,6 +127,104 @@ def _rect_clip(proto, L):
     return c
 
 
+def _pen_points(L):
+    """layer points -> normalized 0..1 of the frame. Accepts px (default) or {'norm': True}."""
+    out = []
+    for x, y in L['points']:
+        out.append((x, y) if L.get('norm') else (x / W, y / H))
+    return out
+
+
+def _centroid(pts):
+    return sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+
+
+def _empty_kf():
+    return '{"Version": 3,"ParameterType": 0,"keyframeSets": [],"MD5":"d41d8cd98f00b204e9800998ecf8427e"}'
+
+
+def _pen_clip(proto, L):
+    """Free pen shape (straight-segment polygon / polyline) = a real editable Filmora pen layer.
+    Layer keys: points [(x,y)px], closed, fill/fill2/fill_alpha/fill_blur, stroke/stroke_w/stroke_alpha/stroke_blur,
+    shadow/shadow_dist/shadow_blur/shadow_alpha, keys: x,y (px, centre of the shape), sx, sy, rot, opacity, trim_start, trim_end (0..100)."""
+    c = copy.deepcopy(proto); _regen_ids(c)
+    s, e = _frame(L['start']), _frame(L['end'])
+    c['tlBegin'], c['tlEnd'], c['inPoint'], c['outPoint'] = s, e, 0, e - s
+    pts = _pen_points(L); cx, cy = _centroid(pts)
+    # 1) the path itself
+    pe = _find_fx(c, 'graphic/effect/path')
+    mask = json.loads(pe['effectMask']['custom_mask'])
+    P = mask['paths'][0]; tpl = copy.deepcopy(P['points'][0])
+    P['points'] = []
+    for x, y in pts:
+        q = copy.deepcopy(tpl); q['type'] = 0; q['value_x'] = round(x, 8); q['value_y'] = round(y, 8)
+        q['keyframe_x'] = q['keyframe_y'] = _empty_kf(); P['points'].append(q)
+    P['is_closed'] = bool(L.get('closed', True))
+    pe['effectMask']['custom_mask'] = json.dumps(mask, separators=(',', ': '), ensure_ascii=False)
+    # 2) fill
+    f = _find_fx(c, 'graphic/effect/path_fill')
+    if L.get('fill'):
+        _set_param(f, 'colorStart', bgr(L['fill']))
+        if L.get('fill2'): _set_param(f, 'colorEnd', bgr(L['fill2']))
+        else: f['paramList'] = [p for p in f['paramList'] if p['name'] != 'colorEnd']
+        _set_param(f, 'alpha', int(L.get('fill_alpha', 100)))
+    else:
+        _set_param(f, 'alpha', 0)
+    _set_param(f, 'blur', float(L.get('fill_blur', 0)))
+    # 3) stroke
+    st = _find_fx(c, 'graphic/effect/path_stroke')
+    if L.get('stroke'):
+        _set_param(st, 'color', bgr(L['stroke'])); _set_param(st, 'lineSize', int(L.get('stroke_w', 4)))
+        _set_param(st, 'alpha', int(L.get('stroke_alpha', 100))); _set_param(st, 'blur', float(L.get('stroke_blur', 0)))
+    else:
+        _set_param(st, 'lineSize', 0); _set_param(st, 'alpha', 0)
+    # 4) shadows (inner shadow is switched off and its keyframes dropped)
+    ins = _find_fx(c, 'graphic/effect/path_innershadow')
+    if ins is not None:
+        ins['paramMapList'] = []
+        if 'paramList' in ins: _set_param(ins, 'alpha', 0)
+    ds = _find_fx(c, 'graphic/effect/path_dropshadow')
+    if ds is not None:
+        if L.get('shadow'):
+            _set_param(ds, 'color', bgr(L['shadow'])); _set_param(ds, 'distance', int(L.get('shadow_dist', 8)))
+            _set_param(ds, 'blur', int(L.get('shadow_blur', 20))); _set_param(ds, 'alpha', int(L.get('shadow_alpha', 40)))
+        else:
+            _set_param(ds, 'alpha', 0)
+    # 5) trim (draw-on animation): 0..100 percent of the path length
+    tr = _find_fx(c, 'graphic/effect/path_trim')
+    keys = L.get('keys', {})
+    maps = []
+    for name, k, default in (('start', 'trim_start', 0.0), ('end', 'trim_end', 100.0)):
+        pk = keys.get(k)
+        if pk:
+            rel = [(t - L['start'], float(v)) for t, v in pk]
+            _set_param(tr, name, rel[0][1])
+            if len(rel) > 1: maps.append({'key': 3, 'keyFrame': {'parameter': kf(rel)}, 'name': name})
+        else:
+            _set_param(tr, name, default)
+    _set_param(tr, 'offset', 0.0)
+    tr['paramMapList'] = maps
+    # 6) transform: Position is an OFFSET from where the path is drawn (0.5 = not moved); x,y keys are the wanted shape centre
+    t = dict(keys)
+    for k, c0 in (('x', cx * W), ('y', cy * H)):
+        if k in t: t[k] = [(tt, 960.0 + (v - c0) if k == 'x' else 540.0 + (v - c0)) for tt, v in t[k]]
+    _transform(c, t, L['start'], {'x': 960.0, 'y': 540.0, 'sx': 100.0, 'sy': 100.0, 'rot': 0.0})
+    _pipbuf(c, keys.get('opacity'), L['start'])
+    return c
+
+
+def ngon(cx, cy, r, n=48, rot=0.0, r2=None):
+    """points of a regular polygon / circle (n large) / star (r2 = inner radius, n = number of tips)"""
+    import math
+    pts = []
+    if r2 is None:
+        for i in range(n): a = rot + 2 * math.pi * i / n; pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    else:
+        for i in range(2 * n):
+            a = rot + math.pi * i / n; rr = r if i % 2 == 0 else r2; pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
+    return pts
+
+
 def _text_clip(proto_main, proto_nested, L, new_tid):
     m = copy.deepcopy(proto_main); n = copy.deepcopy(proto_nested)
     _regen_ids(m); _regen_ids(n)
@@ -173,6 +272,12 @@ def build(out_path, name, scene, sample=SAMPLE, sync_duration=True):
     texts = [c for t in tr for c in t['clipList'] if c['type'] == 7]
     proto_text, proto_nested = texts[0], copy.deepcopy(tls[texts[0]['timelineId']])
     a_proto, v_proto = tr[3], tr[4]
+    proto_pen = None
+    if any(L['type'] == 'pen' for L in scene['layers']):
+        pz = zipfile.ZipFile(PEN_SAMPLE)
+        pw = json.loads(pz.read(next(x for x in pz.namelist() if x.endswith('timeline.wesproj'))).decode('utf-8'))
+        pm = next(t for t in pw['timelineInfos'] if t['timelineId'] == pw['currentTimelineId'])
+        proto_pen = next(c for t in pm['trackInfos'] for c in t['clipList'] if c['type'] == 26 and _find_fx(c, 'graphic/effect/path'))
     new_tracks = [copy.deepcopy(tr[0]), copy.deepcopy(tr[1])]
     nested, mapping, nid = [], {}, 6
     for L in scene['layers']:
@@ -180,6 +285,8 @@ def build(out_path, name, scene, sample=SAMPLE, sync_duration=True):
             clip, nt, g = _text_clip(proto_text, proto_nested, L, nid); nested.append(nt); mapping[g] = 'Basic_1'; nid += 1
         elif L['type'] == 'rect':
             clip = _rect_clip(proto_rect, L)
+        elif L['type'] == 'pen':
+            clip = _pen_clip(proto_pen, L)
         else:
             raise ValueError('unknown layer type %s' % L['type'])
         a = copy.deepcopy(a_proto); v = copy.deepcopy(v_proto)
@@ -264,4 +371,18 @@ def demo_scene():
               'keys': {'y': [(0.9, 580), (1.5, 520)], 'opacity': [(0.9, 0), (1.5, 100)]}})
     L.append({'type': 'text', 'text': 'made natively for Filmora', 'x': 800, 'y': 620, 'size': 36, 'color': '#22D3EE', 'start': 1.4, 'end': 5,
               'keys': {'opacity': [(1.4, 0), (2.0, 100)]}})
+    return {'duration': 5.0, 'layers': L}
+
+
+def pen_demo_scene():
+    """5 s: dark background, a star that draws itself and spins, a glowing gradient circle, a growing chart line, a blob - all free pen shapes"""
+    L = [{'type': 'rect', 'x': 960, 'y': 540, 'w': 1920, 'h': 1080, 'color': '#0B1020', 'start': 0, 'end': 5}]
+    L.append({'type': 'pen', 'points': ngon(480, 540, 230, n=5, rot=-1.5708, r2=100), 'fill': '#FF6A00', 'fill2': '#FFD166', 'fill_alpha': 90,
+              'stroke': '#FFFFFF', 'stroke_w': 5, 'shadow': '#000000', 'shadow_dist': 10, 'shadow_blur': 30, 'shadow_alpha': 45, 'start': 0.2, 'end': 5,
+              'keys': {'trim_end': [(0.2, 0), (1.2, 100)], 'rot': [(1.2, 0), (4.5, 360)], 'opacity': [(0.2, 0), (0.5, 100)]}})
+    L.append({'type': 'pen', 'points': ngon(1000, 540, 170, n=64), 'fill': '#22D3EE', 'fill2': '#A78BFA', 'fill_alpha': 85, 'fill_blur': 14,
+              'start': 0.6, 'end': 5, 'keys': {'sx': [(0.6, 20), (1.6, 100)], 'sy': [(0.6, 20), (1.6, 100)], 'opacity': [(0.6, 0), (1.0, 100)]}})
+    line = [(1300, 800), (1420, 700), (1520, 760), (1640, 600), (1740, 640), (1840, 420)]
+    L.append({'type': 'pen', 'points': line, 'closed': False, 'stroke': '#34D399', 'stroke_w': 10, 'stroke_blur': 2, 'start': 1.0, 'end': 5,
+              'keys': {'trim_end': [(1.0, 0), (2.6, 100)]}})
     return {'duration': 5.0, 'layers': L}
