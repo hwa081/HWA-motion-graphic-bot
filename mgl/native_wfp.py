@@ -128,15 +128,20 @@ def _rect_clip(proto, L):
 
 
 def _pen_points(L):
-    """layer points -> normalized 0..1 of the frame. Accepts px (default) or {'norm': True}."""
+    """layer points -> list of (x, y, left, right) normalized 0..1 of the frame (px by default, or {'norm': True}).
+    A point is (x, y) = corner, or (x, y, left, right) with Bezier handles (left = incoming, right = outgoing, either may be None)."""
+    def n(p):
+        return None if p is None else ((p[0], p[1]) if L.get('norm') else (p[0] / W, p[1] / H))
     out = []
-    for x, y in L['points']:
-        out.append((x, y) if L.get('norm') else (x / W, y / H))
+    for p in L['points']:
+        a = n(p[:2]); l = n(p[2]) if len(p) > 2 else None; r = n(p[3]) if len(p) > 3 else None
+        out.append((a[0], a[1], l, r))
     return out
 
 
 def _centroid(pts):
     return sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+
 
 
 def _empty_kf():
@@ -156,9 +161,15 @@ def _pen_clip(proto, L):
     mask = json.loads(pe['effectMask']['custom_mask'])
     P = mask['paths'][0]; tpl = copy.deepcopy(P['points'][0])
     P['points'] = []
-    for x, y in pts:
-        q = copy.deepcopy(tpl); q['type'] = 0; q['value_x'] = round(x, 8); q['value_y'] = round(y, 8)
-        q['keyframe_x'] = q['keyframe_y'] = _empty_kf(); P['points'].append(q)
+    for x, y, lh, rh in pts:
+        q = copy.deepcopy(tpl)
+        for k in ('left_ctrl_point', 'right_ctrl_point'): q.pop(k, None)
+        q['type'] = 0; q['value_x'] = round(x, 8); q['value_y'] = round(y, 8)
+        q['keyframe_x'] = q['keyframe_y'] = _empty_kf()
+        for key, typ, h in (('left_ctrl_point', 1, lh), ('right_ctrl_point', 2, rh)):
+            if h is not None:
+                q[key] = {'type': typ, 'value_x': round(h[0], 8), 'value_y': round(h[1], 8), 'keyframe_x': _empty_kf(), 'keyframe_y': _empty_kf()}
+        P['points'].append(q)
     P['is_closed'] = bool(L.get('closed', True))
     pe['effectMask']['custom_mask'] = json.dumps(mask, separators=(',', ': '), ensure_ascii=False)
     # 2) fill
@@ -223,6 +234,27 @@ def ngon(cx, cy, r, n=48, rot=0.0, r2=None):
         for i in range(2 * n):
             a = rot + math.pi * i / n; rr = r if i % 2 == 0 else r2; pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
     return pts
+
+
+def circle(cx, cy, r):
+    """a true round circle: 4 Bezier points (handles k = 0.5523 r)"""
+    k = 0.5522847498 * r
+    return [(cx, cy - r, (cx - k, cy - r), (cx + k, cy - r)), (cx + r, cy, (cx + r, cy - k), (cx + r, cy + k)),
+            (cx, cy + r, (cx + k, cy + r), (cx - k, cy + r)), (cx - r, cy, (cx - r, cy + k), (cx - r, cy - k))]
+
+
+def smooth(points, closed=True, tension=1.0):
+    """smooth curve through the given (x, y) points (Catmull-Rom -> Bezier handles). Use for blobs, waves, rounded lines."""
+    n = len(points); out = []
+    for i, (x, y) in enumerate(points):
+        if not closed and i == 0: p0, p2 = points[0], points[1]
+        elif not closed and i == n - 1: p0, p2 = points[-2], points[-1]
+        else: p0, p2 = points[(i - 1) % n], points[(i + 1) % n]
+        dx, dy = (p2[0] - p0[0]) / 6.0 * tension, (p2[1] - p0[1]) / 6.0 * tension
+        left = None if (not closed and i == 0) else (x - dx, y - dy)
+        right = None if (not closed and i == n - 1) else (x + dx, y + dy)
+        out.append((x, y, left, right))
+    return out
 
 
 def _text_clip(proto_main, proto_nested, L, new_tid):
@@ -380,9 +412,9 @@ def pen_demo_scene():
     L.append({'type': 'pen', 'points': ngon(480, 540, 230, n=5, rot=-1.5708, r2=100), 'fill': '#FF6A00', 'fill2': '#FFD166', 'fill_alpha': 90,
               'stroke': '#FFFFFF', 'stroke_w': 5, 'shadow': '#000000', 'shadow_dist': 10, 'shadow_blur': 30, 'shadow_alpha': 45, 'start': 0.2, 'end': 5,
               'keys': {'trim_end': [(0.2, 0), (1.2, 100)], 'rot': [(1.2, 0), (4.5, 360)], 'opacity': [(0.2, 0), (0.5, 100)]}})
-    L.append({'type': 'pen', 'points': ngon(1000, 540, 170, n=64), 'fill': '#22D3EE', 'fill2': '#A78BFA', 'fill_alpha': 85, 'fill_blur': 14,
+    L.append({'type': 'pen', 'points': circle(1000, 540, 170), 'fill': '#22D3EE', 'fill2': '#A78BFA', 'fill_alpha': 85, 'fill_blur': 14,
               'start': 0.6, 'end': 5, 'keys': {'sx': [(0.6, 20), (1.6, 100)], 'sy': [(0.6, 20), (1.6, 100)], 'opacity': [(0.6, 0), (1.0, 100)]}})
-    line = [(1300, 800), (1420, 700), (1520, 760), (1640, 600), (1740, 640), (1840, 420)]
+    line = smooth([(1300, 800), (1420, 700), (1520, 760), (1640, 600), (1740, 640), (1840, 420)], closed=False)
     L.append({'type': 'pen', 'points': line, 'closed': False, 'stroke': '#34D399', 'stroke_w': 10, 'stroke_blur': 2, 'start': 1.0, 'end': 5,
               'keys': {'trim_end': [(1.0, 0), (2.6, 100)]}})
     return {'duration': 5.0, 'layers': L}
