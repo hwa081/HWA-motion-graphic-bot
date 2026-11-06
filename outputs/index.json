@@ -1,5 +1,28 @@
 [
  {
+  "id": "jmw4o3wkttpm",
+  "job": "jmw4o3wkttpm",
+  "kind": "video",
+  "title": "script: Aaj hum ek aisi duniya mein jee rahe hain jahan technology har second badal rahi h",
+  "prompt": "script: Aaj hum ek aisi duniya mein jee rahe hain jahan technology har second badal rahi hai. Jo cheezein kuch saal pehle sirf science fiction movies mein dekhi jaati thi, aaj woh hamari real life ka hissa ban chuki hain.\n\nArtificial Intelligence, yaani AI, ab sirf computers tak mehdood nahi rahi. Yeh hamare phones, cars, hospitals, offices aur hatta ke hamari daily life mein bhi shamil ho chuki h",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "300",
+  "ai": "gemini",
+  "date": "2026-11-06T08:17:32Z",
+  "ok": true,
+  "trashed": false,
+  "project": "default",
+  "quality": "draft",
+  "long": true,
+  "formats": "none",
+  "video": "outputs/jmw4o3wkttpm/video.mp4",
+  "video_name": "script_Aaj_hum_ek_aisi_duniya_mein_jee_r_with_sound.mp4",
+  "poster": "outputs/jmw4o3wkttpm/poster.jpg",
+  "report": "outputs/jmw4o3wkttpm/report.md",
+  "design_id": "d-20261104-1950-4eb6"
+ },
+ {
   "id": "jmw3ywkq0n0o",
   "job": "jmw3ywkq0n0o",
   "kind": "report",
