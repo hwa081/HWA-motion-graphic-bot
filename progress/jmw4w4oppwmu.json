@@ -1,1 +1,1 @@
-{"job": "jmw4w4oppwmu", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 4, "pct": 73.8, "detail": "Rendering frames 45 / 150", "frames": [45, 150], "eta": 7, "elapsed": 850, "updated": 1793972991, "done": false}
+{"job": "jmw4w4oppwmu", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 4, "pct": 84.2, "detail": "Rendering frames 105 / 150", "frames": [105, 150], "eta": 2, "elapsed": 856, "updated": 1793972996, "done": false}
