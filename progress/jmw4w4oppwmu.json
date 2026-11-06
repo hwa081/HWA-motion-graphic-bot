@@ -1,1 +1,1 @@
-{"job": "jmw4w4oppwmu", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 2, "pct": 17.0, "detail": "AI writes the design (try 2 of 4)", "frames": null, "eta": null, "elapsed": 812, "updated": 1793972953, "done": false}
+{"job": "jmw4w4oppwmu", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 3, "pct": 38, "detail": "Automatic quality check", "frames": null, "eta": null, "elapsed": 845, "updated": 1793972985, "done": false}
