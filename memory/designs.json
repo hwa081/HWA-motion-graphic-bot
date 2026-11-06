@@ -373,8 +373,13 @@
   "review_score": null,
   "qa_errors": 0,
   "qa_warnings": 0,
-  "rating": null,
-  "notes": [],
+  "rating": 1,
+  "notes": [
+   {
+    "date": "2026-11-06T11:28:26Z",
+    "note": "pori video ke design same hain har scene ke liye alg us ke hisab se chez nahi hai"
+   }
+  ],
   "size": "16:9",
   "assets": 0,
   "remix": {

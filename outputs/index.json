@@ -1,5 +1,21 @@
 [
  {
+  "id": "jmw4w4h3th7y",
+  "job": "jmw4w4h3th7y",
+  "kind": "report",
+  "title": "pori video ke design same hain har scene ke liye alg us ke hisab se chez nahi hai",
+  "prompt": "pori video ke design same hain har scene ke liye alg us ke hisab se chez nahi hai",
+  "mode": "feedback",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-06T11:54:19Z",
+  "ok": true,
+  "trashed": false,
+  "formats": "none",
+  "report": "outputs/jmw4w4h3th7y/report.md"
+ },
+ {
   "id": "jmw4o3wkttpm",
   "job": "jmw4o3wkttpm",
   "kind": "video",

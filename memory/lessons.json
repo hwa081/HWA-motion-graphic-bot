@@ -158,5 +158,25 @@
   "source": "feedback",
   "created": "2026-11-04T12:59:51Z",
   "last": "2026-11-04T12:59:51Z"
+ },
+ {
+  "id": "l37",
+  "kind": "dont",
+  "text": "Avoid using uniform background themes (e.g., using only dark_aurora and neon_night) and identical layer setups across all scenes without adapting visuals to each scene's specific message.",
+  "weight": 3,
+  "count": 1,
+  "source": "feedback",
+  "created": "2026-11-06T11:54:19Z",
+  "last": "2026-11-06T11:54:19Z"
+ },
+ {
+  "id": "l328",
+  "kind": "dont",
+  "text": "Avoid relying on a single transition type (like stripes) and repetitive element structures throughout multi-scene videos.",
+  "weight": 2,
+  "count": 1,
+  "source": "feedback",
+  "created": "2026-11-06T11:54:19Z",
+  "last": "2026-11-06T11:54:19Z"
  }
 ]

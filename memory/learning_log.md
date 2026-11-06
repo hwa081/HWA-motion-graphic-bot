@@ -45,3 +45,7 @@ Design: backgrounds dark_aurora, neon_night; entrances fade, slide_down, rise, t
 What was wrong at first: nothing found by the automatic checks
 Fixed by the bot: -
 Still open: nothing
+
+## 2026-11-06T11:54:19Z - feedback on d-20261104-1950-4eb6
+Rating: 1/5. Note: pori video ke design same hain har scene ke liye alg us ke hisab se chez nahi hai
+Lessons stored: Avoid using uniform background themes (e.g., using only dark_aurora and neon_night) and identical layer setups across all scenes without adapting visuals to each scene's specific message.; Avoid relying on a single transition type (like stripes) and repetitive element structures throughout multi-scene videos.
