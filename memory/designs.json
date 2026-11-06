@@ -405,5 +405,86 @@
    "nearest": "doc-01-title-hero",
    "similarity": 0.69
   }
+ },
+ {
+  "id": "d-20261106-1349-1aa4",
+  "date": "2026-11-06T13:49:46Z",
+  "prompt": "In a small town, suddenly every clock stopped, but people's lives continued normally.\nA boy looked at his watch and saw images of the future instead of time.\nEvery image showed the city destroyed, and the disaster was only five minutes away.\nIn the final image, he saw himself burning the entire city to the ground.",
+  "summary": {
+   "backgrounds": [
+    "sunset",
+    "mono_dark",
+    "dark_aurora"
+   ],
+   "entrance_anims": {
+    "fade": 4,
+    "bounce": 4,
+    "pop": 2,
+    "slide_left": 1,
+    "wipe_down": 1,
+    "slide_right": 1,
+    "zoom": 1,
+    "slide_down": 1
+   },
+   "layer_types": {
+    "text": 9,
+    "blob": 3,
+    "rrect": 3,
+    "particles": 2,
+    "transition": 2,
+    "card": 2,
+    "chip": 1,
+    "progress": 1,
+    "icon": 1
+   },
+   "kinds": [
+    "custom",
+    "ring"
+   ],
+   "transitions": [
+    "glitch",
+    "iris"
+   ],
+   "camera": true,
+   "headlines": [
+    "05:00",
+    "HE SAW HIMSELF",
+    "TIME STOPPED",
+    "BURNING THE CITY TO ASH"
+   ],
+   "layers": 24,
+   "duration": 10,
+   "size": "16:9"
+  },
+  "review_score": null,
+  "qa_errors": 0,
+  "qa_warnings": 0,
+  "rating": null,
+  "notes": [],
+  "size": "16:9",
+  "assets": 0,
+  "remix": {
+   "sources": [
+    "doc-06-archival-photo",
+    "doc-52-fact-fan",
+    "doc-62-glitch-transition"
+   ],
+   "backgrounds": [
+    "sunset",
+    "mono_light"
+   ],
+   "transitions": [
+    "iris",
+    "stripes"
+   ]
+  },
+  "plan": {
+   "concept": "A haunting thriller sequence revealing a boy's wrist watch frozen at 12:00, broadcasting catastrophic future visions that point to him as the cause.",
+   "signature": "A digital smartwatch face morphing from a frozen timestamp into a apocalyptic 5-minute countdown reel with flickering warning visual cards."
+  },
+  "originality": {
+   "nearest": "d-20261104-0556-c7d1",
+   "similarity": 0.656
+  }
  }
 ]

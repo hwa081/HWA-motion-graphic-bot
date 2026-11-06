@@ -1,5 +1,28 @@
 [
  {
+  "id": "jmw4w4oppwmu",
+  "job": "jmw4w4oppwmu",
+  "kind": "video",
+  "title": "In a small town, suddenly every clock stopped, but people's lives continued normally.\nA bo",
+  "prompt": "In a small town, suddenly every clock stopped, but people's lives continued normally.\nA boy looked at his watch and saw images of the future instead of time.\nEvery image showed the city destroyed, and the disaster was only five minutes away.\nIn the final image, he saw himself burning the entire city to the ground.",
+  "mode": "ai",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-06T13:50:02Z",
+  "ok": true,
+  "trashed": false,
+  "project": "default",
+  "quality": "draft",
+  "formats": "wfp",
+  "video": "outputs/jmw4w4oppwmu/video.mp4",
+  "video_name": "The_Frozen_Clock_and_the_Vision_with_sound.mp4",
+  "poster": "outputs/jmw4w4oppwmu/poster.jpg",
+  "spec": "outputs/jmw4w4oppwmu/spec.json",
+  "report": "outputs/jmw4w4oppwmu/report.md",
+  "design_id": "d-20261106-1349-1aa4"
+ },
+ {
   "id": "jmw4w4h3th7y",
   "job": "jmw4w4h3th7y",
   "kind": "report",

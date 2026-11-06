@@ -45,6 +45,24 @@
    "done": false,
    "created": "2026-11-04T19:25:17Z",
    "last": "2026-11-04T19:25:17Z"
+  },
+  {
+   "id": "w12",
+   "text": "Custom glitch distortion shader for watch screen visuals",
+   "source": "planner",
+   "count": 1,
+   "done": false,
+   "created": "2026-11-06T13:48:41Z",
+   "last": "2026-11-06T13:48:41Z"
+  },
+  {
+   "id": "w804",
+   "text": "Flashing frame flickering synced to audio beat drop",
+   "source": "planner",
+   "count": 1,
+   "done": false,
+   "created": "2026-11-06T13:48:41Z",
+   "last": "2026-11-06T13:48:41Z"
   }
  ]
 }
