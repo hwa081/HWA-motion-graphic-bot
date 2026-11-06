@@ -1,1 +1,1 @@
-{"job": "jmw4o3wkttpm", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 4, "pct": 89.4, "detail": "Long video: rendering part 10 of 10", "frames": null, "eta": null, "elapsed": 1958, "updated": 1793952999, "done": false}
+{"job": "jmw4o3wkttpm", "mode": "ai", "stages": ["Start", "Plan", "Design", "Check", "Render", "Files", "Save"], "stage": 5, "pct": 93, "detail": "Joining the parts into one video", "frames": null, "eta": null, "elapsed": 2006, "updated": 1793953047, "done": false}
