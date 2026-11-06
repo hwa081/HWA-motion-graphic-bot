@@ -1,1 +1,1 @@
-{"job": "jmw4w4h3th7y", "mode": "feedback", "stages": ["Start", "Work", "Save"], "stage": 0, "pct": 1.0, "detail": "Starting the cloud computer", "frames": null, "eta": null, "elapsed": 6, "updated": 1793964511, "done": false}
+{"job": "jmw4w4h3th7y", "mode": "feedback", "stages": ["Start", "Work", "Save"], "stage": 6, "pct": 99.0, "detail": "Saving the result", "frames": null, "eta": null, "elapsed": 1554, "updated": 1793966059, "done": false}
