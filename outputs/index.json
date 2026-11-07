@@ -1,5 +1,22 @@
 [
  {
+  "id": "jmw5z4y35yhq",
+  "job": "jmw5z4y35yhq",
+  "kind": "report",
+  "title": "https://www.youtube.com/watch?v=OH1Fxk0YsFQ",
+  "prompt": "https://www.youtube.com/watch?v=OH1Fxk0YsFQ",
+  "mode": "study",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-07T06:10:38Z",
+  "ok": false,
+  "trashed": false,
+  "formats": "none",
+  "note": "The run stopped before the video was ready",
+  "report": "outputs/jmw5z4y35yhq/report.md"
+ },
+ {
   "id": "jmw5y058c4ce",
   "job": "jmw5y058c4ce",
   "kind": "report",
