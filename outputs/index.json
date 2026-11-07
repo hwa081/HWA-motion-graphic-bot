@@ -1,5 +1,21 @@
 [
  {
+  "id": "jmw5z5z77vet",
+  "job": "jmw5z5z77vet",
+  "kind": "report",
+  "title": "https://www.youtube.com/watch?v=OH1Fxk0YsFQ",
+  "prompt": "https://www.youtube.com/watch?v=OH1Fxk0YsFQ",
+  "mode": "study",
+  "size": "16:9",
+  "dur": "10",
+  "ai": "gemini",
+  "date": "2026-11-07T06:19:12Z",
+  "ok": true,
+  "trashed": false,
+  "formats": "none",
+  "report": "outputs/jmw5z5z77vet/report.md"
+ },
+ {
   "id": "jmw5z5nis8wd",
   "job": "jmw5z5nis8wd",
   "kind": "report",

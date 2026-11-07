@@ -1,5 +1,39 @@
 {
- "techniques": [],
+ "techniques": [
+  {
+   "id": "t604",
+   "name": "staggered_link_cloud_cascade",
+   "when": "Displaying dense directories, tag clouds, or ecosystem navigation links (e.g., Creators, Advertise, Developers, Safety).",
+   "how": "Cluster related links into compact chip or text layers across multiple columns/rows. Trigger the first row at 0.0s with slide_up, followed by subsequent rows staggered at intervals of 0.15s with fade or pop to create a cascading wave of interactive anchors.",
+   "source": "study: https://www.youtube.com/watch?v=OH1Fxk0Y",
+   "weight": 1,
+   "count": 1,
+   "created": "2026-11-07T06:19:12Z",
+   "last": "2026-11-07T06:19:12Z"
+  },
+  {
+   "id": "t898",
+   "name": "minimalist_legal_footer_lockup",
+   "when": "Signing off an informational video with compliance terms, privacy policy links, and corporate copyright marks.",
+   "how": "Establish a structural boundary with a horizontal line wiping across the lower screen quadrant at 0.0s. Stagger legal policy links above the line with rise at 0.3s, then reveal the copyright line below at 0.5s with a soft fade.",
+   "source": "study: https://www.youtube.com/watch?v=OH1Fxk0Y",
+   "weight": 1,
+   "count": 1,
+   "created": "2026-11-07T06:19:12Z",
+   "last": "2026-11-07T06:19:12Z"
+  },
+  {
+   "id": "t84",
+   "name": "spotlight_partner_badge_reveal",
+   "when": "Highlighting a premium featured partnership or product offering amidst standard informational text (e.g., NFL Sunday Ticket).",
+   "how": "Mute baseline metadata text with low-opacity fade entrances, then punch out the hero partnership badge using a pop or zoom entrance on an accent card or rrect layer to draw immediate viewer focus.",
+   "source": "study: https://www.youtube.com/watch?v=OH1Fxk0Y",
+   "weight": 1,
+   "count": 1,
+   "created": "2026-11-07T06:19:12Z",
+   "last": "2026-11-07T06:19:12Z"
+  }
+ ],
  "wishes": [
   {
    "id": "w55",
